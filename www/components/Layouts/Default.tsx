@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import Nav from 'components/Nav/index'
 import Footer from 'components/Footer/index'
-import Meta from 'components/Meta'
 
 type Props = {
   hideHeader?: boolean
@@ -9,7 +8,7 @@ type Props = {
   children: React.ReactNode
 }
 
-const Layout = (props: Props) => {
+const DefaultLayout = (props: Props) => {
   const { hideHeader = false, hideFooter = false, children } = props
   const [darkMode, setDarkMode] = useState<boolean>(true)
 
@@ -28,9 +27,8 @@ const Layout = (props: Props) => {
 
   return (
     <>
-      <Meta />
       {!hideHeader && <Nav darkMode={darkMode} />}
-      <div className="min-h-screen bg-gray-100">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
         <main>{children}</main>
       </div>
       {!hideFooter && <Footer darkMode={darkMode} updateTheme={updateTheme} />}
@@ -38,4 +36,4 @@ const Layout = (props: Props) => {
   )
 }
 
-export default Layout
+export default DefaultLayout

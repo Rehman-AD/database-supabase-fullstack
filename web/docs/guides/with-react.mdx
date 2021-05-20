@@ -7,12 +7,20 @@ description: Learn how to use Supabase in your React App.
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+## Intro 
+
+@todo - what are we building
+
 This example provides the steps to build a simple user management app (from scratch!) using Supabase and React. It includes:
 
 - Supabase [Auth](/docs/guides/auth): users can sign in with magic links (no passwords, only email).
 - Supabase [Storage](/docs/guides/storage): users can upload a photo.
 - [Row Level Security](/docs/guides/auth#row-level-security): data is be protected so that individuals can only access their own data.
 - Instant [APIs](/docs/guides/api): APIs will be automatically generated when you create your database tables.
+
+By the end of this guide you'll have an app which allows users to login and update some basic profile details:
+
+![Supabase User Management example](/img/user-management-demo.png)
 
 <!-- ## Video demo 
 
@@ -154,7 +162,7 @@ values={[
 </TabItem>
 </Tabs>
 
-## Basic App
+## Building the App
 
 Let's start building the React app from scratch.
 
@@ -194,12 +202,12 @@ const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 ```
 
-And one optional step is to update the CSS file to make the app look nice. 
+And one optional step is to update the CSS file `src/index.css` to make the app look nice. 
 You can find the full contents of this file [here](https://github.com/supabase/supabase/blob/master/examples/react-user-management/src/index.js).
 
 ### Set up a Login component
 
-Let's set up a React componenet to manage logins and sign ups. We'll use Magic Links, so users can sign in with their email without using passwords.
+Let's set up a React component to manage logins and sign ups. We'll use Magic Links, so users can sign in with their email without using passwords.
 
 ```jsx title="/src/Auth.js"
 import { useState } from 'react'
@@ -406,7 +414,7 @@ export default function Home() {
 Once that's done, run this in a terminal window:
 
 ```bash
-npm install start
+npm start
 ```
 
 And then open the browser to [localhost:3000](http://localhost:3000) and you should see the completed app.

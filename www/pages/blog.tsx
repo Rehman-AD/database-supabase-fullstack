@@ -16,7 +16,7 @@ import BlogListItem from '~/components/Blog/BlogListItem'
 import BlogHeader from '~/components/Blog/BlogHeader'
 
 export async function getStaticProps() {
-  const allPostsData = getSortedPosts()
+  const allPostsData = getSortedPosts('_blog')
   const categories = getAllCategories()
   const rss = generateRss(allPostsData)
 

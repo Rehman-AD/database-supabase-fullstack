@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Typography } from '@supabase/ui'
 import Divider from 'components/ui/Divider'
 import { AutoField } from 'uniforms-bootstrap4'
 
@@ -9,6 +8,7 @@ import { API_URL } from 'lib/constants'
 import { patch } from 'lib/common/fetch'
 import ToggleField from 'components/to-be-cleaned/forms/ToggleField'
 import SchemaFormPanel from 'components/to-be-cleaned/forms/SchemaFormPanel'
+import { Input } from '@supabase/ui'
 
 interface Props {
   projectRef: string
@@ -48,7 +48,7 @@ const PgbouncerConfig: FC<Props> = ({ projectRef, config }) => {
       pgbouncer_enabled: {
         title: 'Enabled',
         type: 'boolean',
-        help: 'Activates/ deactivates Connection Pooling.',
+        help: 'Activates / deactivates Connection Pooling.',
       },
       pool_mode: {
         title: 'Pool Mode',
@@ -81,52 +81,64 @@ const PgbouncerConfig: FC<Props> = ({ projectRef, config }) => {
 
   return (
     <>
-      <SchemaFormPanel
-        title="Configuration"
-        schema={formSchema}
-        model={updates}
-        submitLabel="Save"
-        cancelLabel="Cancel"
-        onChangeModel={(model: any) => setUpdates(model)}
-        onSubmit={(model: any) => updateConfig(model)}
-        onReset={() => setUpdates(config)}
-      >
-        <div className="space-y-6 py-4">
-          <ToggleField name="pgbouncer_enabled" />
-          <Divider light />
-          {/* <AutoField name="pgbouncer_status" disabled={true} /> */}
-          {updates.pgbouncer_enabled && (
-            <>
-              <AutoField
-                name="pool_mode"
-                showInlineError
-                errorMessage="You must select one of the three options"
-              />
-              <div className="flex !mt-1" style={{ marginLeft: 'calc(33% + 0.5rem)' }}>
-                <p className="text-sm text-scale-900">
-                  Specify when a connection can be returned to the pool. To find out the most
-                  suitable mode for your use case,{' '}
-                  <a
-                    className="text-green-900"
-                    target="_blank"
-                    href="https://supabase.com/docs/guides/database/connecting-to-postgres#connection-pool"
-                  >
-                    click here
-                  </a>
-                  .
-                </p>
-              </div>
-              <Divider light />
-              {/* <AutoField
-                name="default_pool_size"
-                showInlineError
-                errorMessage="Value must be within 1 and 20"
-              /> */}
-              <AutoField name="ignore_startup_parameters" />
-            </>
-          )}
-        </div>
-      </SchemaFormPanel>
+    <SchemaFormPanel
+      title="Connection Pooling Settings"
+      schema={formSchema}
+      model={updates}
+      submitLabel="Save"
+      cancelLabel="Cancel"
+      onChangeModel={(model: any) => setUpdates(model)}
+      onSubmit={(model: any) => updateConfig(model)}
+      onReset={() => setUpdates(config)}
+    >
+      <div className="space-y-6 py-4">
+        <ToggleField name="pgbouncer_enabled" />
+        <Divider light />
+
+        <Input
+          className="input-mono"
+          layout="horizontal"
+          readOnly
+          copy
+          disabled
+          value="44444444444444"
+          label="Port"
+        />
+
+        <Divider light />
+        {/* <AutoField name="pgbouncer_status" disabled={true} /> */}
+        {updates.pgbouncer_enabled && (
+          <>
+            <AutoField
+              name="pool_mode"
+              showInlineError
+              errorMessage="You must select one of the three options"
+            />
+            <div className="flex !mt-1" style={{ marginLeft: 'calc(33% + 0.5rem)' }}>
+              <p className="text-sm text-scale-900">
+                Specify when a connection can be returned to the pool. To find out the most
+                suitable mode for your use case,{' '}
+                <a
+                  className="text-green-900"
+                  target="_blank"
+                  href="https://supabase.com/docs/guides/database/connecting-to-postgres#connection-pool"
+                >
+                  click here
+                </a>
+                .
+              </p>
+            </div>
+            <Divider light />
+            {/* <AutoField
+              name="default_pool_size"
+              showInlineError
+              errorMessage="Value must be within 1 and 20"
+            /> */}
+            <AutoField name="ignore_startup_parameters" />
+          </>
+        )}
+      </div>
+    </SchemaFormPanel>
     </>
   )
 }

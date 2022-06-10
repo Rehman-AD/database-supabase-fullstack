@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import { useStore, useFlag } from 'hooks'
 import { get } from 'lib/common/fetch'
-import { API_URL } from 'lib/constants'
+import { API_URL, PRICING_TIER_PRODUCT_IDS } from 'lib/constants'
 
 import { BillingLayout } from 'components/layouts'
 import Connecting from 'components/ui/Loading/Loading'
@@ -28,6 +28,9 @@ const BillingUpdatePro: NextPageWithLayout = () => {
   const [products, setProducts] = useState<{ tiers: any[]; addons: any[] }>()
   const [paymentMethods, setPaymentMethods] = useState<any>()
 
+  const isEnterprise =
+    subscription && subscription.tier.supabase_prod_id === PRICING_TIER_PRODUCT_IDS.ENTERPRISE
+
   useEffect(() => {
     // User added a new payment method
     if (router.query.setup_intent && router.query.redirect_status) {
@@ -49,6 +52,12 @@ const BillingUpdatePro: NextPageWithLayout = () => {
       getPaymentMethods()
     }
   }, [orgSlug])
+
+  useEffect(() => {
+    if (isEnterprise) {
+      router.push(`/project/${projectRef}/settings/billing/update/enterprise`)
+    }
+  }, [subscription])
 
   const getStripeProducts = async () => {
     try {
@@ -102,7 +111,12 @@ const BillingUpdatePro: NextPageWithLayout = () => {
     }
   }
 
-  if (!products || !subscription) return <Connecting />
+  if (!products || !subscription || isEnterprise)
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <Connecting />
+      </div>
+    )
 
   return (
     <ProUpgrade

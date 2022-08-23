@@ -92461,7 +92461,7 @@
                                   "kindString": "Property",
                                   "flags": {},
                                   "comment": {
-                                    "shortText": "The visibility of the bucket. By default, buckets are not public. Public buckets don't require an authorization token to download objects, but still require an valid token for all other operations."
+                                    "shortText": "The visibility of the bucket. Public buckets don't require an authorization token to download objects, but still require a valid token for all other operations. By default, buckets are private."
                                   },
                                   "sources": [
                                     {
@@ -93540,7 +93540,7 @@
                                   "kindString": "Property",
                                   "flags": {},
                                   "comment": {
-                                    "shortText": "The visibility of the bucket. Public buckets don't require an authorization token to download objects, but still require an valid token for all other operations.\n"
+                                    "shortText": "The visibility of the bucket. Public buckets don't require an authorization token to download objects, but still require a valid token for all other operations.\n"
                                   },
                                   "sources": [
                                     {
@@ -94409,7 +94409,7 @@
                     "isOptional": true
                   },
                   "comment": {
-                    "shortText": "The number of seconds the asset is cached in the browser and in the Supabase CDN. Defaults to 3600 seconds. This is set in the `Cache-Control: max-age=<seconds>` header."
+                    "shortText": "The number of seconds the asset is cached in the browser and in the Supabase CDN. This is set in the `Cache-Control: max-age=<seconds>` header. Defaults to 3600 seconds."
                   },
                   "sources": [
                     {
@@ -94455,7 +94455,7 @@
                     "isOptional": true
                   },
                   "comment": {
-                    "shortText": "When upsert is set to true, the file will be overwritten if it exists. When set to false, an error will be thrown if the object already exists. Defaults to false."
+                    "shortText": "When upsert is set to true, the file is overwritten if it exists. When set to false, an error is thrown if the object already exists. Defaults to false."
                   },
                   "sources": [
                     {
@@ -95035,7 +95035,7 @@
                                   "kindString": "Property",
                                   "flags": {},
                                   "comment": {
-                                    "shortText": "The visibility of the bucket. By default, buckets are not public. Public buckets don't require an authorization token to download objects, but still require an valid token for all other operations."
+                                    "shortText": "The visibility of the bucket. Public buckets don't require an authorization token to download objects, but still require a valid token for all other operations. By default, buckets are private."
                                   },
                                   "sources": [
                                     {
@@ -96017,7 +96017,7 @@
                                   "kindString": "Property",
                                   "flags": {},
                                   "comment": {
-                                    "shortText": "The visibility of the bucket. Public buckets don't require an authorization token to download objects, but still require an valid token for all other operations.\n"
+                                    "shortText": "The visibility of the bucket. Public buckets don't require an authorization token to download objects, but still require a valid token for all other operations.\n"
                                   },
                                   "sources": [
                                     {
@@ -96691,7 +96691,7 @@
                       "kindString": "Call signature",
                       "flags": {},
                       "comment": {
-                        "shortText": "Create a signed URL. A signed URL can be used to share a file with anyone who has the URL for a fixed amount of time."
+                        "shortText": "Creates a signed URL. Use a signed URL to share a file for a fixed amount of time."
                       },
                       "parameters": [
                         {
@@ -96912,7 +96912,7 @@
                       "kindString": "Call signature",
                       "flags": {},
                       "comment": {
-                        "shortText": "This is the batch endpoint for creating multiple signed URLs. A signed URL can be used to share a file with anyone who has the URL for a fixed amount of time."
+                        "shortText": "Creates multiple signed URLs. Use a signed URL to share a file for a fixed amount of time."
                       },
                       "parameters": [
                         {
@@ -97205,7 +97205,7 @@
                           "kindString": "Parameter",
                           "flags": {},
                           "comment": {
-                            "shortText": "The file to be downloaded, including the path and file name. For example `folder/image.png`.\n"
+                            "shortText": "The full path and file name of the file to be downloaded. For example `folder/image.png`.\n"
                           },
                           "type": {
                             "type": "intrinsic",
@@ -97369,7 +97369,7 @@
                       "kindString": "Call signature",
                       "flags": {},
                       "comment": {
-                        "shortText": "Retrieve the URL for an asset in a public bucket.\nThis function does not actually verify if the bucket is public. If a public URL is created for a bucket which is not public, you will not be able to download the asset."
+                        "shortText": "Retrieves the URL for an asset in a public bucket.\nThis function does not verify if the bucket is public. If a public URL is created for a bucket which is not public, you will not be able to download the asset."
                       },
                       "parameters": [
                         {
@@ -98093,7 +98093,7 @@
                           "kindString": "Parameter",
                           "flags": {},
                           "comment": {
-                            "shortText": "An array of files to be deleted, including the path and file name. For example [`'folder/image.png'`].\n"
+                            "shortText": "An array of files to be delete, including the path and file name. For example [`'folder/image.png'`].\n"
                           },
                           "type": {
                             "type": "array",
@@ -98388,7 +98388,7 @@
                                     "isOptional": true
                                   },
                                   "comment": {
-                                    "shortText": "The number of seconds the asset is cached in the browser and in the Supabase CDN. Defaults to 3600 seconds. This is set in the `Cache-Control: max-age=<seconds>` header."
+                                    "shortText": "The number of seconds the asset is cached in the browser and in the Supabase CDN. This is set in the `Cache-Control: max-age=<seconds>` header. Defaults to 3600 seconds."
                                   },
                                   "sources": [
                                     {
@@ -98434,7 +98434,7 @@
                                     "isOptional": true
                                   },
                                   "comment": {
-                                    "shortText": "When upsert is set to true, the file will be overwritten if it exists. When set to false, an error will be thrown if the object already exists. Defaults to false."
+                                    "shortText": "When upsert is set to true, the file is overwritten if it exists. When set to false, an error is thrown if the object already exists. Defaults to false."
                                   },
                                   "sources": [
                                     {
@@ -98786,7 +98786,7 @@
                                     "isOptional": true
                                   },
                                   "comment": {
-                                    "shortText": "The number of seconds the asset is cached in the browser and in the Supabase CDN. Defaults to 3600 seconds. This is set in the `Cache-Control: max-age=<seconds>` header."
+                                    "shortText": "The number of seconds the asset is cached in the browser and in the Supabase CDN. This is set in the `Cache-Control: max-age=<seconds>` header. Defaults to 3600 seconds."
                                   },
                                   "sources": [
                                     {
@@ -98832,7 +98832,7 @@
                                     "isOptional": true
                                   },
                                   "comment": {
-                                    "shortText": "When upsert is set to true, the file will be overwritten if it exists. When set to false, an error will be thrown if the object already exists. Defaults to false."
+                                    "shortText": "When upsert is set to true, the file is overwritten if it exists. When set to false, an error is thrown if the object already exists. Defaults to false."
                                   },
                                   "sources": [
                                     {

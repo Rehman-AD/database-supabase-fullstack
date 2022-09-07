@@ -10,10 +10,6 @@ main(argv['_'], argv)
 
 function handleInput(command: string, options: any) {
   switch (command) {
-    case 'validate':
-      console.log('Not yet implemented')
-      break
-
     case 'gen':
       DocGenerator(options)
       break

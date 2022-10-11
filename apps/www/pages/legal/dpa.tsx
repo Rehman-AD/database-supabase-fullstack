@@ -1,4 +1,4 @@
-import { Button, Form, IconDownload, Input } from 'ui'
+import { Button, Form, IconDownload, Input } from '@supabase/ui'
 import CTABanner from 'components/CTABanner/index'
 import { useState } from 'react'
 import Layout from '~/components/Layouts/Default'
@@ -25,10 +25,10 @@ const DPA = () => {
     try {
       setError('')
 
-      const { error } = await supabase.from('enterprise_contacts').insert([
+      const { error } = await supabase.from('dpa_downloads').insert([
         {
           contact_email: values.email,
-          doucment: 'dpa',
+          document: 'dpa',
         },
       ])
 
@@ -73,6 +73,8 @@ const DPA = () => {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           type="email"
+                          name="email"
+                          id="email"
                           required
                           descriptionText="We only keep a record of your email so we can update you when the document has been updated."
                           placeholder="Your email address"

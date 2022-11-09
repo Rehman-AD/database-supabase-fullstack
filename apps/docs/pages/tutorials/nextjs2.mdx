@@ -6,37 +6,26 @@ import QuickstartIntro from '~/components/MDX/quickstart_intro.mdx'
 export const TabPanel = Tabs.Panel
 export const meta = {
   author: 'Rich Haines',
+  title: 'Account management app with NextJS',
 }
+
+We are going to create a simple app using NextJS
 
 <QuickstartIntro />
 
 ![Supabase User Management example](/docs/img/user-management-demo.png)
 
-### Video Guide
+The sourcecode for this tutorial is available on [GitHub](https://github.com/supabase/supabase/tree/master/examples/user-management/nextjs-ts-user-management).
 
-<div class="video-container">
-  <iframe
-    src="https://www.youtube-nocookie.com/embed/0Fs96oZ4se0"
-    frameBorder="1"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowFullScreen
-  ></iframe>
-</div>
-
-### GitHub
-
-Should you get stuck while working through the guide, refer to [this repo](https://github.com/supabase/supabase/tree/master/examples/user-management/nextjs-ts-user-management).
+---
 
 <ProjectSetup />
 
-## Building the App
+---
 
-Let's start building the Next.js app from scratch.
+# Install packages and nextjs
 
-### Initialize a Next.js app
-
-We can use [`create-next-app`](https://nextjs.org/docs/getting-started) to initialize
-an app called `supabase-nextjs`:
+We can use [`create-next-app`](https://nextjs.org/docs/getting-started) to initialize an app called `supabase-nextjs`.
 
 <Tabs
   scrollable
@@ -62,13 +51,14 @@ cd supabase-nextjs
 </TabPanel>
 </Tabs>
 
-Then install the Supabase client library: [supabase-js](https://github.com/supabase/supabase-js)
+Then install the Supabase client library [supabase-js](https://github.com/supabase/supabase-js)
 
 ```bash
 npm install @supabase/supabase-js
 ```
 
 And finally we want to save the environment variables in a `.env.local`.
+
 All we need are the API URL and the `anon` key that you copied [earlier](#get-the-api-keys).
 
 ```bash title=.env.local
@@ -79,9 +69,56 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
 And one optional step is to update the CSS file `styles/globals.css` to make the app look nice.
 You can find the full contents of this file [here](https://raw.githubusercontent.com/supabase/supabase/master/examples/user-management/nextjs-ts-user-management/styles/globals.css).
 
-### Set up a Login component
+---
 
-#### Supabase Auth Helpers
+<CH.Scrollycoding>
+
+# Setting up login
+
+Next.js is a highly versatile framework offering pre-rendering at build time (SSG), server-side rendering at request time (SSR), API routes, and middleware edge-functions.
+
+It can be challenging to authenticate your users in all these different environments, that's why we've created the [Supabase Auth Helpers](https://supabase.com/docs/guides/auth/auth-helpers/nextjs) to make user management and data fetching within Next.js as easy as possible.
+
+<CH.Code>
+
+```js app.js focus=1:3
+export default function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />
+}
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+```
+
+</CH.Code>
+
+---
+
+## Using the Context Provider
+
+### Import the NextJS Auth Helpers
 
 Next.js is a highly versatile framework offering pre-rendering at build time (SSG), server-side rendering at request time (SSR), API routes, and middleware edge-functions.
 
@@ -89,50 +126,57 @@ It can be challenging to authenticate your users in all these different environm
 
 Install the auth helpers for React and Next.js
 
-```bash
-npm install @supabase/auth-helpers-react @supabase/auth-helpers-nextjs
-```
+<CH.Code>
 
-<Tabs
-  scrollable
-  size="small"
-  type="underlined"
-  defaultActiveId="js"
->
-<TabPanel id="js" label="JavaScript">
-
-Wrap your `pages/_app.js` component with the `SessionContextProvider` component:
-
-```jsx title=pages/_app.js
-import '../styles/globals.css'
-import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
-import { SessionContextProvider } from '@supabase/auth-helpers-react'
-
-function MyApp({ Component, pageProps }) {
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient())
-
-  return (
-    <SessionContextProvider
-      supabaseClient={supabaseClient}
-      initialSession={pageProps.initialSession}
-    >
-      <Component {...pageProps} />
-    </SessionContextProvider>
-  )
-}
-export default MyApp
-```
-
-</TabPanel>
-<TabPanel id="ts" label="TypeScript">
-
-Wrap your `pages/_app.tsx` component with the `SessionContextProvider` component:
-
-```jsx lines=2,8 title=pages/_app.tsx
+```js app.js
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
 
-function MyApp({
+export default function MyApp({
+  Component,
+  pageProps,
+}: AppProps<{
+  initialSession: Session,
+}>) {
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient())
+
+  return <Component {...pageProps} />
+}
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+```
+
+</CH.Code>
+
+---
+
+### Wrap the APP in the provider
+
+Wrap your `pages/_app.tsx` component with the `SessionContextProvider` component:
+
+<CH.Code>
+
+```js app.js focus=12:16,18:19
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
+import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
+
+export default function MyApp({
   Component,
   pageProps,
 }: AppProps<{
@@ -149,74 +193,99 @@ function MyApp({
     </SessionContextProvider>
   )
 }
-export default MyApp
 ```
 
-See the [Auth Helpers docs](/docs/guides/auth/auth-helpers/nextjs#usage-with-typescript) for more details on usage with TypeScript.
+</CH.Code>
 
-</TabPanel>
-</Tabs>
+---
 
-#### Supabase Auth UI
+## Set up Auth UI
 
 We can use the [Supabase Auth UI](https://supabase.com/docs/guides/auth/auth-helpers/auth-ui) a pre-built React component for authenticating users via OAuth, email, and magic links.
 
-Install the Supabase Auth UI for React
+```jsx pages/index.js
+import Head from 'next/head'
+import Image from 'next/image'
+import styles from '../styles/Home.module.css'
 
-```bash
-npm install @supabase/auth-ui-react
-```
-
-Add the `Auth` component to your home page
-
-```jsx title=pages/index.js
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
-
-const Home = () => {
-  const session = useSession()
-  const supabase = useSupabaseClient()
-
+export default function Home() {
   return (
-    <div className="container" style={{ padding: '50px 0 100px 0' }}>
-      {!session ? (
-        <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="dark" />
-      ) : (
-        <p>Account page will go here.</p>
-      )}
+    <div className={styles.container}>
+      <Head>
+        <title>Create Next App</title>
+        <meta name="description" content="Generated by create next app" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      {/* //.. the rest of the default NextJS app index page.. */}
     </div>
   )
 }
-
-export default Home
 ```
 
-### Account page
+---
+
+### Import Auth UI components and Supabase client
+
+We can use the [Supabase Auth UI](https://supabase.com/docs/guides/auth/auth-helpers/auth-ui) a pre-built React component for authenticating users via OAuth, email, and magic links.
+
+```jsx pages/index.js
+import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
+
+export default function Home() {
+  const session = useSession()
+  const supabase = useSupabaseClient()
+
+  return <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="dark" />
+}
+```
+
+---
+
+### Add conditional to show/hide account page
+
+We can use the [Supabase Auth UI](https://supabase.com/docs/guides/auth/auth-helpers/auth-ui) a pre-built React component for authenticating users via OAuth, email, and magic links.
+
+```jsx pages/index.js
+import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
+
+export default function Home() {
+  const session = useSession()
+  const supabase = useSupabaseClient()
+
+  return !session ? (
+    <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} theme="dark" />
+  ) : (
+    <p>Account page will go here.</p>
+  )
+}
+```
+
+---
+
+# Set up account page
 
 After a user is signed in we can allow them to edit their profile details and manage their account.
 
-<Tabs
-  scrollable
-  size="small"
-  type="underlined"
-  defaultActiveId="js"
->
-<TabPanel id="js" label="JavaScript">
+## Create a new component
 
-Let's create a new component for that called `Account.js` within a `components` folder.
+Let's create a new component for that called `Account.tsx` within a `components` folder.
 
-```tsx title=components/Account.js
-import { useState, useEffect } from 'react'
-import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
+```tsx components/Account.tsx
+export default function Account() {}
+```
 
-export default function Account({ session }) {
-  const supabase = useSupabaseClient()
-  const user = useUser()
-  const [loading, setLoading] = useState(true)
-  const [username, setUsername] = useState(null)
-  const [website, setWebsite] = useState(null)
-  const [avatar_url, setAvatarUrl] = useState(null)
+---
 
+## Set up user context
+
+adsds
+
+```tsx components/Account.tsx
+import { useUser, useSupabaseClient, Session } from '@supabase/auth-helpers-react'
+
+export default function Account() {
   useEffect(() => {
     getProfile()
   }, [session])
@@ -224,6 +293,7 @@ export default function Account({ session }) {
   async function getProfile() {
     try {
       setLoading(true)
+      if (!user) throw new Error('No user')
 
       let { data, error, status } = await supabase
         .from('profiles')
@@ -246,78 +316,17 @@ export default function Account({ session }) {
     } finally {
       setLoading(false)
     }
+
+    const user = useUser()
   }
-
-  async function updateProfile({ username, website, avatar_url }) {
-    try {
-      setLoading(true)
-
-      const updates = {
-        id: user.id,
-        username,
-        website,
-        avatar_url,
-        updated_at: new Date().toISOString(),
-      }
-
-      let { error } = await supabase.from('profiles').upsert(updates)
-      if (error) throw error
-      alert('Profile updated!')
-    } catch (error) {
-      alert('Error updating the data!')
-      console.log(error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  return (
-    <div className="form-widget">
-      <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session.user.email} disabled />
-      </div>
-      <div>
-        <label htmlFor="username">Username</label>
-        <input
-          id="username"
-          type="text"
-          value={username || ''}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          type="website"
-          value={website || ''}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
-
-      <div>
-        <button
-          className="button primary block"
-          onClick={() => updateProfile({ username, website, avatar_url })}
-          disabled={loading}
-        >
-          {loading ? 'Loading ...' : 'Update'}
-        </button>
-      </div>
-
-      <div>
-        <button className="button block" onClick={() => supabase.auth.signOut()}>
-          Sign Out
-        </button>
-      </div>
-    </div>
-  )
 }
 ```
 
-</TabPanel>
-<TabPanel id="ts" label="TypeScript">
+</CH.Scrollycoding>
+
+### Account page
+
+After a user is signed in we can allow them to edit their profile details and manage their account.
 
 Let's create a new component for that called `Account.tsx` within a `components` folder.
 
@@ -443,9 +452,6 @@ export default function Account({ session }: { session: Session }) {
   )
 }
 ```
-
-</TabPanel>
-</Tabs>
 
 ### Launch!
 
@@ -721,6 +727,141 @@ return (
   </div>
 )
 ```
+
+<CH.Scrollycoding>
+
+## Step 1
+
+Lorem ipsum dolor sit amet, consectetur adipiscing something about points, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+> Nova in illis at dabat legi harundine non, ova miratur? _Quid in_ sole aer
+> ad diffusa illis voluisti fidensque coniugiale laniata curam. Aras rivus
+> eripuit, qua fistula haec partus; serpens, negat.
+
+Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus.
+
+```js app.js focus=3:10
+const { lorem, ipsum } = dolor({
+  sit: {
+    amet: 1,
+    consectetur: 2,
+    adipiscing: (elit) => ({
+      sed: elit,
+    }),
+    eiusmod: (tempor) => ({
+      incididunt: tempor,
+    }),
+    ut: (labore) => ({
+      et: labore,
+      dolore: labore + 1,
+    }),
+    magna: (aliqua) => ({
+      ut: aliqua,
+    }),
+    nostrud: (elit) => ({
+      exercitation: elit,
+      ullamco: elit,
+    }),
+    laboris: (elit) => ({
+      nisi: elit,
+    }),
+  },
+})
+```
+
+---
+
+## Step 2
+
+Velit euismod in pellentesque massa placerat. Mi bibendum neque egestas congue quisque egestas diam in arcu. Nisi lacus sed viverra tellus in.
+
+Praesent elementum facilisis leo vel fringilla est ullamcorper eget.
+
+Id aliquet risus feugiat in ante metus dictum at tempor. Sed blandit libero volutpat sed cras. Sed odio morbi quis commodo odio aenean sed adipiscing. Velit euismod in pellentesque massa placerat. Mi bibendum neque egestas congue quisque egestas diam in arcu. Nisi lacus sed viverra tellus in. Nibh cras pulvinar mattis nunc sed. Luctus accumsan tortor posuere ac ut consequat semper viverra. Fringilla ut morbi tincidunt augue interdum velit euismod.
+
+Morbi quis commodo.
+
+```js app.js focus=11:17
+
+```
+
+---
+
+## Step 3
+
+Id aliquet risus feugiat in ante metus dictum at tempor. Sed blandit libero volutpat sed cras. Sed odio morbi quis commodo odio aenean sed adipiscing. Velit euismod in pellentesque massa placerat. Mi bibendum neque egestas congue quisque egestas diam in arcu.
+
+- Nisi lacus sed viverra tellus in
+- Nibh cras pulvinar mattis nunc sed
+- Luctus accumsan tortor posuere ac
+
+Ut consequat semper viverra. Fringilla ut morbi tincidunt augue interdum velit euismod.
+
+```js app.js focus=11:14
+const { lorem, ipsum } = dolor({
+  sit: {
+    amet: 1,
+    consectetur: 2,
+    adipiscing: (elit) => ({
+      sed: elit,
+    }),
+    eiusmod: (tempor) => ({
+      incididunt: tempor,
+    }),
+    ut: (labore) => ({
+      et: lorem(labore * ipsum),
+      dolore: lorem(labore + 1),
+    }),
+    nostrud: (elit) => ({
+      exercitation: elit,
+      ullamco: elit,
+    }),
+    laboris: (elit) => ({
+      nisi: elit,
+    }),
+  },
+})
+```
+
+---
+
+## Step 4
+
+Velit euismod in pellentesque massa placerat. Mi bibendum neque egestas congue quisque egestas diam in arcu. Nisi lacus sed viverra tellus in. Venenatis cras sed felis eget velit. Consectetur libero id faucibus nisl tincidunt.
+
+Sed blandit libero volutpat sed cras.
+
+- Nisi lacus sed viverra tellus in
+- Nibh cras pulvinar mattis nunc sed
+
+Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus. Volutpat consequat mauris nunc congue nisi vitae.
+
+```js app.js focus=15:21
+
+```
+
+---
+
+## Step 5
+
+Velit euismod in pellentesque massa placerat. Mi bibendum neque egestas congue quisque egestas diam in arcu. Nisi lacus sed viverra tellus in.
+
+Praesent elementum facilisis leo vel fringilla est ullamcorper eget.
+
+Id aliquet risus feugiat in ante metus dictum at tempor. Sed blandit libero volutpat sed cras. Sed odio morbi quis commodo odio aenean sed adipiscing. Velit euismod in pellentesque massa placerat.
+
+Mi bibendum neque egestas congue quisque egestas diam in arcu. Nisi lacus sed viverra tellus in. Nibh cras pulvinar mattis nunc sed. Luctus accumsan tortor posuere ac ut consequat semper viverra.
+
+- Fringilla ut morbi tincidunt augue interdum velit euismod.
+- Luctus accumsan tortor posuere ac ut consequat semper viverra.
+
+Morbi quis commodo.
+
+```js app.js
+
+```
+
+</CH.Scrollycoding>
 
 ## Next steps
 

@@ -3,7 +3,7 @@ import Divider from 'components/ui/Divider'
 import { IconSearch, Input, Button, Listbox, Modal, Form, IconHelpCircle } from 'ui'
 import SecretRow from './SecretRow'
 import InformationBox from 'components/ui/InformationBox'
-import EncryptionKeySelector from 'components/interfaces/Vault/EncryptionKeySelector'
+import { EncryptionKeySelector } from 'components/interfaces/Settings/Vault'
 
 interface Props {}
 

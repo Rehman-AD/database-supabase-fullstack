@@ -5,7 +5,7 @@ import * as NavItems from './NavigationMenu.constants'
 // @ts-expect-error
 import jsSpec from '~/../../spec/supabase_js_v2_temp_new_shape.yml' assert { type: 'yml' }
 // @ts-expect-error
-import clientLibsCommon from '~/../../spec/client-libs-common.yml' assert { type: 'yml' }
+import clientLibsCommon from '~/../../spec/common-client-libs.yml' assert { type: 'yml' }
 
 const NavigationMenuRefList = ({ currentLevel, setLevel, id }) => {
   const router = useRouter()

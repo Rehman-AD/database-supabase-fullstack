@@ -1,9 +1,6 @@
 // @ts-expect-error
-import cliConfig from '~/../../spec/cli_v1_config.yaml' assert { type: 'yml' }
-import CodeBlock from '~/components/CodeBlock/CodeBlock'
-import Options from '~/components/Options'
-import Param from '~/components/Params'
-import RefSubLayout from '~/layouts/ref/RefSubLayout'
+import specFile from '~/../../spec/cli_v1_config.yaml' assert { type: 'yml' }
+
 import ReactMarkdown from 'react-markdown'
 
 export type Link = {
@@ -32,11 +29,11 @@ export default function CliUsage() {
     <div>
       <div className="flex my-16">
         <div className="w-full prose">
-          <h1 className="text-4xl mb-16">{cliConfig.info.title}</h1>
-          <ReactMarkdown>{cliConfig.info.description}</ReactMarkdown>
+          <h1 className="text-4xl mb-16">{specFile.info.title}</h1>
+          <ReactMarkdown>{specFile.info.description}</ReactMarkdown>
           <div>
             {TAGS.map((tag) =>
-              cliConfig.parameters
+              specFile.parameters
                 .filter((param: Parameter) => param.tags[0] === tag)
                 .map((parameter: Parameter, index) => (
                   <div>

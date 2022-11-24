@@ -1,30 +1,13 @@
 // @ts-expect-error
 import specFile from '~/../../spec/realtime_v0_config.yaml' assert { type: 'yml' }
+import { Parameter } from '~/lib/refGenerator/refTypes'
 
 import ReactMarkdown from 'react-markdown'
-
-export type Link = {
-  name: string
-  link: string
-}
-
-export type Parameter = {
-  id: string
-  title: string
-  description: string
-  summary: string
-  tags?: string[]
-  links?: Link[]
-  subcommands?: []
-  usage?: string
-  required?: boolean
-  default?: boolean
-}
 
 // Parameters are grouped on the page by tag
 const TAGS = ['general', 'database']
 
-export default function CliUsage() {
+export default function Config() {
   return (
     <div>
       <div className="flex my-16">

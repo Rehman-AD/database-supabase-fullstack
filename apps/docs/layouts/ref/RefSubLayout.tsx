@@ -17,6 +17,8 @@ interface ISectionContainer {
 
 type RefSubLayoutSubComponents = {
   Section: FC<ISectionContainer>
+  EducationSection: FC<IEducationSection>
+  EducationRow: FC<IEducationRow>
   Details: FC<ISectionDetails>
   Examples: FC<ISectionExamples>
 }
@@ -30,6 +32,17 @@ type StickyHeader = {
 }
 
 type RefSubLayoutType = {}
+
+interface IEducationRow {}
+interface IEducationSection {
+  id: string
+  title?: string
+  monoFont?: boolean
+  slug: string
+  scrollSpyHeader?: boolean
+}
+interface ISectionDetails {}
+interface ISectionExamples {}
 
 const RefSubLayout: FC<RefSubLayoutType> & RefSubLayoutSubComponents = (props) => {
   return <div className="flex flex-col w-full divide-y">{props.children}</div>
@@ -82,7 +95,7 @@ const StickyHeader: FC<StickyHeader> = (props) => {
       id={props.slug}
       data-ref-id={props.id}
       className={[
-        'text-xl font-medium text-scale-1200 mb-8 scroll-mt-24',
+        'text-x2l font-medium text-scale-1200 mb-8 scroll-mt-24',
         props.monoFont && 'font-mono',
       ].join(' ')}
     >
@@ -91,13 +104,9 @@ const StickyHeader: FC<StickyHeader> = (props) => {
   )
 }
 
-interface ISectionDetails {}
-
 const Details: FC<ISectionDetails> = (props) => {
   return <div>{props.children}</div>
 }
-
-interface ISectionExamples {}
 
 const Examples: FC<ISectionExamples> = (props) => {
   return (
@@ -107,7 +116,27 @@ const Examples: FC<ISectionExamples> = (props) => {
   )
 }
 
+const EducationRow: FC<IEducationRow> = (props) => {
+  return <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">{props.children}</div>
+}
+
+const EducationSection: FC<IEducationSection> = (props) => {
+  // console.log({ props })
+  return (
+    <article key={props.id} className={`${'prose dark:prose-dark max-w-none py-16 lg:py-32'}`}>
+      <StickyHeader {...props} />
+
+      {props.children}
+    </article>
+  )
+}
+
+// function based layout
 RefSubLayout.Section = Section
+// education based layout
+RefSubLayout.EducationSection = EducationSection
+RefSubLayout.EducationRow = EducationRow
+// common columns
 RefSubLayout.Details = Details
 RefSubLayout.Examples = Examples
 export default RefSubLayout

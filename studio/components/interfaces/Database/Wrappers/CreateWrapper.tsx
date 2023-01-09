@@ -1,23 +1,11 @@
 import Link from 'next/link'
 import { isEmpty } from 'lodash'
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { observer } from 'mobx-react-lite'
-import {
-  Button,
-  Form,
-  Input,
-  IconArrowLeft,
-  IconExternalLink,
-  IconHelpCircle,
-  IconEdit,
-  IconEye,
-  IconEyeOff,
-  IconTrash,
-} from 'ui'
+import { Button, Form, Input, IconArrowLeft, IconExternalLink, IconEdit, IconTrash } from 'ui'
 import { PermissionAction } from '@supabase/shared-types/out/constants'
 
-import { ServerOption } from './Wrappers.types'
 import { checkPermissions, useParams, useStore } from 'hooks'
 import {
   FormPanel,
@@ -28,88 +16,14 @@ import {
 } from 'components/ui/Forms'
 import { useFDWCreateMutation } from 'data/fdw/fdw-create-mutation'
 
+import InputField from './InputField'
 import { WRAPPERS } from './Wrappers.constants'
 import WrapperTableEditor from './WrapperTableEditor'
 import { makeValidateRequired } from './Wrappers.utils'
 import { useProjectContext } from 'components/layouts/ProjectLayout/ProjectContext'
 
-const InputField: FC<{ option: ServerOption; error: any }> = ({ option, error }) => {
-  const [showHidden, setShowHidden] = useState(!option.hidden)
-  if (option.isTextArea) {
-    return (
-      <div className="text-area-text-sm text-area-resize-none">
-        <Input.TextArea
-          key={option.name}
-          id={option.name}
-          name={option.name}
-          label={
-            <div className="flex items-center space-x-2">
-              <p>{option.label}</p>
-              {option.urlHelper !== undefined && (
-                <Link href={option.urlHelper}>
-                  <a target="_blank">
-                    <IconHelpCircle
-                      strokeWidth={2}
-                      size={14}
-                      className="text-scale-1000 hover:text-scale-1200 cursor-pointer transition"
-                    />
-                  </a>
-                </Link>
-              )}
-            </div>
-          }
-          defaultValue={option.defaultValue ?? ''}
-          required={option.required ?? false}
-          error={error}
-          className="input-mono"
-          rows={6}
-        />
-      </div>
-    )
-  } else {
-    return (
-      <Input
-        key={option.name}
-        id={option.name}
-        name={option.name}
-        label={
-          <div className="flex items-center space-x-2">
-            <p>{option.label}</p>
-            {option.urlHelper !== undefined && (
-              <Link href={option.urlHelper}>
-                <a target="_blank">
-                  <IconHelpCircle
-                    strokeWidth={2}
-                    size={14}
-                    className="text-scale-1000 hover:text-scale-1200 cursor-pointer transition"
-                  />
-                </a>
-              </Link>
-            )}
-          </div>
-        }
-        defaultValue={option.defaultValue ?? ''}
-        error={error}
-        className={`${option.name === 'server_name' ? '' : 'input-mono'}`}
-        type={!option.hidden ? 'text' : showHidden ? 'text' : 'password'}
-        actions={
-          option.hidden ? (
-            <div className="flex items-center justify-center mr-1">
-              <Button
-                type="default"
-                icon={showHidden ? <IconEye /> : <IconEyeOff />}
-                onClick={() => setShowHidden(!showHidden)}
-              />
-            </div>
-          ) : null
-        }
-      />
-    )
-  }
-}
-
 const CreateWrapper = () => {
-  const formId = 'test-form'
+  const formId = 'create-wrapper-form'
   const router = useRouter()
   const { ui } = useStore()
   const { ref, type } = useParams()
@@ -127,7 +41,7 @@ const CreateWrapper = () => {
   const initialValues =
     wrapperMeta !== undefined
       ? {
-          name: '',
+          wrapper_name: '',
           server_name: '',
           ...Object.fromEntries(
             wrapperMeta.server.options.map((option) => [option.name, option.defaultValue ?? ''])
@@ -171,7 +85,7 @@ const CreateWrapper = () => {
         connectionString: project?.connectionString,
         wrapper: wrapperMeta,
         formState: { ...values, server_name: `${wrapper_name}_server` },
-        newTables,
+        tables: newTables,
       })
       ui.setNotification({
         category: 'success',
@@ -270,6 +184,7 @@ const CreateWrapper = () => {
                       <InputField
                         key={option.name}
                         option={option}
+                        loading={false}
                         error={formErrors[option.name]}
                       />
                     ))}

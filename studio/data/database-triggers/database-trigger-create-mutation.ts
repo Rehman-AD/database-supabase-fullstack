@@ -10,7 +10,7 @@ export type DatabaseTriggerCreateVariables = {
   payload: any
 }
 
-type createDatabaseTriggerResponse = PostgresTrigger & { error?: any }
+type CreateDatabaseTriggerResponse = PostgresTrigger & { error?: any }
 
 export async function createDatabaseTrigger({
   projectRef,
@@ -25,7 +25,7 @@ export async function createDatabaseTrigger({
 
   const response = (await post(`${API_URL}/pg-meta/${projectRef}/triggers`, payload, {
     headers: Object.fromEntries(headers),
-  })) as createDatabaseTriggerResponse
+  })) as CreateDatabaseTriggerResponse
 
   if (response?.error) throw response.error
   return response as PostgresTrigger

@@ -1,7 +1,6 @@
 const ui = require('./ui.config.js')
-const svgToDataUri = require('mini-svg-data-uri')
+const deepMerge = require('deepmerge')
 
-const twConfigRef = require('./tw-config-ref')
 const color = require('./../ui/styles/tw-extend/color')
 
 function generateTwColorClasses(globalKey, twAttributes) {
@@ -20,17 +19,6 @@ function generateTwColorClasses(globalKey, twAttributes) {
 
 const uiConfig = ui({
   mode: 'JIT',
-  content: [
-    '../../packages/common/**/*.{ts,tsx}',
-    '../../packages/ui/**/*.{tsx,ts,js}',
-    './src/**/*.{ts,tsx,mdx}',
-    './components/**/*.tsx',
-    './layouts/**/*.tsx',
-    './pages/**/*.{tsx,mdx}',
-    './docs/**/*.{tsx,mdx}',
-    './_blog/*.mdx',
-    // purge styles from supabase ui theme
-  ],
   darkMode: 'class',
   theme: {
     accentColor: (theme) => ({
@@ -252,46 +240,67 @@ const uiConfig = ui({
             },
           },
         },
+        // used in auto docs
+        docs: {
+          css: {
+            '--tw-prose-body': theme('colors.scale[1100]'),
+            '--tw-prose-headings': theme('colors.scale[1200]'),
+            '--tw-prose-lead': theme('colors.scale[1100]'),
+            '--tw-prose-links': theme('colors.brand[900]'),
+            '--tw-prose-bold': theme('colors.scale[1100]'),
+            '--tw-prose-counters': theme('colors.scale[1100]'),
+            '--tw-prose-bullets': theme('colors.scale[900]'),
+            '--tw-prose-hr': theme('colors.scale[500]'),
+            '--tw-prose-quotes': theme('colors.scale[1100]'),
+            '--tw-prose-quote-borders': theme('colors.scale[500]'),
+            '--tw-prose-captions': theme('colors.scale[700]'),
+            '--tw-prose-code': theme('colors.scale[1200]'),
+            '--tw-prose-pre-code': theme('colors.scale[900]'),
+            '--tw-prose-pre-bg': theme('colors.scale[400]'),
+            '--tw-prose-th-borders': theme('colors.scale[500]'),
+            '--tw-prose-td-borders': theme('colors.scale[200]'),
+            '--tw-prose-invert-body': theme('colors.scale[200]'),
+            '--tw-prose-invert-headings': theme('colors.white'),
+            '--tw-prose-invert-lead': theme('colors.scale[500]'),
+            '--tw-prose-invert-links': theme('colors.white'),
+            '--tw-prose-invert-bold': theme('colors.white'),
+            '--tw-prose-invert-counters': theme('colors.scale[400]'),
+            '--tw-prose-invert-bullets': theme('colors.scale[600]'),
+            '--tw-prose-invert-hr': theme('colors.scale[700]'),
+            '--tw-prose-invert-quotes': theme('colors.scale[100]'),
+            '--tw-prose-invert-quote-borders': theme('colors.scale[700]'),
+            '--tw-prose-invert-captions': theme('colors.scale[400]'),
+            // the following are typography overrides
+            // examples can be seen here —> https://github.com/tailwindlabs/tailwindcss-typography/blob/master/src/styles.js
+            // reset all header font weights
+            'h1, h2, h3, h4, h5': {
+              fontWeight: '400',
+            },
+            // '--tw-prose-invert-code': theme('colors.white'),
+            // '--tw-prose-invert-pre-code': theme('colors.scale[900]'),
+            // '--tw-prose-invert-pre-bg': 'rgb(0 0 0 / 50%)',
+            // '--tw-prose-invert-th-borders': theme('colors.scale[600]'),
+            // '--tw-prose-invert-td-borders': theme('colors.scale[700]'),
+          },
+        },
       }),
       screens: {
         xs: '480px',
       },
       fontFamily: {
-        sans: ['custom-font', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+        sans: ['Circular', 'custom-font', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
         mono: ['Office Code Pro', 'Source Code Pro', 'Menlo', 'monospace'],
-      },
-      backgroundImage: (theme) => ({
-        squiggle: `url("${svgToDataUri(
-          `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 3" enable-background="new 0 0 6 3" width="6" height="3" fill="${theme(
-            'colors.yellow.400'
-          )}"><polygon points="5.5,0 2.5,3 1.1,3 4.1,0"/><polygon points="4,0 6,2 6,0.6 5.4,0"/><polygon points="0,2 1,3 2.4,3 0,0.6"/></svg>`
-        )}")`,
-      }),
-      keyframes: {
-        'flash-code': {
-          '0%': { backgroundColor: 'rgba(63, 207, 142, 0.1)' },
-          '100%': { backgroundColor: 'transparent' },
-        },
-      },
-      animation: {
-        'flash-code': 'flash-code 1s forwards',
-        'flash-code-slow': 'flash-code 2s forwards',
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-    function ({ addUtilities, addVariant }) {
-      addUtilities({
-        // prose (tailwind typography) helpers
-        // useful for removing margins in prose styled sections
-        '.prose--remove-p-margin p': {
-          margin: '0',
-        },
-      })
-    },
-  ],
 })
+
+function arrayMergeFn(destinationArray, sourceArray) {
+  return destinationArray.concat(sourceArray).reduce((acc, cur) => {
+    if (acc.includes(cur)) return acc
+    return [...acc, cur]
+  }, [])
+}
 
 /**
  * Merge Supabase UI and Tailwind CSS configurations
@@ -299,15 +308,15 @@ const uiConfig = ui({
  * @return {object} new config object
  */
 function wrapper(tailwindConfig) {
-  let purge
-  if (Array.isArray(tailwindConfig.purge)) {
-    purge = {
-      content: tailwindConfig.purge,
-    }
-  } else {
-    purge = tailwindConfig.purge
-  }
-  return deepMerge({ ...tailwindConfig, purge }, uiConfig, {
+  // let purge
+  // if (Array.isArray(tailwindConfig.purge)) {
+  //   purge = {
+  //     content: tailwindConfig.purge,
+  //   }
+  // } else {
+  //   purge = tailwindConfig.purge
+  // }
+  return deepMerge({ ...tailwindConfig }, uiConfig, {
     arrayMerge: arrayMergeFn,
   })
 }

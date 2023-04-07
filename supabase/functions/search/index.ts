@@ -77,14 +77,15 @@ serve(async (req) => {
     }
 
     const [{ embedding }] = embeddingResponse.data.data
-    const { error: matchError, data: pageSections } = await supabaseClient
-      .rpc('match_page_sections', {
+    const { error: matchError, data: pageSections } = await supabaseClient.rpc(
+      'match_page_sections',
+      {
         embedding,
         match_threshold: 0.78,
+        match_count: 10,
         min_content_length: 50,
-      })
-      .select('slug, heading, page_id')
-      .limit(10)
+      }
+    )
 
     if (matchError || !pageSections) {
       throw new ApplicationError('Failed to match page sections', matchError ?? undefined)
@@ -96,7 +97,7 @@ serve(async (req) => {
 
     const { error: fetchPagesError, data: pages } = await supabaseClient
       .from('page')
-      .select('id, type, path, meta')
+      .select()
       .in('id', uniquePageIds)
 
     if (fetchPagesError || !pages) {
@@ -106,19 +107,18 @@ serve(async (req) => {
     const combinedPages = pages
       .map((page) => {
         const sections = pageSections
-          .map((pageSection, index) => ({ ...pageSection, rank: index }))
           .filter(({ page_id }) => page_id === page.id)
+          .map(({ content: _, ...pageSection }) => pageSection)
 
-        // Rank this page based on its highest-ranked page section
-        const rank = sections.reduce((min, { rank }) => Math.min(min, rank), Infinity)
+        const score = sections.reduce((sum, section) => sum + section.similarity, 0)
 
         return {
           ...page,
           sections,
-          rank,
+          score,
         }
       })
-      .sort((a, b) => a.rank - b.rank)
+      .sort((a, b) => b.score - a.score)
 
     return new Response(JSON.stringify(combinedPages), {
       headers: {

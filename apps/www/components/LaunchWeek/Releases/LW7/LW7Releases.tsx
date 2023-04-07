@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useEffect } from 'react'
 import { Accordion, IconArrowDown } from 'ui'
+import Lottie from 'lottie-react'
 
 import days, { WeekDayProps, endOfLW7 } from '~/components/LaunchWeek/lw7_days'
 import SectionContainer from '~/components/Layouts/SectionContainer'
@@ -16,13 +17,47 @@ import {
 } from './components'
 
 import styles from './styles/launchWeek7.module.css'
+import { useMobileViewport } from '../../../../hooks/useMobileViewport'
+import { motion } from 'framer-motion'
+
+const defaultEase = [0.25, 0.25, 0, 1]
+
+const opacityVariant = {
+  default: { opacity: 0.9, ease: defaultEase, duration: 0.2 },
+  hover: {
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      ease: defaultEase,
+    },
+  },
+}
+const scaleOpacityVariant = {
+  default: { scale: 1, opacity: 0.9, ease: defaultEase, duration: 0.2 },
+  hover: {
+    scale: 1.05,
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      ease: defaultEase,
+    },
+  },
+}
+const aiImageMobileVariant = {
+  default: { scale: 0.9 },
+  hover: {
+    scale: 0.9,
+  },
+}
 
 export default function LW7Releases() {
   const [preRelease, day1, day2, day3, day4, day5] = days
-
+  const isMobile = useMobileViewport(767)
+  const isTablet = useMobileViewport(1023)
+  const showAll = false
   const publishedSections =
     days
-      .filter((day: WeekDayProps) => Date.parse(day.publishedAt) <= Date.now())
+      .filter((day: WeekDayProps) => Date.parse(day.publishedAt) <= Date.now() || showAll)
       .map((day: WeekDayProps) => day.d.toString()) ?? []
 
   useEffect(() => {
@@ -120,16 +155,30 @@ export default function LW7Releases() {
             >
               {preRelease.steps.length > 0 && (
                 <div className="h-[800px] lg:h-[400px] flex flex-col gap-5 lg:flex-row">
-                  <div
-                    className={`relative overflow-hidden group/2 flex-1 flex flex-col items-center gap-5 lg:items-start justify-between basis-1/2 lg:basis-2/3 border rounded-xl h-full p-14 xs:text-2xl text-xl text-center bg-no-repeat bg-[url('/images/launchweek/seven/day0/ai_images.png')] xs:bg-[url('/images/launchweek/seven/day0/ai_images.png')] dark:bg-[url('/images/launchweek/seven/day0/ai_images.png')] xs:dark:bg-[url('/images/launchweek/seven/day0/ai_images.png')] bg-[right_0px_top_0px] lg:bg-[top_0px_bottom_0px_right_0px] bg-cover`}
+                  {/*
+                    relative overflow-hidden group/2 flex-1 flex flex-col items-center gap-5 lg:items-start justify-between
+                    basis-1/2 lg:basis-2/3 border rounded-xl h-full p-14 xs:text-2xl text-xl text-center
+                    bg-no-repeat bg-[url('/images/launchweek/seven/day0/ai_images.png')]
+                    xs:bg-[url('/images/launchweek/seven/day0/ai_images.png')]
+                    dark:bg-[url('/images/launchweek/seven/day0/ai_images.png')]
+                    xs:dark:bg-[url('/images/launchweek/seven/day0/ai_images.png')]
+                    bg-[right_0px_top_0px] lg:bg-[top_0px_bottom_0px_right_0px] bg-cover */}
+                  <motion.div
+                    className={`
+                      relative overflow-hidden group/2 flex-1 flex flex-col items-center gap-5 lg:items-start justify-between
+                      basis-1/2 lg:basis-2/3 border rounded-xl h-full p-14 xs:text-2xl text-xl text-center
+                    `}
+                    initial="default"
+                    animate="default"
+                    whileHover="hover"
                   >
                     <div
-                      className="top-0 absolute group-hover/2:scale-105 opacity-60 group-hover/2:opacity-100 w-full h-full -z-10 transition-all duration-500"
+                      className="inset-0 absolute group-hover/2:scale-105 opacity-60 group-hover/2:opacity-100 w-full h-full -z-10 transition-all duration-500"
                       style={{
                         background: `radial-gradient(90% 130px at 80% 0px, #4635A7, transparent)`,
                       }}
                     />
-                    <div className="flex items-center lg: justify-between flex-col-reverse lg:flex-row lg:justify-start gap-2 text-black dark:text-white">
+                    <div className="flex items-center text-center lg:text-left lg: justify-between flex-col-reverse lg:flex-row lg:justify-start gap-2 text-black dark:text-white">
                       <div>{preRelease.steps[0].title}</div>
                       <StyledArticleBadge className="lg:ml-4">Guide</StyledArticleBadge>
                     </div>
@@ -137,12 +186,57 @@ export default function LW7Releases() {
                       docs={preRelease.steps[0].docs}
                       blog={preRelease.steps[0].blog}
                     />
-                  </div>
-                  <div
+                    {preRelease.steps[0].bg_layers &&
+                      preRelease.steps[0].bg_layers?.map((layer, i) =>
+                        !!layer.lottie ? (
+                          <div className="absolute inset-0 opacity-90 w-full h-full -z-10 transition-all duration-300">
+                            <Lottie
+                              style={{
+                                position: 'absolute',
+                                inset: 0,
+                                width: '100%',
+                                height: '100%',
+                              }}
+                              autoplay={true}
+                              animationData={layer.lottie}
+                            />
+                          </div>
+                        ) : (
+                          !!layer.img && (
+                            <motion.div
+                              className="absolute opacity-90 inset-0 w-full h-full -z-10"
+                              variants={
+                                i === 2 && isTablet
+                                  ? aiImageMobileVariant
+                                  : i !== 0
+                                  ? opacityVariant
+                                  : undefined
+                              }
+                            >
+                              <Image
+                                src={i === 2 && isTablet ? (layer.mobileImg as any) : layer.img}
+                                className={`
+                                  absolute opacity-90
+                                  w-full h-full -z-10 transition-all duration-300
+                                `}
+                                layout="fill"
+                                objectPosition={i === 2 && isTablet ? '50% 60%' : '80% 50%'}
+                                sizes="80vw"
+                                objectFit={i === 2 && isTablet ? 'contain' : 'cover'}
+                              />
+                            </motion.div>
+                          )
+                        )
+                      )}
+                  </motion.div>
+                  <motion.div
                     className={`
                       relative overflow-hidden group/3 flex-1 flex flex-col items-center justify-between
                       basis-1/2 lg:basis-1/3 border rounded-xl h-full bg-no-repeat py-14 lg:px-10 text-2xl bg-contain
                       `}
+                    initial="default"
+                    animate="default"
+                    whileHover="hover"
                   >
                     <div
                       className="top-0 absolute group-hover/3:scale-105 opacity-60 group-hover/3:opacity-100 w-full h-full -z-10 transition-all duration-500"
@@ -159,7 +253,33 @@ export default function LW7Releases() {
                       github={preRelease.steps[1].github}
                       hackernews={preRelease.steps[1].hackernews}
                     />
-                  </div>
+                    {preRelease.steps[1].bg_layers &&
+                      preRelease.steps[1].bg_layers?.map((layer, i) =>
+                        !!layer.lottie ? (
+                          <div className="absolute inset-0 opacity-90 w-full h-full -z-10 transition-all duration-300">
+                            <Lottie loop={true} autoplay={true} animationData={layer.lottie} />
+                          </div>
+                        ) : (
+                          !!layer.img && (
+                            <motion.div
+                              className="absolute opacity-90 inset-0 w-full h-full -z-10"
+                              variants={i === 1 ? scaleOpacityVariant : undefined}
+                            >
+                              <Image
+                                src={layer.img}
+                                className={`
+                                  absolute opacity-90
+                                  w-full h-full -z-10 transition-all duration-300
+                                `}
+                                layout="fill"
+                                objectPosition="50% 50%"
+                                objectFit="cover"
+                              />
+                            </motion.div>
+                          )
+                        )
+                      )}
+                  </motion.div>
                 </div>
               )}
             </Accordion.Item>

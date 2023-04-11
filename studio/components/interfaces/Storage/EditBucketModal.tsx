@@ -42,7 +42,13 @@ const EditBucketModal = ({ visible, bucket, onClose }: EditBucketModalProps) => 
   const [selectedUnit, setSelectedUnit] = useState<StorageSizeUnits>(StorageSizeUnits.BYTES)
   const [showConfiguration, setShowConfiguration] = useState(false)
 
-  const validate = (values: any) => {}
+  const validate = (values: any) => {
+    const errors = {} as any
+    if (values.has_file_size_limit && values.formatted_size_limit < 0) {
+      errors.formatted_size_limit = 'Please provide a value greater than 0'
+    }
+    return errors
+  }
 
   const onSubmit = async (values: any, { setSubmitting }: any) => {
     if (bucket === undefined) {
@@ -55,7 +61,8 @@ const EditBucketModal = ({ visible, bucket, onClose }: EditBucketModalProps) => 
       allowed_mime_types: values.allowed_mime_types.split(',').map((x: string) => x.trim()),
     }
 
-    const res = editBucket(bucket, payload)
+    setSubmitting(true)
+    const res = await editBucket(bucket, payload)
     if (res.error) {
       setSubmitting(false)
     } else {
@@ -119,11 +126,11 @@ const EditBucketModal = ({ visible, bucket, onClose }: EditBucketModalProps) => 
                   name="name"
                   type="text"
                   className="w-full"
-                  layout="horizontal"
+                  layout="vertical"
                   label="Name of bucket"
-                  descriptionText="Buckets cannot be renamed once created."
+                  labelOptional="Buckets cannot be renamed once created."
                 />
-                <div className="space-y-2 mt-4">
+                <div className="space-y-2 mt-6">
                   <Toggle
                     id="public"
                     name="public"

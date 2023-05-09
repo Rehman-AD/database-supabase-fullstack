@@ -1,6 +1,8 @@
 import { post } from 'lib/common/fetch'
 import { API_URL, IS_PLATFORM } from 'lib/constants'
 import { User } from 'types'
+import { BrowserTabTracker } from 'browser-session-tabs'
+import { NextRouter } from 'next/router'
 
 export interface GoogleAnalyticsProps {
   screenResolution?: string
@@ -14,7 +16,8 @@ const sendEvent = (
     label: string
     value?: string
   },
-  gaProps?: GoogleAnalyticsProps
+  gaProps: GoogleAnalyticsProps,
+  router: NextRouter
 ) => {
   if (!IS_PLATFORM) return
 
@@ -25,9 +28,13 @@ const sendEvent = (
     category: category,
     label: label,
     value: value,
+    page_referrer: document?.referrer,
+    page_title: document?.title,
+    page_location: router.asPath,
     ga: {
       screen_resolution: gaProps?.screenResolution,
       language: gaProps?.language,
+      session_id: BrowserTabTracker.sessionId,
     },
   })
 }
@@ -44,6 +51,7 @@ const sendIdentify = (user: User, gaProps?: GoogleAnalyticsProps) => {
     ga: {
       screen_resolution: gaProps?.screenResolution,
       language: gaProps?.language,
+      session_id: BrowserTabTracker.sessionId,
     },
   })
 }

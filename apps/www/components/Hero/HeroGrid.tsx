@@ -115,7 +115,7 @@ const HeroGrid = () => {
   return (
     <div
       className={[
-        'relative -z-10 ![perspective:1200px] sm:![perspective:1200px] md:![perspective:1200px] lg:![perspective:1200px]',
+        'relative -z-10 ![perspective:800px] sm:![perspective:800px] md:![perspective:800px] lg:![perspective:800px]',
       ].join(' ')}
     >
       <div

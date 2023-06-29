@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 
 import { useParams } from 'common/hooks'
-import { BillingSettings } from 'components/interfaces/Organization'
+import { BillingSettings, BillingSettingsV2 } from 'components/interfaces/Organization'
 import { OrganizationLayout } from 'components/layouts'
 import Loading from 'components/ui/Loading'
 import { usePermissionsQuery } from 'data/permissions/permissions-query'
@@ -10,20 +10,25 @@ import { NextPageWithLayout } from 'types'
 import { Tabs } from 'ui'
 
 const OrgBillingSettings: NextPageWithLayout = () => {
-  const { data: permissions } = usePermissionsQuery()
-  const selectedOrganization = useSelectedOrganization()
   const { slug } = useParams()
   const router = useRouter()
+
+  const selectedOrganization = useSelectedOrganization()
+  const { isLoading: isLoadingPermissions } = usePermissionsQuery()
+
   const showOAuthApps = useFlag('oauthApps')
+  const orgCreationV2 = useFlag('orgcreationv2')
+
+  const isOrgBilling = !!selectedOrganization?.subscription_id
 
   return (
     <>
-      {selectedOrganization === undefined && (permissions ?? []).length === 0 ? (
+      {selectedOrganization === undefined && isLoadingPermissions ? (
         <Loading />
       ) : (
-        <div className="p-4 pt-0">
-          <div className="space-y-3">
-            <section className="mt-4">
+        <div>
+          <div className="space-y-3.5">
+            <section className="mt-4 px-4">
               <h1 className="text-3xl">{selectedOrganization?.name ?? 'Organization'} settings</h1>
             </section>
             <nav>
@@ -37,7 +42,8 @@ const OrgBillingSettings: NextPageWithLayout = () => {
               >
                 <Tabs.Panel id="general" label="General" />
                 <Tabs.Panel id="team" label="Team" />
-                <Tabs.Panel id="billing" label="Billing" />
+                <Tabs.Panel id="billing" label="Billing" className="!m-0" />
+                {orgCreationV2 && <Tabs.Panel id="usage" label="Usage" />}
                 <Tabs.Panel id="invoices" label="Invoices" />
                 {showOAuthApps && <Tabs.Panel id="apps" label="OAuth Apps" />}
               </Tabs>
@@ -45,7 +51,13 @@ const OrgBillingSettings: NextPageWithLayout = () => {
           </div>
 
           <div className="mb-8">
-            <BillingSettings />
+            {isOrgBilling ? (
+              <BillingSettingsV2 />
+            ) : (
+              <div className="px-4">
+                <BillingSettings />
+              </div>
+            )}
           </div>
         </div>
       )}

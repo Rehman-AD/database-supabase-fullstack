@@ -1,5 +1,5 @@
 /*
- * Globlal Variables
+ * Globlal Variables with Figma Variables
  *
  */
 
@@ -1068,6 +1068,7 @@ export default {
       flex
       border-none
       rounded
+      text-light
       bg-transparent p-0
       outline-none
       outline-offset-1
@@ -1078,15 +1079,15 @@ export default {
     item_nested: `
       border-none
       focus:outline-none
-      focus:bg-scale-300 dark:focus:bg-scale-500
-      focus:text-scale-1200
-      data-open:bg-scale-300 dark:data-open:bg-scale-500
-      data-open:text-scale-1200
+      focus:bg-surface-overlay-hover
+      focus:text
+      data-open:bg-surface-overlay
+      data-open:text
     `,
     content: `
       z-40
-      bg
-      border
+      bg-surface-overlay
+      border-overlay
       rounded
       shadow-lg
       py-1.5
@@ -1094,6 +1095,7 @@ export default {
       data-open:animate-dropdown-content-show
       data-closed:animate-dropdown-content-hide
       min-w-fit
+      antialiased
     `,
     size: {
       tiny: `w-40`,
@@ -1110,18 +1112,19 @@ export default {
     item: `
       group
       relative
+      flex items-center space-x-2
       text-sm
-      text-body-light
-      px-4 py-1.5 flex items-center space-x-2
+      text-light
+      px-4 py-1.5
       cursor-pointer
-      focus:bg-selection
-      focus:text-body
+      focus:bg-surface-200
+      focus:text
       border-none
       focus:outline-none
     `,
     disabled: `opacity-50 cursor-default`,
     label: `
-      text-body-lighter
+      text-lighter
       px-4 flex items-center space-x-2 py-1.5
       text-xs
     `,
@@ -1136,14 +1139,14 @@ export default {
     check: `
       absolute left-3
       flex items-center
-      data-checked:text-scale-1200
+      data-checked:text
     `,
     input: `
       flex items-center space-x-0 pl-8 pr-4
     `,
     right_slot: `
-      text-scale-900
-      group-focus:text-scale-1000
+      text-lighter
+      group-focus:text-light
       absolute
       -translate-y-1/2
       right-2

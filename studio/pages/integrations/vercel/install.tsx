@@ -1,6 +1,6 @@
 import { useParams } from 'common'
 import { Markdown } from 'components/interfaces/Markdown'
-import IntegrationWindowLayout from 'components/layouts/IntegrationWindowLayout'
+import VercelIntegrationWindowLayout from 'components/layouts/IntegrationsLayout/VercelIntegrationWindowLayout'
 import { ScaffoldContainer, ScaffoldDivider } from 'components/layouts/Scaffold'
 import { useIntegrationsQuery } from 'data/integrations/integrations-query'
 import { IntegrationName } from 'data/integrations/integrations.types'
@@ -150,7 +150,7 @@ const VercelIntegration: NextPageWithLayout = () => {
     }
 
     /**
-     * Only install if instgration hasn't already been installed
+     * Only install if integration hasn't already been installed
      */
     if (!isIntegrationInstalled) {
       mutate({
@@ -228,7 +228,9 @@ const VercelIntegration: NextPageWithLayout = () => {
   )
 }
 
-VercelIntegration.getLayout = (page) => <IntegrationWindowLayout>{page}</IntegrationWindowLayout>
+VercelIntegration.getLayout = (page) => (
+  <VercelIntegrationWindowLayout>{page}</VercelIntegrationWindowLayout>
+)
 
 export interface OrganizationPickerProps {
   label?: string

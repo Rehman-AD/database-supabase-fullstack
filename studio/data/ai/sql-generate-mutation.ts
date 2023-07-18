@@ -1,5 +1,6 @@
 import { useMutation, UseMutationOptions, useQueryClient } from '@tanstack/react-query'
 import { post } from 'lib/common/fetch'
+import { ResponseFailure } from 'types'
 import { aiKeys } from './keys'
 
 export type SqlGenerateResponse = {
@@ -12,7 +13,10 @@ export type SqlGenerateVariables = {
 }
 
 export async function generateSql({ prompt }: SqlGenerateVariables) {
-  const response = await post<SqlGenerateResponse>('/api/ai/sql', { prompt })
+  const response = (await post<SqlGenerateResponse>('/api/ai/sql/generate', { prompt })) as
+    | SqlGenerateResponse
+    | ResponseFailure
+
   if ('error' in response) {
     throw response.error
   }

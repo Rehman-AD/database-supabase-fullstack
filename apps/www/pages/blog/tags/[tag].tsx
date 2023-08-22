@@ -1,5 +1,5 @@
 import { NextSeo } from 'next-seo'
-import { getSortedPosts, getAllCategories } from '~/lib/posts'
+import { getSortedPosts, getAllTags } from '~/lib/posts'
 import Link from 'next/link'
 
 import DefaultLayout from '~/components/Layouts/Default'
@@ -17,9 +17,9 @@ export async function getStaticProps({ params }: any) {
 }
 
 export async function getStaticPaths() {
-  const categories = getAllCategories('_blog')
+  const tags = getAllTags('_blog')
   return {
-    paths: categories.map((category: any) => ({ params: { tag: category } })),
+    paths: tags.map((tag: any) => ({ params: { tag: tag } })),
     fallback: false,
   }
 }

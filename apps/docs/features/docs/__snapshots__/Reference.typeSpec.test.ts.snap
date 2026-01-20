@@ -2291,7 +2291,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   },
                   "isOptional": true,
                   "comment": {
-                    "shortText": "Confirms the user's email address if set to true.\\n\\nOnly a service role can modify."
+                    "shortText": "Sets the user's email as confirmed when true, or unconfirmed when false.\\n\\nOnly a service role can modify."
                   }
                 },
                 {
@@ -2357,7 +2357,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   },
                   "isOptional": true,
                   "comment": {
-                    "shortText": "Confirms the user's phone number if set to true.\\n\\nOnly a service role can modify."
+                    "shortText": "Sets the user's phone as confirmed when true, or unconfirmed when false.\\n\\nOnly a service role can modify."
                   }
                 },
                 {
@@ -5788,7 +5788,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   },
                   "isOptional": true,
                   "comment": {
-                    "shortText": "Confirms the user's email address if set to true.\\n\\nOnly a service role can modify."
+                    "shortText": "Sets the user's email as confirmed when true, or unconfirmed when false.\\n\\nOnly a service role can modify."
                   }
                 },
                 {
@@ -5854,7 +5854,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   },
                   "isOptional": true,
                   "comment": {
-                    "shortText": "Confirms the user's phone number if set to true.\\n\\nOnly a service role can modify."
+                    "shortText": "Sets the user's phone as confirmed when true, or unconfirmed when false.\\n\\nOnly a service role can modify."
                   }
                 },
                 {
@@ -6452,7 +6452,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Updates the user data."
+          "shortText": "Updates the user data. Changes are applied directly without confirmation flows."
         }
       },
       "@supabase/supabase-js.GoTrueClient.constructor": {
@@ -43034,7 +43034,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   },
                   "isOptional": true,
                   "comment": {
-                    "shortText": "Confirms the user's email address if set to true.\\n\\nOnly a service role can modify."
+                    "shortText": "Sets the user's email as confirmed when true, or unconfirmed when false.\\n\\nOnly a service role can modify."
                   }
                 },
                 {
@@ -43100,7 +43100,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   },
                   "isOptional": true,
                   "comment": {
-                    "shortText": "Confirms the user's phone number if set to true.\\n\\nOnly a service role can modify."
+                    "shortText": "Sets the user's phone as confirmed when true, or unconfirmed when false.\\n\\nOnly a service role can modify."
                   }
                 },
                 {
@@ -46528,7 +46528,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   },
                   "isOptional": true,
                   "comment": {
-                    "shortText": "Confirms the user's email address if set to true.\\n\\nOnly a service role can modify."
+                    "shortText": "Sets the user's email as confirmed when true, or unconfirmed when false.\\n\\nOnly a service role can modify."
                   }
                 },
                 {
@@ -46594,7 +46594,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   },
                   "isOptional": true,
                   "comment": {
-                    "shortText": "Confirms the user's phone number if set to true.\\n\\nOnly a service role can modify."
+                    "shortText": "Sets the user's phone as confirmed when true, or unconfirmed when false.\\n\\nOnly a service role can modify."
                   }
                 },
                 {
@@ -47192,7 +47192,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Updates the user data."
+          "shortText": "Updates the user data. Changes are applied directly without confirmation flows."
         }
       },
       "@supabase/auth-js.GoTrueClient.constructor": {

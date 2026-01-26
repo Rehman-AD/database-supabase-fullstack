@@ -8432,7 +8432,19 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
       },
       "@supabase/supabase-js.GoTrueMFAApi.getAuthenticatorAssuranceLevel": {
         "name": "@supabase/supabase-js.GoTrueMFAApi.getAuthenticatorAssuranceLevel",
-        "params": [],
+        "params": [
+          {
+            "name": "jwt",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "isOptional": true,
+            "comment": {
+              "shortText": "Takes in an optional access token JWT. If no JWT is provided, the JWT from the current session is used."
+            }
+          }
+        ],
         "ret": {
           "type": {
             "type": "promise",
@@ -8593,7 +8605,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Returns the Authenticator Assurance Level (AAL) for the active session.\\n\\n- \`aal1\` (or \`null\`) means that the user's identity has been verified only\\nwith a conventional login (email+password, OTP, magic link, social login,\\netc.).\\n- \`aal2\` means that the user's identity has been verified both with a conventional login and at least one MFA factor.\\n\\nAlthough this method returns a promise, it's fairly quick (microseconds)\\nand rarely uses the network. You can use this to check whether the current\\nuser needs to be shown a screen to verify their MFA factors."
+          "shortText": "Returns the Authenticator Assurance Level (AAL) for the active session.\\n\\n- \`aal1\` (or \`null\`) means that the user's identity has been verified only\\nwith a conventional login (email+password, OTP, magic link, social login,\\netc.).\\n- \`aal2\` means that the user's identity has been verified both with a conventional login and at least one MFA factor.\\n\\nWhen called without a JWT parameter, this method is fairly quick (microseconds)\\nand rarely uses the network. When a JWT is provided (useful in server-side\\nenvironments like Edge Functions where no session is stored), this method\\nwill make a network request to validate the user and fetch their MFA factors."
         }
       },
       "@supabase/supabase-js.GoTrueMFAApi.listFactors": {
@@ -38208,6 +38220,129 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                 "name": "type",
                 "type": {
                   "type": "literal",
+                  "value": "postgres_changes"
+                }
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "name": "RealtimePostgresChangesFilter",
+                  "type": "object",
+                  "properties": [
+                    {
+                      "name": "event",
+                      "type": {
+                        "type": "union",
+                        "subTypes": [
+                          {
+                            "type": "literal",
+                            "value": "DELETE"
+                          },
+                          {
+                            "type": "literal",
+                            "value": "*"
+                          },
+                          {
+                            "type": "literal",
+                            "value": "INSERT"
+                          },
+                          {
+                            "type": "literal",
+                            "value": "UPDATE"
+                          }
+                        ]
+                      },
+                      "comment": {
+                        "shortText": "The type of database change to listen to."
+                      }
+                    },
+                    {
+                      "name": "filter",
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      },
+                      "isOptional": true,
+                      "comment": {
+                        "shortText": "Receive database changes when filter is matched."
+                      }
+                    },
+                    {
+                      "name": "schema",
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      },
+                      "comment": {
+                        "shortText": "The database schema to listen to."
+                      }
+                    },
+                    {
+                      "name": "table",
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      },
+                      "isOptional": true,
+                      "comment": {
+                        "shortText": "The database table to listen to."
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "callback",
+                "type": {
+                  "type": "function",
+                  "params": [
+                    {
+                      "name": "payload",
+                      "type": {
+                        "type": "union",
+                        "name": "RealtimePostgresChangesPayload",
+                        "subTypes": [
+                          {
+                            "type": "nameOnly",
+                            "name": "RealtimePostgresInsertPayload"
+                          },
+                          {
+                            "type": "nameOnly",
+                            "name": "RealtimePostgresUpdatePayload"
+                          },
+                          {
+                            "type": "nameOnly",
+                            "name": "RealtimePostgresDeletePayload"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "ret": {
+                    "type": {
+                      "type": "intrinsic",
+                      "name": "void"
+                    }
+                  }
+                }
+              }
+            ],
+            "ret": {
+              "type": {
+                "type": "nameOnly",
+                "name": "RealtimeChannel"
+              }
+            },
+            "comment": {
+              "shortText": "Creates an event handler that listens to changes."
+            }
+          },
+          {
+            "params": [
+              {
+                "name": "type",
+                "type": {
+                  "type": "literal",
                   "value": "broadcast"
                 },
                 "comment": {
@@ -49172,7 +49307,19 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
       },
       "@supabase/auth-js.GoTrueMFAApi.getAuthenticatorAssuranceLevel": {
         "name": "@supabase/auth-js.GoTrueMFAApi.getAuthenticatorAssuranceLevel",
-        "params": [],
+        "params": [
+          {
+            "name": "jwt",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "isOptional": true,
+            "comment": {
+              "shortText": "Takes in an optional access token JWT. If no JWT is provided, the JWT from the current session is used."
+            }
+          }
+        ],
         "ret": {
           "type": {
             "type": "promise",
@@ -49333,7 +49480,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Returns the Authenticator Assurance Level (AAL) for the active session.\\n\\n- \`aal1\` (or \`null\`) means that the user's identity has been verified only\\nwith a conventional login (email+password, OTP, magic link, social login,\\netc.).\\n- \`aal2\` means that the user's identity has been verified both with a conventional login and at least one MFA factor.\\n\\nAlthough this method returns a promise, it's fairly quick (microseconds)\\nand rarely uses the network. You can use this to check whether the current\\nuser needs to be shown a screen to verify their MFA factors."
+          "shortText": "Returns the Authenticator Assurance Level (AAL) for the active session.\\n\\n- \`aal1\` (or \`null\`) means that the user's identity has been verified only\\nwith a conventional login (email+password, OTP, magic link, social login,\\netc.).\\n- \`aal2\` means that the user's identity has been verified both with a conventional login and at least one MFA factor.\\n\\nWhen called without a JWT parameter, this method is fairly quick (microseconds)\\nand rarely uses the network. When a JWT is provided (useful in server-side\\nenvironments like Edge Functions where no session is stored), this method\\nwill make a network request to validate the user and fetch their MFA factors."
         }
       },
       "@supabase/auth-js.GoTrueMFAApi.listFactors": {
@@ -80736,6 +80883,129 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                 "name": "type",
                 "type": {
                   "type": "literal",
+                  "value": "postgres_changes"
+                }
+              },
+              {
+                "name": "filter",
+                "type": {
+                  "name": "RealtimePostgresChangesFilter",
+                  "type": "object",
+                  "properties": [
+                    {
+                      "name": "event",
+                      "type": {
+                        "type": "union",
+                        "subTypes": [
+                          {
+                            "type": "literal",
+                            "value": "INSERT"
+                          },
+                          {
+                            "type": "literal",
+                            "value": "UPDATE"
+                          },
+                          {
+                            "type": "literal",
+                            "value": "DELETE"
+                          },
+                          {
+                            "type": "literal",
+                            "value": "*"
+                          }
+                        ]
+                      },
+                      "comment": {
+                        "shortText": "The type of database change to listen to."
+                      }
+                    },
+                    {
+                      "name": "filter",
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      },
+                      "isOptional": true,
+                      "comment": {
+                        "shortText": "Receive database changes when filter is matched."
+                      }
+                    },
+                    {
+                      "name": "schema",
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      },
+                      "comment": {
+                        "shortText": "The database schema to listen to."
+                      }
+                    },
+                    {
+                      "name": "table",
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      },
+                      "isOptional": true,
+                      "comment": {
+                        "shortText": "The database table to listen to."
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "callback",
+                "type": {
+                  "type": "function",
+                  "params": [
+                    {
+                      "name": "payload",
+                      "type": {
+                        "type": "union",
+                        "name": "RealtimePostgresChangesPayload",
+                        "subTypes": [
+                          {
+                            "type": "nameOnly",
+                            "name": "RealtimePostgresInsertPayload"
+                          },
+                          {
+                            "type": "nameOnly",
+                            "name": "RealtimePostgresUpdatePayload"
+                          },
+                          {
+                            "type": "nameOnly",
+                            "name": "RealtimePostgresDeletePayload"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "ret": {
+                    "type": {
+                      "type": "intrinsic",
+                      "name": "void"
+                    }
+                  }
+                }
+              }
+            ],
+            "ret": {
+              "type": {
+                "type": "nameOnly",
+                "name": "RealtimeChannel"
+              }
+            },
+            "comment": {
+              "shortText": "Creates an event handler that listens to changes."
+            }
+          },
+          {
+            "params": [
+              {
+                "name": "type",
+                "type": {
+                  "type": "literal",
                   "value": "broadcast"
                 },
                 "comment": {
@@ -82495,6 +82765,23 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               "type": "intrinsic",
               "name": "string"
             }
+          },
+          {
+            "name": "namespace",
+            "type": {
+              "type": "union",
+              "name": "ErrorNamespace",
+              "subTypes": [
+                {
+                  "type": "literal",
+                  "value": "storage"
+                },
+                {
+                  "type": "literal",
+                  "value": "vectors"
+                }
+              ]
+            }
           }
         ],
         "ret": {
@@ -83401,7 +83688,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Enable throwing errors instead of returning them."
+          "shortText": "Enable throwing errors instead of returning them.\\nWhen enabled, errors are thrown instead of returned in { data, error } format."
         }
       },
       "@supabase/storage-js.StorageClient.updateBucket": {
@@ -83561,6 +83848,39 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               "type": "intrinsic",
               "name": "string"
             }
+          },
+          {
+            "name": "namespace",
+            "type": {
+              "type": "union",
+              "name": "ErrorNamespace",
+              "subTypes": [
+                {
+                  "type": "literal",
+                  "value": "storage"
+                },
+                {
+                  "type": "literal",
+                  "value": "vectors"
+                }
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "type": {
+              "type": "intrinsic",
+              "name": "number"
+            },
+            "isOptional": true
+          },
+          {
+            "name": "statusCode",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "isOptional": true
           }
         ],
         "ret": {
@@ -83585,6 +83905,23 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
             "type": {
               "type": "intrinsic",
               "name": "unknown"
+            }
+          },
+          {
+            "name": "namespace",
+            "type": {
+              "type": "union",
+              "name": "ErrorNamespace",
+              "subTypes": [
+                {
+                  "type": "literal",
+                  "value": "storage"
+                },
+                {
+                  "type": "literal",
+                  "value": "vectors"
+                }
+              ]
             }
           }
         ],
@@ -83666,702 +84003,6 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         }
       },
-      "@supabase/storage-js.StorageVectorsClient.constructor": {
-        "name": "@supabase/storage-js.StorageVectorsClient.constructor",
-        "params": [
-          {
-            "name": "url",
-            "type": {
-              "type": "intrinsic",
-              "name": "string"
-            },
-            "comment": {
-              "shortText": "Base URL of the Storage Vectors REST API."
-            }
-          },
-          {
-            "name": "options",
-            "type": {
-              "type": "object",
-              "name": "StorageVectorsClientOptions",
-              "properties": [
-                {
-                  "name": "fetch",
-                  "type": {
-                    "type": "function",
-                    "params": [
-                      {
-                        "name": "input",
-                        "type": {
-                          "type": "union",
-                          "subTypes": [
-                            {
-                              "type": "nameOnly",
-                              "name": "RequestInfo"
-                            },
-                            {
-                              "type": "nameOnly",
-                              "name": "URL"
-                            }
-                          ]
-                        }
-                      },
-                      {
-                        "name": "init",
-                        "type": {
-                          "type": "nameOnly",
-                          "name": "RequestInit"
-                        },
-                        "isOptional": true
-                      }
-                    ],
-                    "ret": {
-                      "type": {
-                        "type": "promise",
-                        "name": "Promise",
-                        "awaited": {
-                          "type": "nameOnly",
-                          "name": "Response"
-                        }
-                      }
-                    },
-                    "comment": {
-                      "shortText": "[MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/fetch)"
-                    }
-                  },
-                  "isOptional": true,
-                  "comment": {
-                    "shortText": "Custom fetch implementation (optional)\\nUseful for testing or custom request handling",
-                    "tags": [
-                      {
-                        "tag": "alpha",
-                        "text": ""
-                      }
-                    ]
-                  }
-                },
-                {
-                  "name": "headers",
-                  "type": {
-                    "type": "index signature",
-                    "keyType": {
-                      "type": "intrinsic",
-                      "name": "string"
-                    },
-                    "valueType": {
-                      "type": "intrinsic",
-                      "name": "string"
-                    }
-                  },
-                  "isOptional": true,
-                  "comment": {
-                    "shortText": "Custom headers to include in all requests",
-                    "tags": [
-                      {
-                        "tag": "alpha",
-                        "text": ""
-                      }
-                    ]
-                  }
-                }
-              ]
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "nameOnly",
-            "name": "StorageVectorsClient"
-          }
-        },
-        "comment": {
-          "shortText": "Creates a StorageVectorsClient that can manage buckets, indexes, and vectors.\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst client = new StorageVectorsClient(url, options)\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.StorageVectorsClient.createBucket": {
-        "name": "@supabase/storage-js.StorageVectorsClient.createBucket",
-        "params": [
-          {
-            "name": "vectorBucketName",
-            "type": {
-              "type": "intrinsic",
-              "name": "string"
-            },
-            "comment": {
-              "shortText": "Unique name for the vector bucket"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "promise",
-            "name": "Promise",
-            "awaited": {
-              "type": "union",
-              "name": "ApiResponse",
-              "subTypes": [
-                {
-                  "type": "object",
-                  "name": "SuccessResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "undefined"
-                      },
-                      "comment": {
-                        "shortText": "Response data of type T"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on success"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "object",
-                  "name": "ErrorResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on error"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "StorageVectorsError"
-                      },
-                      "comment": {
-                        "shortText": "StorageVectorsError with details"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "comment": {
-          "shortText": "Creates a new vector bucket\\nVector buckets are containers for vector indexes and their data\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst { data, error } = await supabase\\n  .storage\\n  .vectors\\n  .createBucket('embeddings-prod')\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.StorageVectorsClient.deleteBucket": {
-        "name": "@supabase/storage-js.StorageVectorsClient.deleteBucket",
-        "params": [
-          {
-            "name": "vectorBucketName",
-            "type": {
-              "type": "intrinsic",
-              "name": "string"
-            },
-            "comment": {
-              "shortText": "Name of the vector bucket to delete"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "promise",
-            "name": "Promise",
-            "awaited": {
-              "type": "union",
-              "name": "ApiResponse",
-              "subTypes": [
-                {
-                  "type": "object",
-                  "name": "SuccessResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "undefined"
-                      },
-                      "comment": {
-                        "shortText": "Response data of type T"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on success"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "object",
-                  "name": "ErrorResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on error"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "StorageVectorsError"
-                      },
-                      "comment": {
-                        "shortText": "StorageVectorsError with details"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "comment": {
-          "shortText": "Deletes a vector bucket (bucket must be empty)\\nAll indexes must be deleted before deleting the bucket\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst { data, error } = await supabase\\n  .storage\\n  .vectors\\n  .deleteBucket('embeddings-old')\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.StorageVectorsClient.from": {
-        "name": "@supabase/storage-js.StorageVectorsClient.from",
-        "params": [
-          {
-            "name": "vectorBucketName",
-            "type": {
-              "type": "intrinsic",
-              "name": "string"
-            },
-            "comment": {
-              "shortText": "Name of the vector bucket"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "nameOnly",
-            "name": "VectorBucketScope"
-          }
-        },
-        "comment": {
-          "shortText": "Access operations for a specific vector bucket\\nReturns a scoped client for index and vector operations within the bucket\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst bucket = supabase.storage.vectors.from('embeddings-prod')\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.StorageVectorsClient.getBucket": {
-        "name": "@supabase/storage-js.StorageVectorsClient.getBucket",
-        "params": [
-          {
-            "name": "vectorBucketName",
-            "type": {
-              "type": "intrinsic",
-              "name": "string"
-            },
-            "comment": {
-              "shortText": "Name of the vector bucket"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "promise",
-            "name": "Promise",
-            "awaited": {
-              "type": "union",
-              "name": "ApiResponse",
-              "subTypes": [
-                {
-                  "type": "object",
-                  "name": "SuccessResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "object",
-                        "properties": [
-                          {
-                            "name": "vectorBucket",
-                            "type": {
-                              "type": "object",
-                              "name": "VectorBucket",
-                              "properties": [
-                                {
-                                  "name": "creationTime",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "number"
-                                  },
-                                  "isOptional": true,
-                                  "comment": {
-                                    "shortText": "Unix timestamp of when the bucket was created"
-                                  }
-                                },
-                                {
-                                  "name": "encryptionConfiguration",
-                                  "type": {
-                                    "type": "object",
-                                    "name": "EncryptionConfiguration",
-                                    "properties": [
-                                      {
-                                        "name": "kmsKeyArn",
-                                        "type": {
-                                          "type": "intrinsic",
-                                          "name": "string"
-                                        },
-                                        "isOptional": true,
-                                        "comment": {
-                                          "shortText": "ARN of the KMS key used for encryption"
-                                        }
-                                      },
-                                      {
-                                        "name": "sseType",
-                                        "type": {
-                                          "type": "intrinsic",
-                                          "name": "string"
-                                        },
-                                        "isOptional": true,
-                                        "comment": {
-                                          "shortText": "Server-side encryption type (e.g., 'KMS')"
-                                        }
-                                      }
-                                    ]
-                                  },
-                                  "isOptional": true,
-                                  "comment": {
-                                    "shortText": "Optional encryption settings"
-                                  }
-                                },
-                                {
-                                  "name": "vectorBucketName",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "Unique name of the vector bucket"
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        ]
-                      },
-                      "comment": {
-                        "shortText": "Response data of type T"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on success"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "object",
-                  "name": "ErrorResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on error"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "StorageVectorsError"
-                      },
-                      "comment": {
-                        "shortText": "StorageVectorsError with details"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "comment": {
-          "shortText": "Retrieves metadata for a specific vector bucket\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst { data, error } = await supabase\\n  .storage\\n  .vectors\\n  .getBucket('embeddings-prod')\\n\\nconsole.log('Bucket created:', data?.vectorBucket.creationTime)\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.StorageVectorsClient.listBuckets": {
-        "name": "@supabase/storage-js.StorageVectorsClient.listBuckets",
-        "params": [
-          {
-            "name": "options",
-            "type": {
-              "type": "object",
-              "name": "ListVectorBucketsOptions",
-              "properties": [
-                {
-                  "name": "maxResults",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "number"
-                  },
-                  "isOptional": true,
-                  "comment": {
-                    "shortText": "Maximum number of results to return (default: 100)"
-                  }
-                },
-                {
-                  "name": "nextToken",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "isOptional": true,
-                  "comment": {
-                    "shortText": "Token for pagination from previous response"
-                  }
-                },
-                {
-                  "name": "prefix",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "isOptional": true,
-                  "comment": {
-                    "shortText": "Filter buckets by name prefix"
-                  }
-                }
-              ]
-            },
-            "comment": {
-              "shortText": "Optional filters (prefix, maxResults, nextToken)"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "promise",
-            "name": "Promise",
-            "awaited": {
-              "type": "union",
-              "name": "ApiResponse",
-              "subTypes": [
-                {
-                  "type": "object",
-                  "name": "SuccessResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "object",
-                        "name": "ListVectorBucketsResponse",
-                        "properties": [
-                          {
-                            "name": "nextToken",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "string"
-                            },
-                            "isOptional": true,
-                            "comment": {
-                              "shortText": "Token for fetching next page (if more results exist)"
-                            }
-                          },
-                          {
-                            "name": "vectorBuckets",
-                            "type": {
-                              "type": "array",
-                              "elemType": {
-                                "type": "object",
-                                "properties": [
-                                  {
-                                    "name": "vectorBucketName",
-                                    "type": {
-                                      "type": "intrinsic",
-                                      "name": "string"
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            "comment": {
-                              "shortText": "Array of bucket names"
-                            }
-                          }
-                        ]
-                      },
-                      "comment": {
-                        "shortText": "Response data of type T"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on success"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "object",
-                  "name": "ErrorResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on error"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "StorageVectorsError"
-                      },
-                      "comment": {
-                        "shortText": "StorageVectorsError with details"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "comment": {
-          "shortText": "Lists all vector buckets with optional filtering and pagination\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst { data, error } = await supabase\\n  .storage\\n  .vectors\\n  .listBuckets({ prefix: 'embeddings-' })\\n\\ndata?.vectorBuckets.forEach(bucket => {\\n  console.log(bucket.vectorBucketName)\\n})\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.StorageVectorsClient.throwOnError": {
-        "name": "@supabase/storage-js.StorageVectorsClient.throwOnError",
-        "params": [],
-        "ret": {
-          "type": {
-            "type": "intrinsic",
-            "name": "this"
-          }
-        },
-        "comment": {
-          "shortText": "Enable throwing errors instead of returning them in the response",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ]
-        }
-      },
       "@supabase/storage-js.StorageVectorsError.constructor": {
         "name": "@supabase/storage-js.StorageVectorsError.constructor",
         "params": [
@@ -84403,1576 +84044,6 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
             "type": "nameOnly",
             "name": "StorageVectorsUnknownError"
           }
-        }
-      },
-      "@supabase/storage-js.VectorBucketScope.constructor": {
-        "name": "@supabase/storage-js.VectorBucketScope.constructor",
-        "params": [
-          {
-            "name": "url",
-            "type": {
-              "type": "intrinsic",
-              "name": "string"
-            }
-          },
-          {
-            "name": "headers",
-            "type": {
-              "type": "index signature",
-              "keyType": {
-                "type": "intrinsic",
-                "name": "string"
-              },
-              "valueType": {
-                "type": "intrinsic",
-                "name": "string"
-              }
-            }
-          },
-          {
-            "name": "vectorBucketName",
-            "type": {
-              "type": "intrinsic",
-              "name": "string"
-            }
-          },
-          {
-            "name": "fetch",
-            "type": {
-              "type": "function",
-              "params": [
-                {
-                  "name": "input",
-                  "type": {
-                    "type": "union",
-                    "subTypes": [
-                      {
-                        "type": "nameOnly",
-                        "name": "RequestInfo"
-                      },
-                      {
-                        "type": "nameOnly",
-                        "name": "URL"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "name": "init",
-                  "type": {
-                    "type": "nameOnly",
-                    "name": "RequestInit"
-                  },
-                  "isOptional": true
-                }
-              ],
-              "ret": {
-                "type": {
-                  "type": "promise",
-                  "name": "Promise",
-                  "awaited": {
-                    "type": "nameOnly",
-                    "name": "Response"
-                  }
-                }
-              },
-              "comment": {
-                "shortText": "[MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/fetch)"
-              }
-            },
-            "isOptional": true
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "nameOnly",
-            "name": "VectorBucketScope"
-          }
-        },
-        "comment": {
-          "shortText": "Creates a helper that automatically scopes all index operations to the provided bucket.\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst bucket = supabase.storage.vectors.from('embeddings-prod')\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.VectorBucketScope.createIndex": {
-        "name": "@supabase/storage-js.VectorBucketScope.createIndex",
-        "params": [
-          {
-            "name": "options",
-            "type": {
-              "type": "nameOnly",
-              "name": "Omit"
-            },
-            "comment": {
-              "shortText": "Index configuration (vectorBucketName is automatically set)"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "promise",
-            "name": "Promise",
-            "awaited": {
-              "type": "union",
-              "name": "ApiResponse",
-              "subTypes": [
-                {
-                  "type": "object",
-                  "name": "SuccessResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "undefined"
-                      },
-                      "comment": {
-                        "shortText": "Response data of type T"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on success"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "object",
-                  "name": "ErrorResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on error"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "StorageVectorsError"
-                      },
-                      "comment": {
-                        "shortText": "StorageVectorsError with details"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "comment": {
-          "shortText": "Creates a new vector index in this bucket\\nConvenience method that automatically includes the bucket name\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst bucket = supabase.storage.vectors.from('embeddings-prod')\\nawait bucket.createIndex({\\n  indexName: 'documents-openai',\\n  dataType: 'float32',\\n  dimension: 1536,\\n  distanceMetric: 'cosine',\\n  metadataConfiguration: {\\n    nonFilterableMetadataKeys: ['raw_text']\\n  }\\n})\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.VectorBucketScope.deleteIndex": {
-        "name": "@supabase/storage-js.VectorBucketScope.deleteIndex",
-        "params": [
-          {
-            "name": "indexName",
-            "type": {
-              "type": "intrinsic",
-              "name": "string"
-            },
-            "comment": {
-              "shortText": "Name of the index to delete"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "promise",
-            "name": "Promise",
-            "awaited": {
-              "type": "union",
-              "name": "ApiResponse",
-              "subTypes": [
-                {
-                  "type": "object",
-                  "name": "SuccessResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "undefined"
-                      },
-                      "comment": {
-                        "shortText": "Response data of type T"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on success"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "object",
-                  "name": "ErrorResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on error"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "StorageVectorsError"
-                      },
-                      "comment": {
-                        "shortText": "StorageVectorsError with details"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "comment": {
-          "shortText": "Deletes an index from this bucket\\nConvenience method that automatically includes the bucket name\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst bucket = supabase.storage.vectors.from('embeddings-prod')\\nawait bucket.deleteIndex('old-index')\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.VectorBucketScope.getIndex": {
-        "name": "@supabase/storage-js.VectorBucketScope.getIndex",
-        "params": [
-          {
-            "name": "indexName",
-            "type": {
-              "type": "intrinsic",
-              "name": "string"
-            },
-            "comment": {
-              "shortText": "Name of the index to retrieve"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "promise",
-            "name": "Promise",
-            "awaited": {
-              "type": "union",
-              "name": "ApiResponse",
-              "subTypes": [
-                {
-                  "type": "object",
-                  "name": "SuccessResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "object",
-                        "properties": [
-                          {
-                            "name": "index",
-                            "type": {
-                              "type": "object",
-                              "name": "VectorIndex",
-                              "properties": [
-                                {
-                                  "name": "creationTime",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "number"
-                                  },
-                                  "isOptional": true,
-                                  "comment": {
-                                    "shortText": "Unix timestamp of when the index was created"
-                                  }
-                                },
-                                {
-                                  "name": "dataType",
-                                  "type": {
-                                    "type": "literal",
-                                    "value": "float32"
-                                  },
-                                  "comment": {
-                                    "shortText": "Data type of vector components (currently only 'float32')"
-                                  }
-                                },
-                                {
-                                  "name": "dimension",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "number"
-                                  },
-                                  "comment": {
-                                    "shortText": "Dimensionality of vectors (e.g., 384, 768, 1536)"
-                                  }
-                                },
-                                {
-                                  "name": "distanceMetric",
-                                  "type": {
-                                    "type": "union",
-                                    "name": "DistanceMetric",
-                                    "subTypes": [
-                                      {
-                                        "type": "literal",
-                                        "value": "cosine"
-                                      },
-                                      {
-                                        "type": "literal",
-                                        "value": "euclidean"
-                                      },
-                                      {
-                                        "type": "literal",
-                                        "value": "dotproduct"
-                                      }
-                                    ]
-                                  },
-                                  "comment": {
-                                    "shortText": "Similarity metric used for queries"
-                                  }
-                                },
-                                {
-                                  "name": "indexName",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "Unique name of the index within the bucket"
-                                  }
-                                },
-                                {
-                                  "name": "metadataConfiguration",
-                                  "type": {
-                                    "type": "object",
-                                    "name": "MetadataConfiguration",
-                                    "properties": [
-                                      {
-                                        "name": "nonFilterableMetadataKeys",
-                                        "type": {
-                                          "type": "array",
-                                          "elemType": {
-                                            "type": "intrinsic",
-                                            "name": "string"
-                                          }
-                                        },
-                                        "isOptional": true,
-                                        "comment": {
-                                          "shortText": "Array of metadata keys that cannot be used in filters"
-                                        }
-                                      }
-                                    ]
-                                  },
-                                  "isOptional": true,
-                                  "comment": {
-                                    "shortText": "Configuration for metadata filtering"
-                                  }
-                                },
-                                {
-                                  "name": "vectorBucketName",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "Name of the parent vector bucket"
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        ]
-                      },
-                      "comment": {
-                        "shortText": "Response data of type T"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on success"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "object",
-                  "name": "ErrorResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on error"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "StorageVectorsError"
-                      },
-                      "comment": {
-                        "shortText": "StorageVectorsError with details"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "comment": {
-          "shortText": "Retrieves metadata for a specific index in this bucket\\nConvenience method that automatically includes the bucket name\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst bucket = supabase.storage.vectors.from('embeddings-prod')\\nconst { data } = await bucket.getIndex('documents-openai')\\nconsole.log('Dimension:', data?.index.dimension)\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.VectorBucketScope": {
-        "name": "@supabase/storage-js.VectorBucketScope",
-        "params": [
-          {
-            "name": "indexName",
-            "type": {
-              "type": "intrinsic",
-              "name": "string"
-            },
-            "comment": {
-              "shortText": "Name of the index"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "nameOnly",
-            "name": "VectorIndexScope"
-          }
-        },
-        "comment": {
-          "shortText": "Access operations for a specific index within this bucket\\nReturns a scoped client for vector data operations\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\n\\n// Insert vectors\\nawait index.putVectors({\\n  vectors: [\\n    { key: 'doc-1', data: { float32: [...] }, metadata: { title: 'Intro' } }\\n  ]\\n})\\n\\n// Query similar vectors\\nconst { data } = await index.queryVectors({\\n  queryVector: { float32: [...] },\\n  topK: 5\\n})\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.VectorBucketScope.listIndexes": {
-        "name": "@supabase/storage-js.VectorBucketScope.listIndexes",
-        "params": [
-          {
-            "name": "options",
-            "type": {
-              "type": "nameOnly",
-              "name": "Omit"
-            },
-            "comment": {
-              "shortText": "Listing options (vectorBucketName is automatically set)"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "promise",
-            "name": "Promise",
-            "awaited": {
-              "type": "union",
-              "name": "ApiResponse",
-              "subTypes": [
-                {
-                  "type": "object",
-                  "name": "SuccessResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "object",
-                        "name": "ListIndexesResponse",
-                        "properties": [
-                          {
-                            "name": "indexes",
-                            "type": {
-                              "type": "array",
-                              "elemType": {
-                                "type": "object",
-                                "properties": [
-                                  {
-                                    "name": "indexName",
-                                    "type": {
-                                      "type": "intrinsic",
-                                      "name": "string"
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            "comment": {
-                              "shortText": "Array of index names"
-                            }
-                          },
-                          {
-                            "name": "nextToken",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "string"
-                            },
-                            "isOptional": true,
-                            "comment": {
-                              "shortText": "Token for fetching next page (if more results exist)"
-                            }
-                          }
-                        ]
-                      },
-                      "comment": {
-                        "shortText": "Response data of type T"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on success"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "object",
-                  "name": "ErrorResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on error"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "StorageVectorsError"
-                      },
-                      "comment": {
-                        "shortText": "StorageVectorsError with details"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "comment": {
-          "shortText": "Lists indexes in this bucket\\nConvenience method that automatically includes the bucket name\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst bucket = supabase.storage.vectors.from('embeddings-prod')\\nconst { data } = await bucket.listIndexes({ prefix: 'documents-' })\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.VectorBucketScope.throwOnError": {
-        "name": "@supabase/storage-js.VectorBucketScope.throwOnError",
-        "params": [],
-        "ret": {
-          "type": {
-            "type": "intrinsic",
-            "name": "this"
-          }
-        },
-        "comment": {
-          "shortText": "Enable throwing errors instead of returning them in the response",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.VectorIndexScope.constructor": {
-        "name": "@supabase/storage-js.VectorIndexScope.constructor",
-        "params": [
-          {
-            "name": "url",
-            "type": {
-              "type": "intrinsic",
-              "name": "string"
-            }
-          },
-          {
-            "name": "headers",
-            "type": {
-              "type": "index signature",
-              "keyType": {
-                "type": "intrinsic",
-                "name": "string"
-              },
-              "valueType": {
-                "type": "intrinsic",
-                "name": "string"
-              }
-            }
-          },
-          {
-            "name": "vectorBucketName",
-            "type": {
-              "type": "intrinsic",
-              "name": "string"
-            }
-          },
-          {
-            "name": "indexName",
-            "type": {
-              "type": "intrinsic",
-              "name": "string"
-            }
-          },
-          {
-            "name": "fetch",
-            "type": {
-              "type": "function",
-              "params": [
-                {
-                  "name": "input",
-                  "type": {
-                    "type": "union",
-                    "subTypes": [
-                      {
-                        "type": "nameOnly",
-                        "name": "RequestInfo"
-                      },
-                      {
-                        "type": "nameOnly",
-                        "name": "URL"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "name": "init",
-                  "type": {
-                    "type": "nameOnly",
-                    "name": "RequestInit"
-                  },
-                  "isOptional": true
-                }
-              ],
-              "ret": {
-                "type": {
-                  "type": "promise",
-                  "name": "Promise",
-                  "awaited": {
-                    "type": "nameOnly",
-                    "name": "Response"
-                  }
-                }
-              },
-              "comment": {
-                "shortText": "[MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/fetch)"
-              }
-            },
-            "isOptional": true
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "nameOnly",
-            "name": "VectorIndexScope"
-          }
-        },
-        "comment": {
-          "shortText": "Creates a helper that automatically scopes all vector operations to the provided bucket/index names.\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.VectorIndexScope.deleteVectors": {
-        "name": "@supabase/storage-js.VectorIndexScope.deleteVectors",
-        "params": [
-          {
-            "name": "options",
-            "type": {
-              "type": "nameOnly",
-              "name": "Omit"
-            },
-            "comment": {
-              "shortText": "Deletion options (bucket and index names automatically set)"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "promise",
-            "name": "Promise",
-            "awaited": {
-              "type": "union",
-              "name": "ApiResponse",
-              "subTypes": [
-                {
-                  "type": "object",
-                  "name": "SuccessResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "undefined"
-                      },
-                      "comment": {
-                        "shortText": "Response data of type T"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on success"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "object",
-                  "name": "ErrorResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on error"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "StorageVectorsError"
-                      },
-                      "comment": {
-                        "shortText": "StorageVectorsError with details"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "comment": {
-          "shortText": "Deletes vectors by keys from this index\\nConvenience method that automatically includes bucket and index names\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\nawait index.deleteVectors({\\n  keys: ['doc-1', 'doc-2', 'doc-3']\\n})\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.VectorIndexScope.getVectors": {
-        "name": "@supabase/storage-js.VectorIndexScope.getVectors",
-        "params": [
-          {
-            "name": "options",
-            "type": {
-              "type": "nameOnly",
-              "name": "Omit"
-            },
-            "comment": {
-              "shortText": "Vector retrieval options (bucket and index names automatically set)"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "promise",
-            "name": "Promise",
-            "awaited": {
-              "type": "union",
-              "name": "ApiResponse",
-              "subTypes": [
-                {
-                  "type": "object",
-                  "name": "SuccessResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "object",
-                        "name": "GetVectorsResponse",
-                        "properties": [
-                          {
-                            "name": "vectors",
-                            "type": {
-                              "type": "array",
-                              "elemType": {
-                                "type": "object",
-                                "name": "VectorMatch",
-                                "properties": [
-                                  {
-                                    "name": "data",
-                                    "type": {
-                                      "type": "object",
-                                      "name": "VectorData",
-                                      "properties": [
-                                        {
-                                          "name": "float32",
-                                          "type": {
-                                            "type": "array",
-                                            "elemType": {
-                                              "type": "intrinsic",
-                                              "name": "number"
-                                            }
-                                          },
-                                          "comment": {
-                                            "shortText": "Array of 32-bit floating point numbers"
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    "isOptional": true,
-                                    "comment": {
-                                      "shortText": "Vector embedding data (if requested)"
-                                    }
-                                  },
-                                  {
-                                    "name": "distance",
-                                    "type": {
-                                      "type": "intrinsic",
-                                      "name": "number"
-                                    },
-                                    "isOptional": true,
-                                    "comment": {
-                                      "shortText": "Similarity distance from query vector (if requested)"
-                                    }
-                                  },
-                                  {
-                                    "name": "key",
-                                    "type": {
-                                      "type": "intrinsic",
-                                      "name": "string"
-                                    },
-                                    "comment": {
-                                      "shortText": "Unique identifier for the vector"
-                                    }
-                                  },
-                                  {
-                                    "name": "metadata",
-                                    "type": {
-                                      "type": "record",
-                                      "name": "VectorMetadata",
-                                      "keyType": {
-                                        "type": "intrinsic",
-                                        "name": "string"
-                                      },
-                                      "valueType": {
-                                        "type": "intrinsic",
-                                        "name": "any"
-                                      }
-                                    },
-                                    "isOptional": true,
-                                    "comment": {
-                                      "shortText": "Arbitrary metadata (if requested)"
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            "comment": {
-                              "shortText": "Array of retrieved vector objects"
-                            }
-                          }
-                        ]
-                      },
-                      "comment": {
-                        "shortText": "Response data of type T"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on success"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "object",
-                  "name": "ErrorResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on error"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "StorageVectorsError"
-                      },
-                      "comment": {
-                        "shortText": "StorageVectorsError with details"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "comment": {
-          "shortText": "Retrieves vectors by keys from this index\\nConvenience method that automatically includes bucket and index names\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\nconst { data } = await index.getVectors({\\n  keys: ['doc-1', 'doc-2'],\\n  returnMetadata: true\\n})\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.VectorIndexScope.listVectors": {
-        "name": "@supabase/storage-js.VectorIndexScope.listVectors",
-        "params": [
-          {
-            "name": "options",
-            "type": {
-              "type": "nameOnly",
-              "name": "Omit"
-            },
-            "comment": {
-              "shortText": "Listing options (bucket and index names automatically set)"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "promise",
-            "name": "Promise",
-            "awaited": {
-              "type": "union",
-              "name": "ApiResponse",
-              "subTypes": [
-                {
-                  "type": "object",
-                  "name": "SuccessResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "object",
-                        "name": "ListVectorsResponse",
-                        "properties": [
-                          {
-                            "name": "nextToken",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "string"
-                            },
-                            "isOptional": true,
-                            "comment": {
-                              "shortText": "Token for fetching next page (if more results exist)"
-                            }
-                          },
-                          {
-                            "name": "vectors",
-                            "type": {
-                              "type": "array",
-                              "elemType": {
-                                "type": "object",
-                                "name": "VectorMatch",
-                                "properties": [
-                                  {
-                                    "name": "data",
-                                    "type": {
-                                      "type": "object",
-                                      "name": "VectorData",
-                                      "properties": [
-                                        {
-                                          "name": "float32",
-                                          "type": {
-                                            "type": "array",
-                                            "elemType": {
-                                              "type": "intrinsic",
-                                              "name": "number"
-                                            }
-                                          },
-                                          "comment": {
-                                            "shortText": "Array of 32-bit floating point numbers"
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    "isOptional": true,
-                                    "comment": {
-                                      "shortText": "Vector embedding data (if requested)"
-                                    }
-                                  },
-                                  {
-                                    "name": "distance",
-                                    "type": {
-                                      "type": "intrinsic",
-                                      "name": "number"
-                                    },
-                                    "isOptional": true,
-                                    "comment": {
-                                      "shortText": "Similarity distance from query vector (if requested)"
-                                    }
-                                  },
-                                  {
-                                    "name": "key",
-                                    "type": {
-                                      "type": "intrinsic",
-                                      "name": "string"
-                                    },
-                                    "comment": {
-                                      "shortText": "Unique identifier for the vector"
-                                    }
-                                  },
-                                  {
-                                    "name": "metadata",
-                                    "type": {
-                                      "type": "record",
-                                      "name": "VectorMetadata",
-                                      "keyType": {
-                                        "type": "intrinsic",
-                                        "name": "string"
-                                      },
-                                      "valueType": {
-                                        "type": "intrinsic",
-                                        "name": "any"
-                                      }
-                                    },
-                                    "isOptional": true,
-                                    "comment": {
-                                      "shortText": "Arbitrary metadata (if requested)"
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            "comment": {
-                              "shortText": "Array of vector objects"
-                            }
-                          }
-                        ]
-                      },
-                      "comment": {
-                        "shortText": "Response data of type T"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on success"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "object",
-                  "name": "ErrorResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on error"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "StorageVectorsError"
-                      },
-                      "comment": {
-                        "shortText": "StorageVectorsError with details"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "comment": {
-          "shortText": "Lists vectors in this index with pagination\\nConvenience method that automatically includes bucket and index names\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\nconst { data } = await index.listVectors({\\n  maxResults: 500,\\n  returnMetadata: true\\n})\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.VectorIndexScope.putVectors": {
-        "name": "@supabase/storage-js.VectorIndexScope.putVectors",
-        "params": [
-          {
-            "name": "options",
-            "type": {
-              "type": "nameOnly",
-              "name": "Omit"
-            },
-            "comment": {
-              "shortText": "Vector insertion options (bucket and index names automatically set)"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "promise",
-            "name": "Promise",
-            "awaited": {
-              "type": "union",
-              "name": "ApiResponse",
-              "subTypes": [
-                {
-                  "type": "object",
-                  "name": "SuccessResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "undefined"
-                      },
-                      "comment": {
-                        "shortText": "Response data of type T"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on success"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "object",
-                  "name": "ErrorResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on error"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "StorageVectorsError"
-                      },
-                      "comment": {
-                        "shortText": "StorageVectorsError with details"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "comment": {
-          "shortText": "Inserts or updates vectors in this index\\nConvenience method that automatically includes bucket and index names\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\nawait index.putVectors({\\n  vectors: [\\n    {\\n      key: 'doc-1',\\n      data: { float32: [0.1, 0.2, ...] },\\n      metadata: { title: 'Introduction', page: 1 }\\n    }\\n  ]\\n})\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.VectorIndexScope.queryVectors": {
-        "name": "@supabase/storage-js.VectorIndexScope.queryVectors",
-        "params": [
-          {
-            "name": "options",
-            "type": {
-              "type": "nameOnly",
-              "name": "Omit"
-            },
-            "comment": {
-              "shortText": "Query options (bucket and index names automatically set)"
-            }
-          }
-        ],
-        "ret": {
-          "type": {
-            "type": "promise",
-            "name": "Promise",
-            "awaited": {
-              "type": "union",
-              "name": "ApiResponse",
-              "subTypes": [
-                {
-                  "type": "object",
-                  "name": "SuccessResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "object",
-                        "name": "QueryVectorsResponse",
-                        "properties": [
-                          {
-                            "name": "distanceMetric",
-                            "type": {
-                              "type": "union",
-                              "name": "DistanceMetric",
-                              "subTypes": [
-                                {
-                                  "type": "literal",
-                                  "value": "cosine"
-                                },
-                                {
-                                  "type": "literal",
-                                  "value": "euclidean"
-                                },
-                                {
-                                  "type": "literal",
-                                  "value": "dotproduct"
-                                }
-                              ]
-                            },
-                            "isOptional": true,
-                            "comment": {
-                              "shortText": "The distance metric used for the similarity search"
-                            }
-                          },
-                          {
-                            "name": "vectors",
-                            "type": {
-                              "type": "array",
-                              "elemType": {
-                                "type": "object",
-                                "name": "VectorMatch",
-                                "properties": [
-                                  {
-                                    "name": "data",
-                                    "type": {
-                                      "type": "object",
-                                      "name": "VectorData",
-                                      "properties": [
-                                        {
-                                          "name": "float32",
-                                          "type": {
-                                            "type": "array",
-                                            "elemType": {
-                                              "type": "intrinsic",
-                                              "name": "number"
-                                            }
-                                          },
-                                          "comment": {
-                                            "shortText": "Array of 32-bit floating point numbers"
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    "isOptional": true,
-                                    "comment": {
-                                      "shortText": "Vector embedding data (if requested)"
-                                    }
-                                  },
-                                  {
-                                    "name": "distance",
-                                    "type": {
-                                      "type": "intrinsic",
-                                      "name": "number"
-                                    },
-                                    "isOptional": true,
-                                    "comment": {
-                                      "shortText": "Similarity distance from query vector (if requested)"
-                                    }
-                                  },
-                                  {
-                                    "name": "key",
-                                    "type": {
-                                      "type": "intrinsic",
-                                      "name": "string"
-                                    },
-                                    "comment": {
-                                      "shortText": "Unique identifier for the vector"
-                                    }
-                                  },
-                                  {
-                                    "name": "metadata",
-                                    "type": {
-                                      "type": "record",
-                                      "name": "VectorMetadata",
-                                      "keyType": {
-                                        "type": "intrinsic",
-                                        "name": "string"
-                                      },
-                                      "valueType": {
-                                        "type": "intrinsic",
-                                        "name": "any"
-                                      }
-                                    },
-                                    "isOptional": true,
-                                    "comment": {
-                                      "shortText": "Arbitrary metadata (if requested)"
-                                    }
-                                  }
-                                ]
-                              }
-                            },
-                            "comment": {
-                              "shortText": "Array of similar vectors ordered by distance"
-                            }
-                          }
-                        ]
-                      },
-                      "comment": {
-                        "shortText": "Response data of type T"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on success"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "object",
-                  "name": "ErrorResponse",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      },
-                      "comment": {
-                        "shortText": "Null on error"
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "StorageVectorsError"
-                      },
-                      "comment": {
-                        "shortText": "StorageVectorsError with details"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        "comment": {
-          "shortText": "Queries for similar vectors in this index\\nConvenience method that automatically includes bucket and index names\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ],
-          "examples": [
-            {
-              "id": "example-1",
-              "name": "Example 1",
-              "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\nconst { data } = await index.queryVectors({\\n  queryVector: { float32: [0.1, 0.2, ...] },\\n  topK: 5,\\n  filter: { category: 'technical' },\\n  returnDistance: true,\\n  returnMetadata: true\\n})\\n\`\`\`"
-            }
-          ]
-        }
-      },
-      "@supabase/storage-js.VectorIndexScope.throwOnError": {
-        "name": "@supabase/storage-js.VectorIndexScope.throwOnError",
-        "params": [],
-        "ret": {
-          "type": {
-            "type": "intrinsic",
-            "name": "this"
-          }
-        },
-        "comment": {
-          "shortText": "Enable throwing errors instead of returning them in the response",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ]
         }
       },
       "@supabase/storage-js.packages/BlobDownloadBuilder.default.constructor": {
@@ -86969,13 +85040,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Enable throwing errors instead of returning them in the response\\nWhen enabled, failed operations will throw instead of returning { data: null, error }\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
-          "tags": [
-            {
-              "tag": "alpha",
-              "text": ""
-            }
-          ]
+          "shortText": "Enable throwing errors instead of returning them.\\nWhen enabled, errors are thrown instead of returned in { data, error } format."
         }
       },
       "@supabase/storage-js.packages/StorageBucketApi.default.constructor": {
@@ -87795,7 +85860,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Enable throwing errors instead of returning them."
+          "shortText": "Enable throwing errors instead of returning them.\\nWhen enabled, errors are thrown instead of returned in { data, error } format."
         }
       },
       "@supabase/storage-js.packages/StorageBucketApi.default.updateBucket": {
@@ -89987,7 +88052,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Enable throwing errors instead of returning them."
+          "shortText": "Enable throwing errors instead of returning them.\\nWhen enabled, errors are thrown instead of returned in { data, error } format."
         }
       },
       "@supabase/storage-js.packages/StorageFileApi.default.toBase64": {
@@ -90605,6 +88670,25 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     {
                       "name": "data",
                       "type": {
+                        "type": "literal",
+                        "value": null
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "nameOnly",
+                        "name": "StorageError"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
                         "type": "object",
                         "properties": [
                           {
@@ -90632,25 +88716,6 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                       }
                     }
                   ]
-                },
-                {
-                  "type": "object",
-                  "properties": [
-                    {
-                      "name": "data",
-                      "type": {
-                        "type": "literal",
-                        "value": null
-                      }
-                    },
-                    {
-                      "name": "error",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "StorageError"
-                      }
-                    }
-                  ]
                 }
               ]
             }
@@ -90664,6 +88729,2272 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               "name": "Upload to a signed URL",
               "code": "\`\`\`js\\nconst { data, error } = await supabase\\n  .storage\\n  .from('avatars')\\n  .uploadToSignedUrl('folder/cat.jpg', 'token-from-createSignedUploadUrl', file)\\n\`\`\`",
               "response": "\`\`\`json\\n{\\n  \\"data\\": {\\n    \\"path\\": \\"folder/cat.jpg\\",\\n    \\"fullPath\\": \\"avatars/folder/cat.jpg\\"\\n  },\\n  \\"error\\": null\\n}\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.constructor": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.constructor",
+        "params": [
+          {
+            "name": "url",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Base URL of the Storage Vectors REST API."
+            }
+          },
+          {
+            "name": "options",
+            "type": {
+              "type": "object",
+              "name": "StorageVectorsClientOptions",
+              "properties": [
+                {
+                  "name": "fetch",
+                  "type": {
+                    "type": "function",
+                    "params": [
+                      {
+                        "name": "input",
+                        "type": {
+                          "type": "union",
+                          "subTypes": [
+                            {
+                              "type": "nameOnly",
+                              "name": "RequestInfo"
+                            },
+                            {
+                              "type": "nameOnly",
+                              "name": "URL"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "init",
+                        "type": {
+                          "type": "nameOnly",
+                          "name": "RequestInit"
+                        },
+                        "isOptional": true
+                      }
+                    ],
+                    "ret": {
+                      "type": {
+                        "type": "promise",
+                        "name": "Promise",
+                        "awaited": {
+                          "type": "nameOnly",
+                          "name": "Response"
+                        }
+                      }
+                    },
+                    "comment": {
+                      "shortText": "[MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/fetch)"
+                    }
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Custom fetch implementation (optional)\\nUseful for testing or custom request handling",
+                    "tags": [
+                      {
+                        "tag": "alpha",
+                        "text": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "headers",
+                  "type": {
+                    "type": "index signature",
+                    "keyType": {
+                      "type": "intrinsic",
+                      "name": "string"
+                    },
+                    "valueType": {
+                      "type": "intrinsic",
+                      "name": "string"
+                    }
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Custom headers to include in all requests",
+                    "tags": [
+                      {
+                        "tag": "alpha",
+                        "text": ""
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "nameOnly",
+            "name": "StorageVectorsClient"
+          }
+        },
+        "comment": {
+          "shortText": "Creates a StorageVectorsClient that can manage buckets, indexes, and vectors.\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst client = new StorageVectorsClient(url, options)\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.createBucket": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.createBucket",
+        "params": [
+          {
+            "name": "vectorBucketName",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Unique name for the vector bucket"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "promise",
+            "name": "Promise",
+            "awaited": {
+              "type": "union",
+              "name": "ApiResponse",
+              "subTypes": [
+                {
+                  "type": "object",
+                  "name": "SuccessResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "undefined"
+                      },
+                      "comment": {
+                        "shortText": "Response data of type T"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on success"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "name": "ErrorResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on error"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "nameOnly",
+                        "name": "StorageError"
+                      },
+                      "comment": {
+                        "shortText": "StorageError with details (named StorageVectorsError for vector operations)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "comment": {
+          "shortText": "Creates a new vector bucket\\nVector buckets are containers for vector indexes and their data\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst { data, error } = await supabase\\n  .storage\\n  .vectors\\n  .createBucket('embeddings-prod')\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.deleteBucket": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.deleteBucket",
+        "params": [
+          {
+            "name": "vectorBucketName",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Name of the vector bucket to delete"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "promise",
+            "name": "Promise",
+            "awaited": {
+              "type": "union",
+              "name": "ApiResponse",
+              "subTypes": [
+                {
+                  "type": "object",
+                  "name": "SuccessResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "undefined"
+                      },
+                      "comment": {
+                        "shortText": "Response data of type T"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on success"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "name": "ErrorResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on error"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "nameOnly",
+                        "name": "StorageError"
+                      },
+                      "comment": {
+                        "shortText": "StorageError with details (named StorageVectorsError for vector operations)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "comment": {
+          "shortText": "Deletes a vector bucket (bucket must be empty)\\nAll indexes must be deleted before deleting the bucket\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst { data, error } = await supabase\\n  .storage\\n  .vectors\\n  .deleteBucket('embeddings-old')\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.from": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.from",
+        "params": [
+          {
+            "name": "vectorBucketName",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Name of the vector bucket"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "nameOnly",
+            "name": "VectorBucketScope"
+          }
+        },
+        "comment": {
+          "shortText": "Access operations for a specific vector bucket\\nReturns a scoped client for index and vector operations within the bucket\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst bucket = supabase.storage.vectors.from('embeddings-prod')\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.getBucket": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.getBucket",
+        "params": [
+          {
+            "name": "vectorBucketName",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Name of the vector bucket"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "promise",
+            "name": "Promise",
+            "awaited": {
+              "type": "union",
+              "name": "ApiResponse",
+              "subTypes": [
+                {
+                  "type": "object",
+                  "name": "SuccessResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "object",
+                        "properties": [
+                          {
+                            "name": "vectorBucket",
+                            "type": {
+                              "type": "object",
+                              "name": "VectorBucket",
+                              "properties": [
+                                {
+                                  "name": "creationTime",
+                                  "type": {
+                                    "type": "intrinsic",
+                                    "name": "number"
+                                  },
+                                  "isOptional": true,
+                                  "comment": {
+                                    "shortText": "Unix timestamp of when the bucket was created"
+                                  }
+                                },
+                                {
+                                  "name": "encryptionConfiguration",
+                                  "type": {
+                                    "type": "object",
+                                    "name": "EncryptionConfiguration",
+                                    "properties": [
+                                      {
+                                        "name": "kmsKeyArn",
+                                        "type": {
+                                          "type": "intrinsic",
+                                          "name": "string"
+                                        },
+                                        "isOptional": true,
+                                        "comment": {
+                                          "shortText": "ARN of the KMS key used for encryption"
+                                        }
+                                      },
+                                      {
+                                        "name": "sseType",
+                                        "type": {
+                                          "type": "intrinsic",
+                                          "name": "string"
+                                        },
+                                        "isOptional": true,
+                                        "comment": {
+                                          "shortText": "Server-side encryption type (e.g., 'KMS')"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "isOptional": true,
+                                  "comment": {
+                                    "shortText": "Optional encryption settings"
+                                  }
+                                },
+                                {
+                                  "name": "vectorBucketName",
+                                  "type": {
+                                    "type": "intrinsic",
+                                    "name": "string"
+                                  },
+                                  "comment": {
+                                    "shortText": "Unique name of the vector bucket"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      "comment": {
+                        "shortText": "Response data of type T"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on success"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "name": "ErrorResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on error"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "nameOnly",
+                        "name": "StorageError"
+                      },
+                      "comment": {
+                        "shortText": "StorageError with details (named StorageVectorsError for vector operations)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "comment": {
+          "shortText": "Retrieves metadata for a specific vector bucket\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst { data, error } = await supabase\\n  .storage\\n  .vectors\\n  .getBucket('embeddings-prod')\\n\\nconsole.log('Bucket created:', data?.vectorBucket.creationTime)\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.listBuckets": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.listBuckets",
+        "params": [
+          {
+            "name": "options",
+            "type": {
+              "type": "object",
+              "name": "ListVectorBucketsOptions",
+              "properties": [
+                {
+                  "name": "maxResults",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Maximum number of results to return (default: 100)"
+                  }
+                },
+                {
+                  "name": "nextToken",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Token for pagination from previous response"
+                  }
+                },
+                {
+                  "name": "prefix",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Filter buckets by name prefix"
+                  }
+                }
+              ]
+            },
+            "comment": {
+              "shortText": "Optional filters (prefix, maxResults, nextToken)"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "promise",
+            "name": "Promise",
+            "awaited": {
+              "type": "union",
+              "name": "ApiResponse",
+              "subTypes": [
+                {
+                  "type": "object",
+                  "name": "SuccessResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "object",
+                        "name": "ListVectorBucketsResponse",
+                        "properties": [
+                          {
+                            "name": "nextToken",
+                            "type": {
+                              "type": "intrinsic",
+                              "name": "string"
+                            },
+                            "isOptional": true,
+                            "comment": {
+                              "shortText": "Token for fetching next page (if more results exist)"
+                            }
+                          },
+                          {
+                            "name": "vectorBuckets",
+                            "type": {
+                              "type": "array",
+                              "elemType": {
+                                "type": "object",
+                                "properties": [
+                                  {
+                                    "name": "vectorBucketName",
+                                    "type": {
+                                      "type": "intrinsic",
+                                      "name": "string"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "comment": {
+                              "shortText": "Array of bucket names"
+                            }
+                          }
+                        ]
+                      },
+                      "comment": {
+                        "shortText": "Response data of type T"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on success"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "name": "ErrorResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on error"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "nameOnly",
+                        "name": "StorageError"
+                      },
+                      "comment": {
+                        "shortText": "StorageError with details (named StorageVectorsError for vector operations)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "comment": {
+          "shortText": "Lists all vector buckets with optional filtering and pagination\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst { data, error } = await supabase\\n  .storage\\n  .vectors\\n  .listBuckets({ prefix: 'embeddings-' })\\n\\ndata?.vectorBuckets.forEach(bucket => {\\n  console.log(bucket.vectorBucketName)\\n})\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.throwOnError": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.throwOnError",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Enable throwing errors instead of returning them.\\nWhen enabled, errors are thrown instead of returned in { data, error } format.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope.constructor": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope.constructor",
+        "params": [
+          {
+            "name": "url",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            }
+          },
+          {
+            "name": "headers",
+            "type": {
+              "type": "index signature",
+              "keyType": {
+                "type": "intrinsic",
+                "name": "string"
+              },
+              "valueType": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          },
+          {
+            "name": "vectorBucketName",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            }
+          },
+          {
+            "name": "fetch",
+            "type": {
+              "type": "function",
+              "params": [
+                {
+                  "name": "input",
+                  "type": {
+                    "type": "union",
+                    "subTypes": [
+                      {
+                        "type": "nameOnly",
+                        "name": "RequestInfo"
+                      },
+                      {
+                        "type": "nameOnly",
+                        "name": "URL"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "init",
+                  "type": {
+                    "type": "nameOnly",
+                    "name": "RequestInit"
+                  },
+                  "isOptional": true
+                }
+              ],
+              "ret": {
+                "type": {
+                  "type": "promise",
+                  "name": "Promise",
+                  "awaited": {
+                    "type": "nameOnly",
+                    "name": "Response"
+                  }
+                }
+              },
+              "comment": {
+                "shortText": "[MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/fetch)"
+              }
+            },
+            "isOptional": true
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "nameOnly",
+            "name": "VectorBucketScope"
+          }
+        },
+        "comment": {
+          "shortText": "Creates a helper that automatically scopes all index operations to the provided bucket.\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst bucket = supabase.storage.vectors.from('embeddings-prod')\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope.createIndex": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope.createIndex",
+        "params": [
+          {
+            "name": "options",
+            "type": {
+              "type": "nameOnly",
+              "name": "Omit"
+            },
+            "comment": {
+              "shortText": "Index configuration (vectorBucketName is automatically set)"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "promise",
+            "name": "Promise",
+            "awaited": {
+              "type": "union",
+              "name": "ApiResponse",
+              "subTypes": [
+                {
+                  "type": "object",
+                  "name": "SuccessResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "undefined"
+                      },
+                      "comment": {
+                        "shortText": "Response data of type T"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on success"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "name": "ErrorResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on error"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "nameOnly",
+                        "name": "StorageError"
+                      },
+                      "comment": {
+                        "shortText": "StorageError with details (named StorageVectorsError for vector operations)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "comment": {
+          "shortText": "Creates a new vector index in this bucket\\nConvenience method that automatically includes the bucket name\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst bucket = supabase.storage.vectors.from('embeddings-prod')\\nawait bucket.createIndex({\\n  indexName: 'documents-openai',\\n  dataType: 'float32',\\n  dimension: 1536,\\n  distanceMetric: 'cosine',\\n  metadataConfiguration: {\\n    nonFilterableMetadataKeys: ['raw_text']\\n  }\\n})\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope.deleteIndex": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope.deleteIndex",
+        "params": [
+          {
+            "name": "indexName",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Name of the index to delete"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "promise",
+            "name": "Promise",
+            "awaited": {
+              "type": "union",
+              "name": "ApiResponse",
+              "subTypes": [
+                {
+                  "type": "object",
+                  "name": "SuccessResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "undefined"
+                      },
+                      "comment": {
+                        "shortText": "Response data of type T"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on success"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "name": "ErrorResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on error"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "nameOnly",
+                        "name": "StorageError"
+                      },
+                      "comment": {
+                        "shortText": "StorageError with details (named StorageVectorsError for vector operations)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "comment": {
+          "shortText": "Deletes an index from this bucket\\nConvenience method that automatically includes the bucket name\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst bucket = supabase.storage.vectors.from('embeddings-prod')\\nawait bucket.deleteIndex('old-index')\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope.getIndex": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope.getIndex",
+        "params": [
+          {
+            "name": "indexName",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Name of the index to retrieve"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "promise",
+            "name": "Promise",
+            "awaited": {
+              "type": "union",
+              "name": "ApiResponse",
+              "subTypes": [
+                {
+                  "type": "object",
+                  "name": "SuccessResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "object",
+                        "properties": [
+                          {
+                            "name": "index",
+                            "type": {
+                              "type": "object",
+                              "name": "VectorIndex",
+                              "properties": [
+                                {
+                                  "name": "creationTime",
+                                  "type": {
+                                    "type": "intrinsic",
+                                    "name": "number"
+                                  },
+                                  "isOptional": true,
+                                  "comment": {
+                                    "shortText": "Unix timestamp of when the index was created"
+                                  }
+                                },
+                                {
+                                  "name": "dataType",
+                                  "type": {
+                                    "type": "literal",
+                                    "value": "float32"
+                                  },
+                                  "comment": {
+                                    "shortText": "Data type of vector components (currently only 'float32')"
+                                  }
+                                },
+                                {
+                                  "name": "dimension",
+                                  "type": {
+                                    "type": "intrinsic",
+                                    "name": "number"
+                                  },
+                                  "comment": {
+                                    "shortText": "Dimensionality of vectors (e.g., 384, 768, 1536)"
+                                  }
+                                },
+                                {
+                                  "name": "distanceMetric",
+                                  "type": {
+                                    "type": "union",
+                                    "name": "DistanceMetric",
+                                    "subTypes": [
+                                      {
+                                        "type": "literal",
+                                        "value": "cosine"
+                                      },
+                                      {
+                                        "type": "literal",
+                                        "value": "euclidean"
+                                      },
+                                      {
+                                        "type": "literal",
+                                        "value": "dotproduct"
+                                      }
+                                    ]
+                                  },
+                                  "comment": {
+                                    "shortText": "Similarity metric used for queries"
+                                  }
+                                },
+                                {
+                                  "name": "indexName",
+                                  "type": {
+                                    "type": "intrinsic",
+                                    "name": "string"
+                                  },
+                                  "comment": {
+                                    "shortText": "Unique name of the index within the bucket"
+                                  }
+                                },
+                                {
+                                  "name": "metadataConfiguration",
+                                  "type": {
+                                    "type": "object",
+                                    "name": "MetadataConfiguration",
+                                    "properties": [
+                                      {
+                                        "name": "nonFilterableMetadataKeys",
+                                        "type": {
+                                          "type": "array",
+                                          "elemType": {
+                                            "type": "intrinsic",
+                                            "name": "string"
+                                          }
+                                        },
+                                        "isOptional": true,
+                                        "comment": {
+                                          "shortText": "Array of metadata keys that cannot be used in filters"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "isOptional": true,
+                                  "comment": {
+                                    "shortText": "Configuration for metadata filtering"
+                                  }
+                                },
+                                {
+                                  "name": "vectorBucketName",
+                                  "type": {
+                                    "type": "intrinsic",
+                                    "name": "string"
+                                  },
+                                  "comment": {
+                                    "shortText": "Name of the parent vector bucket"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      "comment": {
+                        "shortText": "Response data of type T"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on success"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "name": "ErrorResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on error"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "nameOnly",
+                        "name": "StorageError"
+                      },
+                      "comment": {
+                        "shortText": "StorageError with details (named StorageVectorsError for vector operations)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "comment": {
+          "shortText": "Retrieves metadata for a specific index in this bucket\\nConvenience method that automatically includes the bucket name\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst bucket = supabase.storage.vectors.from('embeddings-prod')\\nconst { data } = await bucket.getIndex('documents-openai')\\nconsole.log('Dimension:', data?.index.dimension)\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope",
+        "params": [
+          {
+            "name": "indexName",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Name of the index"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "nameOnly",
+            "name": "VectorIndexScope"
+          }
+        },
+        "comment": {
+          "shortText": "Access operations for a specific index within this bucket\\nReturns a scoped client for vector data operations\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\n\\n// Insert vectors\\nawait index.putVectors({\\n  vectors: [\\n    { key: 'doc-1', data: { float32: [...] }, metadata: { title: 'Intro' } }\\n  ]\\n})\\n\\n// Query similar vectors\\nconst { data } = await index.queryVectors({\\n  queryVector: { float32: [...] },\\n  topK: 5\\n})\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope.listIndexes": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope.listIndexes",
+        "params": [
+          {
+            "name": "options",
+            "type": {
+              "type": "nameOnly",
+              "name": "Omit"
+            },
+            "comment": {
+              "shortText": "Listing options (vectorBucketName is automatically set)"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "promise",
+            "name": "Promise",
+            "awaited": {
+              "type": "union",
+              "name": "ApiResponse",
+              "subTypes": [
+                {
+                  "type": "object",
+                  "name": "SuccessResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "object",
+                        "name": "ListIndexesResponse",
+                        "properties": [
+                          {
+                            "name": "indexes",
+                            "type": {
+                              "type": "array",
+                              "elemType": {
+                                "type": "object",
+                                "properties": [
+                                  {
+                                    "name": "indexName",
+                                    "type": {
+                                      "type": "intrinsic",
+                                      "name": "string"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "comment": {
+                              "shortText": "Array of index names"
+                            }
+                          },
+                          {
+                            "name": "nextToken",
+                            "type": {
+                              "type": "intrinsic",
+                              "name": "string"
+                            },
+                            "isOptional": true,
+                            "comment": {
+                              "shortText": "Token for fetching next page (if more results exist)"
+                            }
+                          }
+                        ]
+                      },
+                      "comment": {
+                        "shortText": "Response data of type T"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on success"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "name": "ErrorResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on error"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "nameOnly",
+                        "name": "StorageError"
+                      },
+                      "comment": {
+                        "shortText": "StorageError with details (named StorageVectorsError for vector operations)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "comment": {
+          "shortText": "Lists indexes in this bucket\\nConvenience method that automatically includes the bucket name\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst bucket = supabase.storage.vectors.from('embeddings-prod')\\nconst { data } = await bucket.listIndexes({ prefix: 'documents-' })\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope.throwOnError": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope.throwOnError",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Enable throwing errors instead of returning them.\\nWhen enabled, errors are thrown instead of returned in { data, error } format.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.constructor": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.constructor",
+        "params": [
+          {
+            "name": "url",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            }
+          },
+          {
+            "name": "headers",
+            "type": {
+              "type": "index signature",
+              "keyType": {
+                "type": "intrinsic",
+                "name": "string"
+              },
+              "valueType": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          },
+          {
+            "name": "vectorBucketName",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            }
+          },
+          {
+            "name": "indexName",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            }
+          },
+          {
+            "name": "fetch",
+            "type": {
+              "type": "function",
+              "params": [
+                {
+                  "name": "input",
+                  "type": {
+                    "type": "union",
+                    "subTypes": [
+                      {
+                        "type": "nameOnly",
+                        "name": "RequestInfo"
+                      },
+                      {
+                        "type": "nameOnly",
+                        "name": "URL"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "name": "init",
+                  "type": {
+                    "type": "nameOnly",
+                    "name": "RequestInit"
+                  },
+                  "isOptional": true
+                }
+              ],
+              "ret": {
+                "type": {
+                  "type": "promise",
+                  "name": "Promise",
+                  "awaited": {
+                    "type": "nameOnly",
+                    "name": "Response"
+                  }
+                }
+              },
+              "comment": {
+                "shortText": "[MDN Reference](https://developer.mozilla.org/docs/Web/API/Window/fetch)"
+              }
+            },
+            "isOptional": true
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "nameOnly",
+            "name": "VectorIndexScope"
+          }
+        },
+        "comment": {
+          "shortText": "Creates a helper that automatically scopes all vector operations to the provided bucket/index names.\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.deleteVectors": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.deleteVectors",
+        "params": [
+          {
+            "name": "options",
+            "type": {
+              "type": "nameOnly",
+              "name": "Omit"
+            },
+            "comment": {
+              "shortText": "Deletion options (bucket and index names automatically set)"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "promise",
+            "name": "Promise",
+            "awaited": {
+              "type": "union",
+              "name": "ApiResponse",
+              "subTypes": [
+                {
+                  "type": "object",
+                  "name": "SuccessResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "undefined"
+                      },
+                      "comment": {
+                        "shortText": "Response data of type T"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on success"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "name": "ErrorResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on error"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "nameOnly",
+                        "name": "StorageError"
+                      },
+                      "comment": {
+                        "shortText": "StorageError with details (named StorageVectorsError for vector operations)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "comment": {
+          "shortText": "Deletes vectors by keys from this index\\nConvenience method that automatically includes bucket and index names\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\nawait index.deleteVectors({\\n  keys: ['doc-1', 'doc-2', 'doc-3']\\n})\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.getVectors": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.getVectors",
+        "params": [
+          {
+            "name": "options",
+            "type": {
+              "type": "nameOnly",
+              "name": "Omit"
+            },
+            "comment": {
+              "shortText": "Vector retrieval options (bucket and index names automatically set)"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "promise",
+            "name": "Promise",
+            "awaited": {
+              "type": "union",
+              "name": "ApiResponse",
+              "subTypes": [
+                {
+                  "type": "object",
+                  "name": "SuccessResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "object",
+                        "name": "GetVectorsResponse",
+                        "properties": [
+                          {
+                            "name": "vectors",
+                            "type": {
+                              "type": "array",
+                              "elemType": {
+                                "type": "object",
+                                "name": "VectorMatch",
+                                "properties": [
+                                  {
+                                    "name": "data",
+                                    "type": {
+                                      "type": "object",
+                                      "name": "VectorData",
+                                      "properties": [
+                                        {
+                                          "name": "float32",
+                                          "type": {
+                                            "type": "array",
+                                            "elemType": {
+                                              "type": "intrinsic",
+                                              "name": "number"
+                                            }
+                                          },
+                                          "comment": {
+                                            "shortText": "Array of 32-bit floating point numbers"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "isOptional": true,
+                                    "comment": {
+                                      "shortText": "Vector embedding data (if requested)"
+                                    }
+                                  },
+                                  {
+                                    "name": "distance",
+                                    "type": {
+                                      "type": "intrinsic",
+                                      "name": "number"
+                                    },
+                                    "isOptional": true,
+                                    "comment": {
+                                      "shortText": "Similarity distance from query vector (if requested)"
+                                    }
+                                  },
+                                  {
+                                    "name": "key",
+                                    "type": {
+                                      "type": "intrinsic",
+                                      "name": "string"
+                                    },
+                                    "comment": {
+                                      "shortText": "Unique identifier for the vector"
+                                    }
+                                  },
+                                  {
+                                    "name": "metadata",
+                                    "type": {
+                                      "type": "record",
+                                      "name": "VectorMetadata",
+                                      "keyType": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "valueType": {
+                                        "type": "intrinsic",
+                                        "name": "any"
+                                      }
+                                    },
+                                    "isOptional": true,
+                                    "comment": {
+                                      "shortText": "Arbitrary metadata (if requested)"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "comment": {
+                              "shortText": "Array of retrieved vector objects"
+                            }
+                          }
+                        ]
+                      },
+                      "comment": {
+                        "shortText": "Response data of type T"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on success"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "name": "ErrorResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on error"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "nameOnly",
+                        "name": "StorageError"
+                      },
+                      "comment": {
+                        "shortText": "StorageError with details (named StorageVectorsError for vector operations)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "comment": {
+          "shortText": "Retrieves vectors by keys from this index\\nConvenience method that automatically includes bucket and index names\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\nconst { data } = await index.getVectors({\\n  keys: ['doc-1', 'doc-2'],\\n  returnMetadata: true\\n})\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.listVectors": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.listVectors",
+        "params": [
+          {
+            "name": "options",
+            "type": {
+              "type": "nameOnly",
+              "name": "Omit"
+            },
+            "comment": {
+              "shortText": "Listing options (bucket and index names automatically set)"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "promise",
+            "name": "Promise",
+            "awaited": {
+              "type": "union",
+              "name": "ApiResponse",
+              "subTypes": [
+                {
+                  "type": "object",
+                  "name": "SuccessResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "object",
+                        "name": "ListVectorsResponse",
+                        "properties": [
+                          {
+                            "name": "nextToken",
+                            "type": {
+                              "type": "intrinsic",
+                              "name": "string"
+                            },
+                            "isOptional": true,
+                            "comment": {
+                              "shortText": "Token for fetching next page (if more results exist)"
+                            }
+                          },
+                          {
+                            "name": "vectors",
+                            "type": {
+                              "type": "array",
+                              "elemType": {
+                                "type": "object",
+                                "name": "VectorMatch",
+                                "properties": [
+                                  {
+                                    "name": "data",
+                                    "type": {
+                                      "type": "object",
+                                      "name": "VectorData",
+                                      "properties": [
+                                        {
+                                          "name": "float32",
+                                          "type": {
+                                            "type": "array",
+                                            "elemType": {
+                                              "type": "intrinsic",
+                                              "name": "number"
+                                            }
+                                          },
+                                          "comment": {
+                                            "shortText": "Array of 32-bit floating point numbers"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "isOptional": true,
+                                    "comment": {
+                                      "shortText": "Vector embedding data (if requested)"
+                                    }
+                                  },
+                                  {
+                                    "name": "distance",
+                                    "type": {
+                                      "type": "intrinsic",
+                                      "name": "number"
+                                    },
+                                    "isOptional": true,
+                                    "comment": {
+                                      "shortText": "Similarity distance from query vector (if requested)"
+                                    }
+                                  },
+                                  {
+                                    "name": "key",
+                                    "type": {
+                                      "type": "intrinsic",
+                                      "name": "string"
+                                    },
+                                    "comment": {
+                                      "shortText": "Unique identifier for the vector"
+                                    }
+                                  },
+                                  {
+                                    "name": "metadata",
+                                    "type": {
+                                      "type": "record",
+                                      "name": "VectorMetadata",
+                                      "keyType": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "valueType": {
+                                        "type": "intrinsic",
+                                        "name": "any"
+                                      }
+                                    },
+                                    "isOptional": true,
+                                    "comment": {
+                                      "shortText": "Arbitrary metadata (if requested)"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "comment": {
+                              "shortText": "Array of vector objects"
+                            }
+                          }
+                        ]
+                      },
+                      "comment": {
+                        "shortText": "Response data of type T"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on success"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "name": "ErrorResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on error"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "nameOnly",
+                        "name": "StorageError"
+                      },
+                      "comment": {
+                        "shortText": "StorageError with details (named StorageVectorsError for vector operations)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "comment": {
+          "shortText": "Lists vectors in this index with pagination\\nConvenience method that automatically includes bucket and index names\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\nconst { data } = await index.listVectors({\\n  maxResults: 500,\\n  returnMetadata: true\\n})\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.putVectors": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.putVectors",
+        "params": [
+          {
+            "name": "options",
+            "type": {
+              "type": "nameOnly",
+              "name": "Omit"
+            },
+            "comment": {
+              "shortText": "Vector insertion options (bucket and index names automatically set)"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "promise",
+            "name": "Promise",
+            "awaited": {
+              "type": "union",
+              "name": "ApiResponse",
+              "subTypes": [
+                {
+                  "type": "object",
+                  "name": "SuccessResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "undefined"
+                      },
+                      "comment": {
+                        "shortText": "Response data of type T"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on success"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "name": "ErrorResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on error"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "nameOnly",
+                        "name": "StorageError"
+                      },
+                      "comment": {
+                        "shortText": "StorageError with details (named StorageVectorsError for vector operations)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "comment": {
+          "shortText": "Inserts or updates vectors in this index\\nConvenience method that automatically includes bucket and index names\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\nawait index.putVectors({\\n  vectors: [\\n    {\\n      key: 'doc-1',\\n      data: { float32: [0.1, 0.2, ...] },\\n      metadata: { title: 'Introduction', page: 1 }\\n    }\\n  ]\\n})\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.queryVectors": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.queryVectors",
+        "params": [
+          {
+            "name": "options",
+            "type": {
+              "type": "nameOnly",
+              "name": "Omit"
+            },
+            "comment": {
+              "shortText": "Query options (bucket and index names automatically set)"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "promise",
+            "name": "Promise",
+            "awaited": {
+              "type": "union",
+              "name": "ApiResponse",
+              "subTypes": [
+                {
+                  "type": "object",
+                  "name": "SuccessResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "object",
+                        "name": "QueryVectorsResponse",
+                        "properties": [
+                          {
+                            "name": "distanceMetric",
+                            "type": {
+                              "type": "union",
+                              "name": "DistanceMetric",
+                              "subTypes": [
+                                {
+                                  "type": "literal",
+                                  "value": "cosine"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "euclidean"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "dotproduct"
+                                }
+                              ]
+                            },
+                            "isOptional": true,
+                            "comment": {
+                              "shortText": "The distance metric used for the similarity search"
+                            }
+                          },
+                          {
+                            "name": "vectors",
+                            "type": {
+                              "type": "array",
+                              "elemType": {
+                                "type": "object",
+                                "name": "VectorMatch",
+                                "properties": [
+                                  {
+                                    "name": "data",
+                                    "type": {
+                                      "type": "object",
+                                      "name": "VectorData",
+                                      "properties": [
+                                        {
+                                          "name": "float32",
+                                          "type": {
+                                            "type": "array",
+                                            "elemType": {
+                                              "type": "intrinsic",
+                                              "name": "number"
+                                            }
+                                          },
+                                          "comment": {
+                                            "shortText": "Array of 32-bit floating point numbers"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "isOptional": true,
+                                    "comment": {
+                                      "shortText": "Vector embedding data (if requested)"
+                                    }
+                                  },
+                                  {
+                                    "name": "distance",
+                                    "type": {
+                                      "type": "intrinsic",
+                                      "name": "number"
+                                    },
+                                    "isOptional": true,
+                                    "comment": {
+                                      "shortText": "Similarity distance from query vector (if requested)"
+                                    }
+                                  },
+                                  {
+                                    "name": "key",
+                                    "type": {
+                                      "type": "intrinsic",
+                                      "name": "string"
+                                    },
+                                    "comment": {
+                                      "shortText": "Unique identifier for the vector"
+                                    }
+                                  },
+                                  {
+                                    "name": "metadata",
+                                    "type": {
+                                      "type": "record",
+                                      "name": "VectorMetadata",
+                                      "keyType": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "valueType": {
+                                        "type": "intrinsic",
+                                        "name": "any"
+                                      }
+                                    },
+                                    "isOptional": true,
+                                    "comment": {
+                                      "shortText": "Arbitrary metadata (if requested)"
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "comment": {
+                              "shortText": "Array of similar vectors ordered by distance"
+                            }
+                          }
+                        ]
+                      },
+                      "comment": {
+                        "shortText": "Response data of type T"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on success"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "name": "ErrorResponse",
+                  "properties": [
+                    {
+                      "name": "data",
+                      "type": {
+                        "type": "literal",
+                        "value": null
+                      },
+                      "comment": {
+                        "shortText": "Null on error"
+                      }
+                    },
+                    {
+                      "name": "error",
+                      "type": {
+                        "type": "nameOnly",
+                        "name": "StorageError"
+                      },
+                      "comment": {
+                        "shortText": "StorageError with details (named StorageVectorsError for vector operations)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "comment": {
+          "shortText": "Queries for similar vectors in this index\\nConvenience method that automatically includes bucket and index names\\n\\n**Public alpha:** This API is part of a public alpha release and may not be available to your account type.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ],
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\nconst { data } = await index.queryVectors({\\n  queryVector: { float32: [0.1, 0.2, ...] },\\n  topK: 5,\\n  filter: { category: 'technical' },\\n  returnDistance: true,\\n  returnMetadata: true\\n})\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.throwOnError": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.throwOnError",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Enable throwing errors instead of returning them.\\nWhen enabled, errors are thrown instead of returned in { data, error } format.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
             }
           ]
         }

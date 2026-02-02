@@ -1,34 +1,31 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { IS_PLATFORM, useFlag, useParams } from 'common'
+import { LogDrainData, useLogDrainsQuery } from 'data/log-drains/log-drains-query'
+import { DOCS_URL } from 'lib/constants'
 import { useTrack } from 'lib/telemetry/track'
 import { TrashIcon } from 'lucide-react'
 import Link from 'next/link'
 import { ReactNode, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import { z } from 'zod'
-
-import { IS_PLATFORM, useFlag, useParams } from 'common'
-import { LogDrainData, useLogDrainsQuery } from 'data/log-drains/log-drains-query'
-import { DOCS_URL } from 'lib/constants'
 import {
   Button,
-  cn,
-  Form_Shadcn_,
   FormControl_Shadcn_,
   FormField_Shadcn_,
   FormItem_Shadcn_,
   FormLabel_Shadcn_,
   FormMessage_Shadcn_,
+  Form_Shadcn_,
   Input_Shadcn_,
   RadioGroupCard,
   RadioGroupCardItem,
-  Select_Shadcn_,
   SelectContent_Shadcn_,
   SelectGroup_Shadcn_,
   SelectItem_Shadcn_,
   SelectLabel_Shadcn_,
   SelectTrigger_Shadcn_,
   SelectValue_Shadcn_,
+  Select_Shadcn_,
   Sheet,
   SheetContent,
   SheetFooter,
@@ -36,9 +33,12 @@ import {
   SheetSection,
   SheetTitle,
   Switch,
+  cn,
 } from 'ui'
 import { FormItemLayout } from 'ui-patterns/form/FormItemLayout/FormItemLayout'
 import { InfoTooltip } from 'ui-patterns/info-tooltip'
+import { z } from 'zod'
+
 import { urlRegex } from '../Auth/Auth.constants'
 import { DATADOG_REGIONS, LOG_DRAIN_TYPES, LogDrainType } from './LogDrains.constants'
 
@@ -101,14 +101,16 @@ const formUnion = z.discriminatedUnion('type', [
       .min(1, { message: 'Batch timeout must be a positive integer' }),
   }),
   z.object({
-    type: z.literal('axiom'),
-  }),
-  z.object({
     type: z.literal('sentry'),
     dsn: z
       .string()
       .min(1, { message: 'Sentry DSN is required' })
       .refine((dsn) => dsn.startsWith('https://'), 'Sentry DSN must start with https://'),
+  }),
+  z.object({
+    type: z.literal('axiom'),
+    api_token: z.string().min(1, { message: 'API token is required' }),
+    dataset_name: z.string().min(1, { message: 'Dataset name is required' }),
   }),
 ])
 
@@ -180,6 +182,7 @@ export function LogDrainDestinationSheetForm({
 
   const sentryEnabled = useFlag('SentryLogDrain')
   const s3Enabled = useFlag('S3logdrain')
+  const axiomEnabled = useFlag('axiomLogDrain')
 
   const { ref } = useParams()
   const { data: logDrains } = useLogDrainsQuery({
@@ -210,6 +213,8 @@ export function LogDrainDestinationSheetForm({
       access_key_id: defaultConfig?.access_key_id || '',
       secret_access_key: defaultConfig?.secret_access_key || '',
       batch_timeout: defaultConfig?.batch_timeout ?? 3000,
+      dataset_name: defaultConfig?.dataset_name || '',
+      api_token: defaultConfig?.api_token || '',
     },
   })
 
@@ -331,11 +336,12 @@ export function LogDrainDestinationSheetForm({
                         {LOG_DRAIN_TYPES.find((t) => t.value === type)?.name}
                       </SelectTrigger_Shadcn_>
                       <SelectContent_Shadcn_>
-                        {LOG_DRAIN_TYPES.filter(
-                          (t) =>
-                            (t.value !== 'sentry' || sentryEnabled) &&
-                            (t.value !== 's3' || s3Enabled)
-                        ).map((type) => (
+                        {LOG_DRAIN_TYPES.filter((t) => {
+                          if (t.value === 'sentry') return sentryEnabled
+                          if (t.value === 's3') return s3Enabled
+                          if (t.value === 'axiom') return axiomEnabled
+                          return true
+                        }).map((type) => (
                           <SelectItem_Shadcn_
                             value={type.value}
                             key={type.value}
@@ -564,6 +570,26 @@ export function LogDrainDestinationSheetForm({
                       Ensure the account tied to the Access Key ID can write to the specified
                       bucket.
                     </p>
+                  </div>
+                )}
+                {type === 'axiom' && (
+                  <div className="grid gap-4 px-content">
+                    <LogDrainFormItem
+                      type="text"
+                      value="dataset_name"
+                      label="Dataset name"
+                      placeholder="dataset"
+                      formControl={form.control}
+                      description="Name of the dataset in Axiom where the logs will be sent."
+                    />
+                    <LogDrainFormItem
+                      type="text"
+                      value="api_token"
+                      label="API Token"
+                      placeholder="xaat-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                      formControl={form.control}
+                      description="Token allowing ingest access to the specified dataset"
+                    />
                   </div>
                 )}
                 <FormMessage_Shadcn_ />

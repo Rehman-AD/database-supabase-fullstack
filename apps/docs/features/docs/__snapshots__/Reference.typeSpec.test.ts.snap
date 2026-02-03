@@ -39524,6 +39524,42 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           "name": "@supabase/supabase-js.default.SchemaName"
                         },
                         "isOptional": true
+                      },
+                      {
+                        "name": "timeout",
+                        "type": {
+                          "type": "intrinsic",
+                          "name": "number"
+                        },
+                        "isOptional": true,
+                        "comment": {
+                          "shortText": "Optional timeout in milliseconds for PostgREST requests.\\nWhen set, requests will automatically abort after this duration to prevent indefinite hangs.",
+                          "examples": [
+                            {
+                              "id": "example-1",
+                              "name": "Example 1",
+                              "code": "\`\`\`ts\\nconst supabase = createClient(url, key, {\\n  db: { timeout: 30000 } // 30 second timeout\\n})\\n\`\`\`"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "name": "urlLengthLimit",
+                        "type": {
+                          "type": "intrinsic",
+                          "name": "number"
+                        },
+                        "isOptional": true,
+                        "comment": {
+                          "shortText": "Maximum URL length in characters before warnings/errors are triggered.\\nDefaults to 8000 characters. Used to provide helpful hints when URLs\\nexceed server limits.",
+                          "examples": [
+                            {
+                              "id": "example-1",
+                              "name": "Example 1",
+                              "code": "\`\`\`ts\\nconst supabase = createClient(url, key, {\\n  db: { urlLengthLimit: 10000 } // Custom limit\\n})\\n\`\`\`"
+                            }
+                          ]
+                        }
                       }
                     ]
                   },
@@ -74361,6 +74397,14 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     "type": "nameOnly",
                     "name": "URL"
                   }
+                },
+                {
+                  "name": "urlLengthLimit",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  },
+                  "isOptional": true
                 }
               ]
             }
@@ -74635,6 +74679,28 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "comment": {
                     "shortText": "Postgres schema to switch to"
                   }
+                },
+                {
+                  "name": "timeout",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Optional timeout in milliseconds for all requests. When set, requests will automatically abort after this duration to prevent indefinite hangs."
+                  }
+                },
+                {
+                  "name": "urlLengthLimit",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Maximum URL length in characters before warnings/errors are triggered. Defaults to 8000."
+                  }
                 }
               ]
             },
@@ -74655,7 +74721,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
             {
               "id": "example-1",
               "name": "Example 1",
-              "code": "\`\`\`ts\\nimport PostgrestClient from '@supabase/postgrest-js'\\n\\nconst postgrest = new PostgrestClient('https://xyzcompany.supabase.co/rest/v1', {\\n  headers: { apikey: 'public-anon-key' },\\n  schema: 'public',\\n})\\n\`\`\`"
+              "code": "\`\`\`ts\\nimport PostgrestClient from '@supabase/postgrest-js'\\n\\nconst postgrest = new PostgrestClient('https://xyzcompany.supabase.co/rest/v1', {\\n  headers: { apikey: 'public-anon-key' },\\n  schema: 'public',\\n  timeout: 30000, // 30 second timeout\\n})\\n\`\`\`"
             }
           ]
         }
@@ -75011,6 +75077,14 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     "type": "nameOnly",
                     "name": "URL"
                   }
+                },
+                {
+                  "name": "urlLengthLimit",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  },
+                  "isOptional": true
                 }
               ]
             }
@@ -77791,6 +77865,14 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     "name": "string"
                   },
                   "isOptional": true
+                },
+                {
+                  "name": "urlLengthLimit",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  },
+                  "isOptional": true
                 }
               ]
             }
@@ -78376,6 +78458,14 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     "type": "nameOnly",
                     "name": "URL"
                   }
+                },
+                {
+                  "name": "urlLengthLimit",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  },
+                  "isOptional": true
                 }
               ]
             }

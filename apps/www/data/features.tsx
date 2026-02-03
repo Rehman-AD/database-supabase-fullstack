@@ -1234,7 +1234,7 @@ JWT Signing Keys provide modern, secure JWT management with the flexibility requ
     slug: 'jwt-signing-keys',
     status: {
       stage: PRODUCT_STAGES.GA,
-      availableOnSelfHosted: true,
+      availableOnSelfHosted: false,
     },
   },
   {

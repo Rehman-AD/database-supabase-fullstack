@@ -11303,13 +11303,16 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     "type": "intrinsic",
                     "name": "boolean"
                   },
-                  "isOptional": true
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "If false (default), automatically redirects the browser to the OAuth client. If true, returns the redirect_url without automatic redirect (useful for custom handling)."
+                  }
                 }
               ]
             },
             "isOptional": true,
             "comment": {
-              "shortText": "Optional parameters including skipBrowserRedirect"
+              "shortText": "Optional parameters"
             }
           }
         ],
@@ -11327,6 +11330,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     {
                       "name": "data",
                       "type": {
+                        "name": "OAuthRedirect",
                         "type": "object",
                         "properties": [
                           {
@@ -11336,7 +11340,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                               "name": "string"
                             },
                             "comment": {
-                              "shortText": "URL to redirect the user back to the OAuth client"
+                              "shortText": "Complete redirect URL with authorization code and state parameters (e.g., \\"https://app.com/callback?code=xxx&state=yyy\\")"
                             }
                           }
                         ]
@@ -11371,7 +11375,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Approves an OAuth authorization request.\\nOnly relevant when the OAuth 2.1 server is enabled in Supabase Auth."
+          "shortText": "Approves an OAuth authorization request.\\nOnly relevant when the OAuth 2.1 server is enabled in Supabase Auth.\\n\\nAfter approval, the user's consent is stored and an authorization code is generated.\\nThe response contains a complete redirect URL with the authorization code and state."
         }
       },
       "@supabase/supabase-js.AuthOAuthServerApi.denyAuthorization": {
@@ -11398,13 +11402,16 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     "type": "intrinsic",
                     "name": "boolean"
                   },
-                  "isOptional": true
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "If false (default), automatically redirects the browser to the OAuth client. If true, returns the redirect_url without automatic redirect (useful for custom handling)."
+                  }
                 }
               ]
             },
             "isOptional": true,
             "comment": {
-              "shortText": "Optional parameters including skipBrowserRedirect"
+              "shortText": "Optional parameters"
             }
           }
         ],
@@ -11422,6 +11429,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     {
                       "name": "data",
                       "type": {
+                        "name": "OAuthRedirect",
                         "type": "object",
                         "properties": [
                           {
@@ -11431,7 +11439,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                               "name": "string"
                             },
                             "comment": {
-                              "shortText": "URL to redirect the user back to the OAuth client"
+                              "shortText": "Complete redirect URL with authorization code and state parameters (e.g., \\"https://app.com/callback?code=xxx&state=yyy\\")"
                             }
                           }
                         ]
@@ -11466,7 +11474,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Denies an OAuth authorization request.\\nOnly relevant when the OAuth 2.1 server is enabled in Supabase Auth."
+          "shortText": "Denies an OAuth authorization request.\\nOnly relevant when the OAuth 2.1 server is enabled in Supabase Auth.\\n\\nAfter denial, the response contains a redirect URL with an OAuth error\\n(access_denied) to inform the OAuth client that the user rejected the request."
         }
       },
       "@supabase/supabase-js.AuthOAuthServerApi.getAuthorizationDetails": {
@@ -11497,122 +11505,142 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     {
                       "name": "data",
                       "type": {
-                        "name": "OAuthAuthorizationDetails",
-                        "type": "object",
-                        "properties": [
+                        "type": "union",
+                        "subTypes": [
                           {
-                            "name": "authorization_id",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "string"
-                            },
-                            "comment": {
-                              "shortText": "The authorization ID"
-                            }
-                          },
-                          {
-                            "name": "client",
-                            "type": {
-                              "name": "OAuthAuthorizationClient",
-                              "type": "object",
-                              "properties": [
-                                {
-                                  "name": "id",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "Unique identifier for the OAuth client (UUID)"
-                                  }
+                            "name": "OAuthAuthorizationDetails",
+                            "type": "object",
+                            "properties": [
+                              {
+                                "name": "authorization_id",
+                                "type": {
+                                  "type": "intrinsic",
+                                  "name": "string"
                                 },
-                                {
-                                  "name": "logo_uri",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "URI of the OAuth client's logo"
-                                  }
-                                },
-                                {
-                                  "name": "name",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "Human-readable name of the OAuth client"
-                                  }
-                                },
-                                {
-                                  "name": "uri",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "URI of the OAuth client's website"
-                                  }
+                                "comment": {
+                                  "shortText": "The authorization ID used to approve or deny the request"
                                 }
-                              ]
-                            },
-                            "comment": {
-                              "shortText": "OAuth client requesting authorization"
-                            }
-                          },
-                          {
-                            "name": "redirect_url",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "string"
-                            },
-                            "isOptional": true,
-                            "comment": {
-                              "shortText": "Redirect URL - present if user already consented (can be used to trigger immediate redirect)"
-                            }
-                          },
-                          {
-                            "name": "scope",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "string"
-                            },
-                            "comment": {
-                              "shortText": "Space-separated list of requested scopes"
-                            }
-                          },
-                          {
-                            "name": "user",
-                            "type": {
-                              "type": "object",
-                              "properties": [
-                                {
-                                  "name": "email",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "User email"
-                                  }
+                              },
+                              {
+                                "name": "client",
+                                "type": {
+                                  "name": "OAuthAuthorizationClient",
+                                  "type": "object",
+                                  "properties": [
+                                    {
+                                      "name": "id",
+                                      "type": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "comment": {
+                                        "shortText": "Unique identifier for the OAuth client (UUID)"
+                                      }
+                                    },
+                                    {
+                                      "name": "logo_uri",
+                                      "type": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "comment": {
+                                        "shortText": "URI of the OAuth client's logo"
+                                      }
+                                    },
+                                    {
+                                      "name": "name",
+                                      "type": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "comment": {
+                                        "shortText": "Human-readable name of the OAuth client"
+                                      }
+                                    },
+                                    {
+                                      "name": "uri",
+                                      "type": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "comment": {
+                                        "shortText": "URI of the OAuth client's website"
+                                      }
+                                    }
+                                  ]
                                 },
-                                {
-                                  "name": "id",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "User ID (UUID)"
-                                  }
+                                "comment": {
+                                  "shortText": "OAuth client requesting authorization"
                                 }
-                              ]
-                            },
-                            "comment": {
-                              "shortText": "User object associated with the authorization"
-                            }
+                              },
+                              {
+                                "name": "redirect_uri",
+                                "type": {
+                                  "type": "intrinsic",
+                                  "name": "string"
+                                },
+                                "comment": {
+                                  "shortText": "The OAuth client's registered redirect URI (base URI without query parameters)"
+                                }
+                              },
+                              {
+                                "name": "scope",
+                                "type": {
+                                  "type": "intrinsic",
+                                  "name": "string"
+                                },
+                                "comment": {
+                                  "shortText": "Space-separated list of requested scopes (e.g., \\"openid profile email\\")"
+                                }
+                              },
+                              {
+                                "name": "user",
+                                "type": {
+                                  "type": "object",
+                                  "properties": [
+                                    {
+                                      "name": "email",
+                                      "type": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "comment": {
+                                        "shortText": "User email"
+                                      }
+                                    },
+                                    {
+                                      "name": "id",
+                                      "type": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "comment": {
+                                        "shortText": "User ID (UUID)"
+                                      }
+                                    }
+                                  ]
+                                },
+                                "comment": {
+                                  "shortText": "User object associated with the authorization"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "name": "OAuthRedirect",
+                            "type": "object",
+                            "properties": [
+                              {
+                                "name": "redirect_url",
+                                "type": {
+                                  "type": "intrinsic",
+                                  "name": "string"
+                                },
+                                "comment": {
+                                  "shortText": "Complete redirect URL with authorization code and state parameters (e.g., \\"https://app.com/callback?code=xxx&state=yyy\\")"
+                                }
+                              }
+                            ]
                           }
                         ]
                       }
@@ -11646,7 +11674,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Retrieves details about an OAuth authorization request.\\nUsed to display consent information to the user.\\nOnly relevant when the OAuth 2.1 server is enabled in Supabase Auth.\\n\\nThis method returns authorization details including client info, scopes, and user information.\\nIf the response includes a redirect_uri, it means consent was already given - the caller\\nshould handle the redirect manually if needed."
+          "shortText": "Retrieves details about an OAuth authorization request.\\nUsed to display consent information to the user.\\nOnly relevant when the OAuth 2.1 server is enabled in Supabase Auth.\\n\\nThis method returns one of two response types:\\n- \`OAuthAuthorizationDetails\`: User needs to consent - show consent page with client info\\n- \`OAuthRedirect\`: User already consented - redirect immediately to the OAuth client\\n\\nUse type narrowing to distinguish between the responses:\\n\`\`\`typescript\\nif ('authorization_id' in data) {\\n  // Show consent page\\n} else {\\n  // Redirect to data.redirect_url\\n}\\n\`\`\`"
         }
       },
       "@supabase/supabase-js.AuthOAuthServerApi.listGrants": {
@@ -52214,13 +52242,16 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     "type": "intrinsic",
                     "name": "boolean"
                   },
-                  "isOptional": true
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "If false (default), automatically redirects the browser to the OAuth client. If true, returns the redirect_url without automatic redirect (useful for custom handling)."
+                  }
                 }
               ]
             },
             "isOptional": true,
             "comment": {
-              "shortText": "Optional parameters including skipBrowserRedirect"
+              "shortText": "Optional parameters"
             }
           }
         ],
@@ -52238,6 +52269,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     {
                       "name": "data",
                       "type": {
+                        "name": "OAuthRedirect",
                         "type": "object",
                         "properties": [
                           {
@@ -52247,7 +52279,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                               "name": "string"
                             },
                             "comment": {
-                              "shortText": "URL to redirect the user back to the OAuth client"
+                              "shortText": "Complete redirect URL with authorization code and state parameters (e.g., \\"https://app.com/callback?code=xxx&state=yyy\\")"
                             }
                           }
                         ]
@@ -52282,7 +52314,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Approves an OAuth authorization request.\\nOnly relevant when the OAuth 2.1 server is enabled in Supabase Auth."
+          "shortText": "Approves an OAuth authorization request.\\nOnly relevant when the OAuth 2.1 server is enabled in Supabase Auth.\\n\\nAfter approval, the user's consent is stored and an authorization code is generated.\\nThe response contains a complete redirect URL with the authorization code and state."
         }
       },
       "@supabase/auth-js.AuthOAuthServerApi.denyAuthorization": {
@@ -52309,13 +52341,16 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     "type": "intrinsic",
                     "name": "boolean"
                   },
-                  "isOptional": true
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "If false (default), automatically redirects the browser to the OAuth client. If true, returns the redirect_url without automatic redirect (useful for custom handling)."
+                  }
                 }
               ]
             },
             "isOptional": true,
             "comment": {
-              "shortText": "Optional parameters including skipBrowserRedirect"
+              "shortText": "Optional parameters"
             }
           }
         ],
@@ -52333,6 +52368,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     {
                       "name": "data",
                       "type": {
+                        "name": "OAuthRedirect",
                         "type": "object",
                         "properties": [
                           {
@@ -52342,7 +52378,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                               "name": "string"
                             },
                             "comment": {
-                              "shortText": "URL to redirect the user back to the OAuth client"
+                              "shortText": "Complete redirect URL with authorization code and state parameters (e.g., \\"https://app.com/callback?code=xxx&state=yyy\\")"
                             }
                           }
                         ]
@@ -52377,7 +52413,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Denies an OAuth authorization request.\\nOnly relevant when the OAuth 2.1 server is enabled in Supabase Auth."
+          "shortText": "Denies an OAuth authorization request.\\nOnly relevant when the OAuth 2.1 server is enabled in Supabase Auth.\\n\\nAfter denial, the response contains a redirect URL with an OAuth error\\n(access_denied) to inform the OAuth client that the user rejected the request."
         }
       },
       "@supabase/auth-js.AuthOAuthServerApi.getAuthorizationDetails": {
@@ -52408,122 +52444,142 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     {
                       "name": "data",
                       "type": {
-                        "name": "OAuthAuthorizationDetails",
-                        "type": "object",
-                        "properties": [
+                        "type": "union",
+                        "subTypes": [
                           {
-                            "name": "authorization_id",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "string"
-                            },
-                            "comment": {
-                              "shortText": "The authorization ID"
-                            }
-                          },
-                          {
-                            "name": "client",
-                            "type": {
-                              "name": "OAuthAuthorizationClient",
-                              "type": "object",
-                              "properties": [
-                                {
-                                  "name": "id",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "Unique identifier for the OAuth client (UUID)"
-                                  }
+                            "name": "OAuthAuthorizationDetails",
+                            "type": "object",
+                            "properties": [
+                              {
+                                "name": "authorization_id",
+                                "type": {
+                                  "type": "intrinsic",
+                                  "name": "string"
                                 },
-                                {
-                                  "name": "logo_uri",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "URI of the OAuth client's logo"
-                                  }
-                                },
-                                {
-                                  "name": "name",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "Human-readable name of the OAuth client"
-                                  }
-                                },
-                                {
-                                  "name": "uri",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "URI of the OAuth client's website"
-                                  }
+                                "comment": {
+                                  "shortText": "The authorization ID used to approve or deny the request"
                                 }
-                              ]
-                            },
-                            "comment": {
-                              "shortText": "OAuth client requesting authorization"
-                            }
-                          },
-                          {
-                            "name": "redirect_url",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "string"
-                            },
-                            "isOptional": true,
-                            "comment": {
-                              "shortText": "Redirect URL - present if user already consented (can be used to trigger immediate redirect)"
-                            }
-                          },
-                          {
-                            "name": "scope",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "string"
-                            },
-                            "comment": {
-                              "shortText": "Space-separated list of requested scopes"
-                            }
-                          },
-                          {
-                            "name": "user",
-                            "type": {
-                              "type": "object",
-                              "properties": [
-                                {
-                                  "name": "email",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "User email"
-                                  }
+                              },
+                              {
+                                "name": "client",
+                                "type": {
+                                  "name": "OAuthAuthorizationClient",
+                                  "type": "object",
+                                  "properties": [
+                                    {
+                                      "name": "id",
+                                      "type": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "comment": {
+                                        "shortText": "Unique identifier for the OAuth client (UUID)"
+                                      }
+                                    },
+                                    {
+                                      "name": "logo_uri",
+                                      "type": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "comment": {
+                                        "shortText": "URI of the OAuth client's logo"
+                                      }
+                                    },
+                                    {
+                                      "name": "name",
+                                      "type": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "comment": {
+                                        "shortText": "Human-readable name of the OAuth client"
+                                      }
+                                    },
+                                    {
+                                      "name": "uri",
+                                      "type": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "comment": {
+                                        "shortText": "URI of the OAuth client's website"
+                                      }
+                                    }
+                                  ]
                                 },
-                                {
-                                  "name": "id",
-                                  "type": {
-                                    "type": "intrinsic",
-                                    "name": "string"
-                                  },
-                                  "comment": {
-                                    "shortText": "User ID (UUID)"
-                                  }
+                                "comment": {
+                                  "shortText": "OAuth client requesting authorization"
                                 }
-                              ]
-                            },
-                            "comment": {
-                              "shortText": "User object associated with the authorization"
-                            }
+                              },
+                              {
+                                "name": "redirect_uri",
+                                "type": {
+                                  "type": "intrinsic",
+                                  "name": "string"
+                                },
+                                "comment": {
+                                  "shortText": "The OAuth client's registered redirect URI (base URI without query parameters)"
+                                }
+                              },
+                              {
+                                "name": "scope",
+                                "type": {
+                                  "type": "intrinsic",
+                                  "name": "string"
+                                },
+                                "comment": {
+                                  "shortText": "Space-separated list of requested scopes (e.g., \\"openid profile email\\")"
+                                }
+                              },
+                              {
+                                "name": "user",
+                                "type": {
+                                  "type": "object",
+                                  "properties": [
+                                    {
+                                      "name": "email",
+                                      "type": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "comment": {
+                                        "shortText": "User email"
+                                      }
+                                    },
+                                    {
+                                      "name": "id",
+                                      "type": {
+                                        "type": "intrinsic",
+                                        "name": "string"
+                                      },
+                                      "comment": {
+                                        "shortText": "User ID (UUID)"
+                                      }
+                                    }
+                                  ]
+                                },
+                                "comment": {
+                                  "shortText": "User object associated with the authorization"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "name": "OAuthRedirect",
+                            "type": "object",
+                            "properties": [
+                              {
+                                "name": "redirect_url",
+                                "type": {
+                                  "type": "intrinsic",
+                                  "name": "string"
+                                },
+                                "comment": {
+                                  "shortText": "Complete redirect URL with authorization code and state parameters (e.g., \\"https://app.com/callback?code=xxx&state=yyy\\")"
+                                }
+                              }
+                            ]
                           }
                         ]
                       }
@@ -52557,7 +52613,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Retrieves details about an OAuth authorization request.\\nUsed to display consent information to the user.\\nOnly relevant when the OAuth 2.1 server is enabled in Supabase Auth.\\n\\nThis method returns authorization details including client info, scopes, and user information.\\nIf the response includes a redirect_uri, it means consent was already given - the caller\\nshould handle the redirect manually if needed."
+          "shortText": "Retrieves details about an OAuth authorization request.\\nUsed to display consent information to the user.\\nOnly relevant when the OAuth 2.1 server is enabled in Supabase Auth.\\n\\nThis method returns one of two response types:\\n- \`OAuthAuthorizationDetails\`: User needs to consent - show consent page with client info\\n- \`OAuthRedirect\`: User already consented - redirect immediately to the OAuth client\\n\\nUse type narrowing to distinguish between the responses:\\n\`\`\`typescript\\nif ('authorization_id' in data) {\\n  // Show consent page\\n} else {\\n  // Redirect to data.redirect_url\\n}\\n\`\`\`"
         }
       },
       "@supabase/auth-js.AuthOAuthServerApi.listGrants": {

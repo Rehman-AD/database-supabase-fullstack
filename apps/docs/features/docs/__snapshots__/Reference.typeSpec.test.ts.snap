@@ -5739,6 +5739,9 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
             "type": {
               "type": "intrinsic",
               "name": "string"
+            },
+            "comment": {
+              "shortText": "The user's unique identifier"
             }
           },
           {
@@ -6452,7 +6455,14 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Updates the user data. Changes are applied directly without confirmation flows."
+          "shortText": "Updates the user data. Changes are applied directly without confirmation flows.",
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\n// Server-side (Edge Function)\\nconst { data, error } = await supabase.auth.admin.updateUserById(\\n  userId,\\n  { user_metadata: { preferences: { theme: 'dark' } } }\\n)\\n\\n// Client-side (to sync the changes)\\nconst { data, error } = await supabase.auth.refreshSession()\\n// onAuthStateChange listeners will now be notified with updated user\\n\`\`\`"
+            }
+          ]
         }
       },
       "@supabase/supabase-js.GoTrueClient.constructor": {
@@ -46679,6 +46689,9 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
             "type": {
               "type": "intrinsic",
               "name": "string"
+            },
+            "comment": {
+              "shortText": "The user's unique identifier"
             }
           },
           {
@@ -47392,7 +47405,14 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Updates the user data. Changes are applied directly without confirmation flows."
+          "shortText": "Updates the user data. Changes are applied directly without confirmation flows.",
+          "examples": [
+            {
+              "id": "example-1",
+              "name": "Example 1",
+              "code": "\`\`\`typescript\\n// Server-side (Edge Function)\\nconst { data, error } = await supabase.auth.admin.updateUserById(\\n  userId,\\n  { user_metadata: { preferences: { theme: 'dark' } } }\\n)\\n\\n// Client-side (to sync the changes)\\nconst { data, error } = await supabase.auth.refreshSession()\\n// onAuthStateChange listeners will now be notified with updated user\\n\`\`\`"
+            }
+          ]
         }
       },
       "@supabase/auth-js.GoTrueClient.constructor": {
@@ -83828,6 +83848,40 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           ]
         }
       },
+      "@supabase/storage-js.StorageClient.setHeader": {
+        "name": "@supabase/storage-js.StorageClient.setHeader",
+        "params": [
+          {
+            "name": "name",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Header name"
+            }
+          },
+          {
+            "name": "value",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Header value"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Set an HTTP header for the request.\\nCreates a shallow copy of headers to avoid mutating shared state."
+        }
+      },
       "@supabase/storage-js.StorageClient.throwOnError": {
         "name": "@supabase/storage-js.StorageClient.throwOnError",
         "params": [],
@@ -85180,6 +85234,40 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           ]
         }
       },
+      "@supabase/storage-js.packages/StorageAnalyticsClient.default.setHeader": {
+        "name": "@supabase/storage-js.packages/StorageAnalyticsClient.default.setHeader",
+        "params": [
+          {
+            "name": "name",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Header name"
+            }
+          },
+          {
+            "name": "value",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Header value"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Set an HTTP header for the request.\\nCreates a shallow copy of headers to avoid mutating shared state."
+        }
+      },
       "@supabase/storage-js.packages/StorageAnalyticsClient.default.throwOnError": {
         "name": "@supabase/storage-js.packages/StorageAnalyticsClient.default.throwOnError",
         "params": [],
@@ -85998,6 +86086,40 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               "code": "\`\`\`js\\nconst { data, error } = await supabase\\n  .storage\\n  .listBuckets({\\n    limit: 10,\\n    offset: 0,\\n    sortColumn: 'created_at',\\n    sortOrder: 'desc',\\n    search: 'prod'\\n  })\\n\`\`\`"
             }
           ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageBucketApi.default.setHeader": {
+        "name": "@supabase/storage-js.packages/StorageBucketApi.default.setHeader",
+        "params": [
+          {
+            "name": "name",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Header name"
+            }
+          },
+          {
+            "name": "value",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Header value"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Set an HTTP header for the request.\\nCreates a shallow copy of headers to avoid mutating shared state."
         }
       },
       "@supabase/storage-js.packages/StorageBucketApi.default.throwOnError": {
@@ -88334,6 +88456,40 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           ]
         }
       },
+      "@supabase/storage-js.packages/StorageFileApi.default.setHeader": {
+        "name": "@supabase/storage-js.packages/StorageFileApi.default.setHeader",
+        "params": [
+          {
+            "name": "name",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Header name"
+            }
+          },
+          {
+            "name": "value",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Header value"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Set an HTTP header for the request.\\nCreates a shallow copy of headers to avoid mutating shared state."
+        }
+      },
       "@supabase/storage-js.packages/StorageFileApi.default.throwOnError": {
         "name": "@supabase/storage-js.packages/StorageFileApi.default.throwOnError",
         "params": [],
@@ -89702,6 +89858,46 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           ]
         }
       },
+      "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.setHeader": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.setHeader",
+        "params": [
+          {
+            "name": "name",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Header name"
+            }
+          },
+          {
+            "name": "value",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Header value"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Set an HTTP header for the request.\\nCreates a shallow copy of headers to avoid mutating shared state.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
+            }
+          ]
+        }
+      },
       "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.throwOnError": {
         "name": "@supabase/storage-js.packages/StorageVectorsClient.StorageVectorsClient.throwOnError",
         "params": [],
@@ -90381,6 +90577,46 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               "id": "example-1",
               "name": "Example 1",
               "code": "\`\`\`typescript\\nconst bucket = supabase.storage.vectors.from('embeddings-prod')\\nconst { data } = await bucket.listIndexes({ prefix: 'documents-' })\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope.setHeader": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorBucketScope.setHeader",
+        "params": [
+          {
+            "name": "name",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Header name"
+            }
+          },
+          {
+            "name": "value",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Header value"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Set an HTTP header for the request.\\nCreates a shallow copy of headers to avoid mutating shared state.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
             }
           ]
         }
@@ -91268,6 +91504,46 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               "id": "example-1",
               "name": "Example 1",
               "code": "\`\`\`typescript\\nconst index = supabase.storage.vectors.from('embeddings-prod').index('documents-openai')\\nconst { data } = await index.queryVectors({\\n  queryVector: { float32: [0.1, 0.2, ...] },\\n  topK: 5,\\n  filter: { category: 'technical' },\\n  returnDistance: true,\\n  returnMetadata: true\\n})\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.setHeader": {
+        "name": "@supabase/storage-js.packages/StorageVectorsClient.VectorIndexScope.setHeader",
+        "params": [
+          {
+            "name": "name",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Header name"
+            }
+          },
+          {
+            "name": "value",
+            "type": {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            "comment": {
+              "shortText": "Header value"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Set an HTTP header for the request.\\nCreates a shallow copy of headers to avoid mutating shared state.",
+          "tags": [
+            {
+              "tag": "alpha",
+              "text": ""
             }
           ]
         }

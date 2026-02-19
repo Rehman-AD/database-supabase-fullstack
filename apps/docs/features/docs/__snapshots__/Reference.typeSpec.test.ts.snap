@@ -6732,6 +6732,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "isOptional": true
                 },
                 {
+                  "name": "skipAutoInitialize",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "boolean"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "If true, skips automatic initialization in constructor. Useful for SSR\\ncontexts where initialization timing must be controlled to prevent race\\nconditions with HTTP response generation."
+                  }
+                },
+                {
                   "name": "storage",
                   "type": {
                     "type": "nameOnly",
@@ -47680,6 +47691,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     "name": "boolean"
                   },
                   "isOptional": true
+                },
+                {
+                  "name": "skipAutoInitialize",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "boolean"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "If true, skips automatic initialization in constructor. Useful for SSR\\ncontexts where initialization timing must be controlled to prevent race\\nconditions with HTTP response generation."
+                  }
                 },
                 {
                   "name": "storage",

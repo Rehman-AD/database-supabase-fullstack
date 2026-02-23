@@ -15,7 +15,7 @@ const ExpoSecureStoreAdapter = {
   removeItem: (key: string) => {
     return deleteItemAsync(key)
   },
-}
+};
 
 export const supabase = createClient(
   process.env.EXPO_PUBLIC_SUPABASE_URL ?? '',

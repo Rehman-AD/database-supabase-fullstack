@@ -15,7 +15,7 @@ export default function GoogleSignInButton() {
     const parsedUrl = new URL(url);
     const hash = parsedUrl.hash.substring(1); // Remove the leading '#'
     const params = new URLSearchParams(hash);
-  
+
     return {
       access_token: params.get("access_token"),
       expires_in: parseInt(params.get("expires_in") || "0"),
@@ -25,7 +25,7 @@ export default function GoogleSignInButton() {
       code: params.get("code"),
     };
   };
-  
+
   async function onSignInButtonPress() {
     console.debug('onSignInButtonPress - start');
     const res = await supabase.auth.signInWithOAuth({
@@ -39,7 +39,7 @@ export default function GoogleSignInButton() {
 
     const googleOAuthUrl = res.data.url;
 
-    if (!googleOAuthUrl) { 
+    if (!googleOAuthUrl) {
       console.error("no oauth url found!");
       return;
     }
@@ -49,7 +49,7 @@ export default function GoogleSignInButton() {
       `${expo.scheme}://google-auth`,
       { showInRecents: true },
     ).catch((err) => {
-      console.error('onSignInButtonPress - openAuthSessionAsync - error', { err })
+      console.error('onSignInButtonPress - openAuthSessionAsync - error', { err });
       console.log(err);
     });
 

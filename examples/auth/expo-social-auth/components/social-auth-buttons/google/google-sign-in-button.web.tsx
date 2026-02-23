@@ -12,28 +12,28 @@ export default function GoogleSignInButton() {
   const [sha256Nonce, setSha256Nonce] = useState('');
 
   async function onGoogleButtonSuccess(authRequestResponse: CredentialResponse) {
-    console.debug('Google sign in successful:', { authRequestResponse })
+    console.debug('Google sign in successful:', { authRequestResponse });
     if (authRequestResponse.clientId && authRequestResponse.credential) {
       const signInWithIdTokenCredentials: SignInWithIdTokenCredentials = {
         provider: 'google',
         token: authRequestResponse.credential,
         nonce: nonce,
-      }
+      };
 
-      const { data, error } = await supabase.auth.signInWithIdToken(signInWithIdTokenCredentials)
+      const { data, error } = await supabase.auth.signInWithIdToken(signInWithIdTokenCredentials);
 
       if (error) {
-        console.error('Error signing in with Google:', error)
+        console.error('Error signing in with Google:', error);
       }
 
       if (data) {
-        console.log('Google sign in successful:', data)
+        console.log('Google sign in successful:', data);
       }
     }
   }
 
   function onGoogleButtonFailure() {
-    console.error('Error signing in with Google')
+    console.error('Error signing in with Google');
   }
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export default function GoogleSignInButton() {
       const array = new Uint32Array(1);
       window.crypto.getRandomValues(array);
       return array[0].toString();
-    };
+    }
 
     async function generateSha256Nonce(nonce: string): Promise<string> {
       const buffer = await window.crypto.subtle.digest('sha-256', new TextEncoder().encode(nonce));

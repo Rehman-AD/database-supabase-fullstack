@@ -16,7 +16,7 @@ async function onAppleButtonPress() {
   // Note: This method must be tested on a real device. On the iOS simulator it always throws an error.
   const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
 
-  console.log('Apple sign in successful:', { credentialState, appleAuthRequestResponse })
+  console.log('Apple sign in successful:', { credentialState, appleAuthRequestResponse });
 
   if (credentialState === appleAuth.State.AUTHORIZED && appleAuthRequestResponse.identityToken && appleAuthRequestResponse.authorizationCode) {
     const signInWithIdTokenCredentials: SignInWithIdTokenCredentials = {
@@ -24,24 +24,24 @@ async function onAppleButtonPress() {
       token: appleAuthRequestResponse.identityToken,
       nonce: appleAuthRequestResponse.nonce,
       access_token: appleAuthRequestResponse.authorizationCode,
-    }
+    };
 
-    const { data, error } = await supabase.auth.signInWithIdToken(signInWithIdTokenCredentials)
+    const { data, error } = await supabase.auth.signInWithIdToken(signInWithIdTokenCredentials);
 
     if (error) {
-      console.error('Error signing in with Apple:', error)
+      console.error('Error signing in with Apple:', error);
     }
 
     if (data) {
-      console.log('Apple sign in successful:', data)
-      router.navigate('/(tabs)/explore')
+      console.log('Apple sign in successful:', data);
+      router.navigate('/(tabs)');
     }
   }
 }
 
 export default function AppleSignInButton() {
-  if (Platform.OS !== 'ios') { return <></> }
-  
+  if (Platform.OS !== 'ios') { return <></>; }
+
   return <AppleButton
     buttonStyle={AppleButton.Style.BLACK}
     buttonType={AppleButton.Type.SIGN_IN}

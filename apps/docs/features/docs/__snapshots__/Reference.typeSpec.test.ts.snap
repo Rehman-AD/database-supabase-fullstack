@@ -1040,6 +1040,31 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "comment": {
                     "shortText": "Scope of the OAuth client"
                   }
+                },
+                {
+                  "name": "token_endpoint_auth_method",
+                  "type": {
+                    "type": "union",
+                    "name": "OAuthClientTokenEndpointAuthMethod",
+                    "subTypes": [
+                      {
+                        "type": "literal",
+                        "value": "none"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "client_secret_basic"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "client_secret_post"
+                      }
+                    ]
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Token endpoint authentication method (defaults to server default if not specified)"
+                  }
                 }
               ]
             }
@@ -1229,8 +1254,22 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           {
                             "name": "token_endpoint_auth_method",
                             "type": {
-                              "type": "intrinsic",
-                              "name": "string"
+                              "type": "union",
+                              "name": "OAuthClientTokenEndpointAuthMethod",
+                              "subTypes": [
+                                {
+                                  "type": "literal",
+                                  "value": "none"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_basic"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_post"
+                                }
+                              ]
                             },
                             "comment": {
                               "shortText": "Token endpoint authentication method"
@@ -1525,8 +1564,22 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           {
                             "name": "token_endpoint_auth_method",
                             "type": {
-                              "type": "intrinsic",
-                              "name": "string"
+                              "type": "union",
+                              "name": "OAuthClientTokenEndpointAuthMethod",
+                              "subTypes": [
+                                {
+                                  "type": "literal",
+                                  "value": "none"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_basic"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_post"
+                                }
+                              ]
                             },
                             "comment": {
                               "shortText": "Token endpoint authentication method"
@@ -1862,8 +1915,22 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           {
                             "name": "token_endpoint_auth_method",
                             "type": {
-                              "type": "intrinsic",
-                              "name": "string"
+                              "type": "union",
+                              "name": "OAuthClientTokenEndpointAuthMethod",
+                              "subTypes": [
+                                {
+                                  "type": "literal",
+                                  "value": "none"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_basic"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_post"
+                                }
+                              ]
                             },
                             "comment": {
                               "shortText": "Token endpoint authentication method"
@@ -1999,6 +2066,31 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "isOptional": true,
                   "comment": {
                     "shortText": "Array of allowed redirect URIs"
+                  }
+                },
+                {
+                  "name": "token_endpoint_auth_method",
+                  "type": {
+                    "type": "union",
+                    "name": "OAuthClientTokenEndpointAuthMethod",
+                    "subTypes": [
+                      {
+                        "type": "literal",
+                        "value": "none"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "client_secret_basic"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "client_secret_post"
+                      }
+                    ]
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Token endpoint authentication method"
                   }
                 }
               ]
@@ -2189,8 +2281,22 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           {
                             "name": "token_endpoint_auth_method",
                             "type": {
-                              "type": "intrinsic",
-                              "name": "string"
+                              "type": "union",
+                              "name": "OAuthClientTokenEndpointAuthMethod",
+                              "subTypes": [
+                                {
+                                  "type": "literal",
+                                  "value": "none"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_basic"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_post"
+                                }
+                              ]
                             },
                             "comment": {
                               "shortText": "Token endpoint authentication method"
@@ -2270,6 +2376,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "isOptional": true,
                   "comment": {
                     "shortText": "Determines how long a user is banned for.\\n\\nThe format for the ban duration follows a strict sequence of decimal numbers with a unit suffix.\\nValid time units are \\"ns\\", \\"us\\" (or \\"µs\\"), \\"ms\\", \\"s\\", \\"m\\", \\"h\\".\\n\\nFor example, some possible durations include: '300ms', '2h45m'.\\n\\nSetting the ban duration to 'none' lifts the ban on the user."
+                  }
+                },
+                {
+                  "name": "current_password",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "The user's current password\\n\\nThis is only ever present when the user is resetting\\ntheir password and GOTRUE_SECURITY_UPDATE_PASSWORD_REQUIRE_CURRENT_PASSWORD is true."
                   }
                 },
                 {
@@ -5773,6 +5890,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   }
                 },
                 {
+                  "name": "current_password",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "The user's current password\\n\\nThis is only ever present when the user is resetting\\ntheir password and GOTRUE_SECURITY_UPDATE_PASSWORD_REQUIRE_CURRENT_PASSWORD is true."
+                  }
+                },
+                {
                   "name": "email",
                   "type": {
                     "type": "intrinsic",
@@ -6696,7 +6824,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   },
                   "isOptional": true,
                   "comment": {
-                    "shortText": "Provide your own locking mechanism based on the environment. By default no locking is done at this time.",
+                    "shortText": "Provide your own locking mechanism based on the environment. By default,\\n\`navigatorLock\` (Web Locks API) is used in browser environments when\\n\`persistSession\` is true. Falls back to an in-process lock for non-browser\\nenvironments (e.g. React Native).",
                     "tags": [
                       {
                         "tag": "experimental",
@@ -6713,12 +6841,12 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   },
                   "isOptional": true,
                   "comment": {
-                    "shortText": "The maximum time in milliseconds to wait for acquiring a cross-tab synchronization lock.\\n\\nWhen multiple browser tabs or windows use the auth client simultaneously, they coordinate\\nvia the Web Locks API to prevent race conditions during session refresh and other operations.\\nThis timeout controls how long to wait for the lock before failing.\\n\\nIf the lock cannot be acquired within this time, a \`LockAcquireTimeoutError\` is thrown.\\nYou can catch this by checking \`error.isAcquireTimeout === true\`.\\n\\n- **Positive value**: Wait up to this many milliseconds before timing out\\n- **Zero (0)**: Fail immediately if the lock is unavailable\\n- **Negative value**: Wait indefinitely (not recommended - can cause deadlocks)",
+                    "shortText": "The maximum time in milliseconds to wait for acquiring a cross-tab synchronization lock.\\n\\nWhen multiple browser tabs or windows use the auth client simultaneously, they coordinate\\nvia the Web Locks API to prevent race conditions during session refresh and other operations.\\nThis timeout controls how long to wait before attempting lock recovery.\\n\\n- **Positive value**: Wait up to this many milliseconds. If the lock is still held, attempt\\n  automatic recovery by stealing it (the previous holder is evicted, its callback continues\\n  to completion without exclusive access). This recovers from orphaned locks caused by\\n  React Strict Mode double-mount, storage API hangs, or aborted operations.\\n- **Zero (0)**: Fail immediately if the lock is unavailable; throws \`LockAcquireTimeoutError\`\\n  (check \`error.isAcquireTimeout === true\`).\\n- **Negative value**: Wait indefinitely — can cause permanent deadlocks if the lock is orphaned.",
                     "examples": [
                       {
                         "id": "example-1",
                         "name": "Example 1",
-                        "code": "\`\`\`ts\\nconst client = createClient(url, key, {\\n  auth: {\\n    lockAcquireTimeout: 10000, // 10 seconds\\n  },\\n})\\n\\ntry {\\n  await client.auth.getSession()\\n} catch (error) {\\n  if (error.isAcquireTimeout) {\\n    // Lock held by another tab/instance, or a previous operation is stuck.\\n    // Consider: closing other tabs, increasing timeout, or restarting the browser.\\n    console.error('Could not acquire lock within timeout period.')\\n  }\\n}\\n\`\`\`"
+                        "code": "\`\`\`ts\\nconst client = createClient(url, key, {\\n  auth: {\\n    lockAcquireTimeout: 5000, // 5 seconds, then steal orphaned lock\\n  },\\n})\\n\`\`\`"
                       }
                     ]
                   }
@@ -14417,6 +14545,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               "name": "UserAttributes",
               "properties": [
                 {
+                  "name": "current_password",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "The user's current password\\n\\nThis is only ever present when the user is resetting\\ntheir password and GOTRUE_SECURITY_UPDATE_PASSWORD_REQUIRE_CURRENT_PASSWORD is true."
+                  }
+                },
+                {
                   "name": "data",
                   "type": {
                     "type": "intrinsic",
@@ -18410,7 +18549,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                       {
                         "type": "literal",
                         "value": "fly"
-                      }
+                      },
+                      null
                     ]
                   },
                   "comment": {
@@ -18534,7 +18674,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                                 {
                                   "type": "literal",
                                   "value": "fly"
-                                }
+                                },
+                                null
                               ]
                             }
                           },
@@ -18662,7 +18803,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                                 {
                                   "type": "literal",
                                   "value": "fly"
-                                }
+                                },
+                                null
                               ]
                             }
                           },
@@ -18768,11 +18910,12 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                             "type": "literal",
                             "value": "kakao"
                           },
+                          null,
                           null
                         ]
                       },
                       "comment": {
-                        "shortText": "Provider name or OIDC \`iss\` value identifying which provider should be used to verify the provided token. Supported names: \`google\`, \`apple\`, \`azure\`, \`facebook\`, \`kakao\`, \`keycloak\` (deprecated)."
+                        "shortText": "Provider name or OIDC \`iss\` value identifying which provider should be used to verify the provided token. Supported names: \`google\`, \`apple\`, \`azure\`, \`facebook\`, \`kakao\`. Use the \`custom:\` prefix for custom OIDC providers (e.g. \`custom:my-oidc-provider\`)."
                       }
                     },
                     {
@@ -28090,11 +28233,12 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                         "type": "literal",
                         "value": "kakao"
                       },
+                      null,
                       null
                     ]
                   },
                   "comment": {
-                    "shortText": "Provider name or OIDC \`iss\` value identifying which provider should be used to verify the provided token. Supported names: \`google\`, \`apple\`, \`azure\`, \`facebook\`, \`kakao\`, \`keycloak\` (deprecated)."
+                    "shortText": "Provider name or OIDC \`iss\` value identifying which provider should be used to verify the provided token. Supported names: \`google\`, \`apple\`, \`azure\`, \`facebook\`, \`kakao\`. Use the \`custom:\` prefix for custom OIDC providers (e.g. \`custom:my-oidc-provider\`)."
                   }
                 },
                 {
@@ -29459,7 +29603,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                       {
                         "type": "literal",
                         "value": "fly"
-                      }
+                      },
+                      null
                     ]
                   },
                   "comment": {
@@ -29583,7 +29728,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                                 {
                                   "type": "literal",
                                   "value": "fly"
-                                }
+                                },
+                                null
                               ]
                             }
                           },
@@ -29711,7 +29857,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                                 {
                                   "type": "literal",
                                   "value": "fly"
-                                }
+                                },
+                                null
                               ]
                             }
                           },
@@ -34457,6 +34604,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               "type": "object",
               "name": "UserAttributes",
               "properties": [
+                {
+                  "name": "current_password",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "The user's current password\\n\\nThis is only ever present when the user is resetting\\ntheir password and GOTRUE_SECURITY_UPDATE_PASSWORD_REQUIRE_CURRENT_PASSWORD is true."
+                  }
+                },
                 {
                   "name": "data",
                   "type": {
@@ -42004,6 +42162,31 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "comment": {
                     "shortText": "Scope of the OAuth client"
                   }
+                },
+                {
+                  "name": "token_endpoint_auth_method",
+                  "type": {
+                    "type": "union",
+                    "name": "OAuthClientTokenEndpointAuthMethod",
+                    "subTypes": [
+                      {
+                        "type": "literal",
+                        "value": "none"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "client_secret_basic"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "client_secret_post"
+                      }
+                    ]
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Token endpoint authentication method (defaults to server default if not specified)"
+                  }
                 }
               ]
             }
@@ -42193,8 +42376,22 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           {
                             "name": "token_endpoint_auth_method",
                             "type": {
-                              "type": "intrinsic",
-                              "name": "string"
+                              "type": "union",
+                              "name": "OAuthClientTokenEndpointAuthMethod",
+                              "subTypes": [
+                                {
+                                  "type": "literal",
+                                  "value": "none"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_basic"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_post"
+                                }
+                              ]
                             },
                             "comment": {
                               "shortText": "Token endpoint authentication method"
@@ -42489,8 +42686,22 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           {
                             "name": "token_endpoint_auth_method",
                             "type": {
-                              "type": "intrinsic",
-                              "name": "string"
+                              "type": "union",
+                              "name": "OAuthClientTokenEndpointAuthMethod",
+                              "subTypes": [
+                                {
+                                  "type": "literal",
+                                  "value": "none"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_basic"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_post"
+                                }
+                              ]
                             },
                             "comment": {
                               "shortText": "Token endpoint authentication method"
@@ -42826,8 +43037,22 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           {
                             "name": "token_endpoint_auth_method",
                             "type": {
-                              "type": "intrinsic",
-                              "name": "string"
+                              "type": "union",
+                              "name": "OAuthClientTokenEndpointAuthMethod",
+                              "subTypes": [
+                                {
+                                  "type": "literal",
+                                  "value": "none"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_basic"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_post"
+                                }
+                              ]
                             },
                             "comment": {
                               "shortText": "Token endpoint authentication method"
@@ -42963,6 +43188,31 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "isOptional": true,
                   "comment": {
                     "shortText": "Array of allowed redirect URIs"
+                  }
+                },
+                {
+                  "name": "token_endpoint_auth_method",
+                  "type": {
+                    "type": "union",
+                    "name": "OAuthClientTokenEndpointAuthMethod",
+                    "subTypes": [
+                      {
+                        "type": "literal",
+                        "value": "none"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "client_secret_basic"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "client_secret_post"
+                      }
+                    ]
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Token endpoint authentication method"
                   }
                 }
               ]
@@ -43153,8 +43403,22 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           {
                             "name": "token_endpoint_auth_method",
                             "type": {
-                              "type": "intrinsic",
-                              "name": "string"
+                              "type": "union",
+                              "name": "OAuthClientTokenEndpointAuthMethod",
+                              "subTypes": [
+                                {
+                                  "type": "literal",
+                                  "value": "none"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_basic"
+                                },
+                                {
+                                  "type": "literal",
+                                  "value": "client_secret_post"
+                                }
+                              ]
                             },
                             "comment": {
                               "shortText": "Token endpoint authentication method"
@@ -43234,6 +43498,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "isOptional": true,
                   "comment": {
                     "shortText": "Determines how long a user is banned for.\\n\\nThe format for the ban duration follows a strict sequence of decimal numbers with a unit suffix.\\nValid time units are \\"ns\\", \\"us\\" (or \\"µs\\"), \\"ms\\", \\"s\\", \\"m\\", \\"h\\".\\n\\nFor example, some possible durations include: '300ms', '2h45m'.\\n\\nSetting the ban duration to 'none' lifts the ban on the user."
+                  }
+                },
+                {
+                  "name": "current_password",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "The user's current password\\n\\nThis is only ever present when the user is resetting\\ntheir password and GOTRUE_SECURITY_UPDATE_PASSWORD_REQUIRE_CURRENT_PASSWORD is true."
                   }
                 },
                 {
@@ -46734,6 +47009,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   }
                 },
                 {
+                  "name": "current_password",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "The user's current password\\n\\nThis is only ever present when the user is resetting\\ntheir password and GOTRUE_SECURITY_UPDATE_PASSWORD_REQUIRE_CURRENT_PASSWORD is true."
+                  }
+                },
+                {
                   "name": "email",
                   "type": {
                     "type": "intrinsic",
@@ -47657,7 +47943,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   },
                   "isOptional": true,
                   "comment": {
-                    "shortText": "Provide your own locking mechanism based on the environment. By default no locking is done at this time.",
+                    "shortText": "Provide your own locking mechanism based on the environment. By default,\\n\`navigatorLock\` (Web Locks API) is used in browser environments when\\n\`persistSession\` is true. Falls back to an in-process lock for non-browser\\nenvironments (e.g. React Native).",
                     "tags": [
                       {
                         "tag": "experimental",
@@ -47674,12 +47960,12 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   },
                   "isOptional": true,
                   "comment": {
-                    "shortText": "The maximum time in milliseconds to wait for acquiring a cross-tab synchronization lock.\\n\\nWhen multiple browser tabs or windows use the auth client simultaneously, they coordinate\\nvia the Web Locks API to prevent race conditions during session refresh and other operations.\\nThis timeout controls how long to wait for the lock before failing.\\n\\nIf the lock cannot be acquired within this time, a \`LockAcquireTimeoutError\` is thrown.\\nYou can catch this by checking \`error.isAcquireTimeout === true\`.\\n\\n- **Positive value**: Wait up to this many milliseconds before timing out\\n- **Zero (0)**: Fail immediately if the lock is unavailable\\n- **Negative value**: Wait indefinitely (not recommended - can cause deadlocks)",
+                    "shortText": "The maximum time in milliseconds to wait for acquiring a cross-tab synchronization lock.\\n\\nWhen multiple browser tabs or windows use the auth client simultaneously, they coordinate\\nvia the Web Locks API to prevent race conditions during session refresh and other operations.\\nThis timeout controls how long to wait before attempting lock recovery.\\n\\n- **Positive value**: Wait up to this many milliseconds. If the lock is still held, attempt\\n  automatic recovery by stealing it (the previous holder is evicted, its callback continues\\n  to completion without exclusive access). This recovers from orphaned locks caused by\\n  React Strict Mode double-mount, storage API hangs, or aborted operations.\\n- **Zero (0)**: Fail immediately if the lock is unavailable; throws \`LockAcquireTimeoutError\`\\n  (check \`error.isAcquireTimeout === true\`).\\n- **Negative value**: Wait indefinitely — can cause permanent deadlocks if the lock is orphaned.",
                     "examples": [
                       {
                         "id": "example-1",
                         "name": "Example 1",
-                        "code": "\`\`\`ts\\nconst client = createClient(url, key, {\\n  auth: {\\n    lockAcquireTimeout: 10000, // 10 seconds\\n  },\\n})\\n\\ntry {\\n  await client.auth.getSession()\\n} catch (error) {\\n  if (error.isAcquireTimeout) {\\n    // Lock held by another tab/instance, or a previous operation is stuck.\\n    // Consider: closing other tabs, increasing timeout, or restarting the browser.\\n    console.error('Could not acquire lock within timeout period.')\\n  }\\n}\\n\`\`\`"
+                        "code": "\`\`\`ts\\nconst client = createClient(url, key, {\\n  auth: {\\n    lockAcquireTimeout: 5000, // 5 seconds, then steal orphaned lock\\n  },\\n})\\n\`\`\`"
                       }
                     ]
                   }
@@ -56214,7 +56500,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                       {
                         "type": "literal",
                         "value": "fly"
-                      }
+                      },
+                      null
                     ]
                   },
                   "comment": {
@@ -56338,7 +56625,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                                 {
                                   "type": "literal",
                                   "value": "fly"
-                                }
+                                },
+                                null
                               ]
                             }
                           },
@@ -56466,7 +56754,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                                 {
                                   "type": "literal",
                                   "value": "fly"
-                                }
+                                },
+                                null
                               ]
                             }
                           },
@@ -56572,11 +56861,12 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                             "type": "literal",
                             "value": "kakao"
                           },
+                          null,
                           null
                         ]
                       },
                       "comment": {
-                        "shortText": "Provider name or OIDC \`iss\` value identifying which provider should be used to verify the provided token. Supported names: \`google\`, \`apple\`, \`azure\`, \`facebook\`, \`kakao\`, \`keycloak\` (deprecated)."
+                        "shortText": "Provider name or OIDC \`iss\` value identifying which provider should be used to verify the provided token. Supported names: \`google\`, \`apple\`, \`azure\`, \`facebook\`, \`kakao\`. Use the \`custom:\` prefix for custom OIDC providers (e.g. \`custom:my-oidc-provider\`)."
                       }
                     },
                     {
@@ -65893,11 +66183,12 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                         "type": "literal",
                         "value": "kakao"
                       },
+                      null,
                       null
                     ]
                   },
                   "comment": {
-                    "shortText": "Provider name or OIDC \`iss\` value identifying which provider should be used to verify the provided token. Supported names: \`google\`, \`apple\`, \`azure\`, \`facebook\`, \`kakao\`, \`keycloak\` (deprecated)."
+                    "shortText": "Provider name or OIDC \`iss\` value identifying which provider should be used to verify the provided token. Supported names: \`google\`, \`apple\`, \`azure\`, \`facebook\`, \`kakao\`. Use the \`custom:\` prefix for custom OIDC providers (e.g. \`custom:my-oidc-provider\`)."
                   }
                 },
                 {
@@ -67262,7 +67553,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                       {
                         "type": "literal",
                         "value": "fly"
-                      }
+                      },
+                      null
                     ]
                   },
                   "comment": {
@@ -67386,7 +67678,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                                 {
                                   "type": "literal",
                                   "value": "fly"
-                                }
+                                },
+                                null
                               ]
                             }
                           },
@@ -67514,7 +67807,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                                 {
                                   "type": "literal",
                                   "value": "fly"
-                                }
+                                },
+                                null
                               ]
                             }
                           },
@@ -72259,6 +72553,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               "type": "object",
               "name": "UserAttributes",
               "properties": [
+                {
+                  "name": "current_password",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "The user's current password\\n\\nThis is only ever present when the user is resetting\\ntheir password and GOTRUE_SECURITY_UPDATE_PASSWORD_REQUIRE_CURRENT_PASSWORD is true."
+                  }
+                },
                 {
                   "name": "data",
                   "type": {

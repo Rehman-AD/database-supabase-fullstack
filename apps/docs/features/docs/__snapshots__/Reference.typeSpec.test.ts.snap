@@ -40704,6 +40704,24 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           ]
         }
       },
+      "@supabase/supabase-js.RealtimeChannel.copyBindings": {
+        "name": "@supabase/supabase-js.RealtimeChannel.copyBindings",
+        "params": [
+          {
+            "name": "other",
+            "type": {
+              "type": "nameOnly",
+              "name": "RealtimeChannel"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "void"
+          }
+        }
+      },
       "@supabase/supabase-js.RealtimeChannel.httpSend": {
         "name": "@supabase/supabase-js.RealtimeChannel.httpSend",
         "params": [
@@ -87802,6 +87820,24 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               "code": "\`\`\`ts\\nSetting the authorization header\\n// Use a manual token (preserved across resubscribes, ignores accessToken callback)\\nclient.realtime.setAuth('my-custom-jwt')\\n\\n// Switch back to using the accessToken callback\\nclient.realtime.setAuth()\\n\`\`\`"
             }
           ]
+        }
+      },
+      "@supabase/realtime-js.RealtimeChannel.copyBindings": {
+        "name": "@supabase/realtime-js.RealtimeChannel.copyBindings",
+        "params": [
+          {
+            "name": "other",
+            "type": {
+              "type": "nameOnly",
+              "name": "RealtimeChannel"
+            }
+          }
+        ],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "void"
+          }
         }
       },
       "@supabase/realtime-js.RealtimeChannel.httpSend": {

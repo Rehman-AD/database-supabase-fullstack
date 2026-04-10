@@ -39929,6 +39929,14 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "isOptional": true
                 },
                 {
+                  "name": "shouldStripNulls",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "boolean"
+                  },
+                  "isOptional": true
+                },
+                {
                   "name": "shouldThrowOnError",
                   "type": {
                     "type": "intrinsic",
@@ -40104,6 +40112,30 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
         },
         "comment": {
           "shortText": "Set an HTTP header for the request."
+        }
+      },
+      "@supabase/supabase-js.PostgrestBuilder.stripNulls": {
+        "name": "@supabase/supabase-js.PostgrestBuilder.stripNulls",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Strip null values from the response data. Properties with \`null\` values\\nwill be omitted from the returned JSON objects.\\n\\nRequires PostgREST 11.2.0+.\\n\\nhttps://docs.postgrest.org/en/stable/references/api/resource_representation.html#stripped-nulls",
+          "examples": [
+            {
+              "id": "with-select",
+              "name": "With \`select()\`",
+              "code": "\`\`\`ts\\nconst { data, error } = await supabase\\n  .from('characters')\\n  .select()\\n  .stripNulls()\\n\`\`\`",
+              "data": {
+                "sql": "\`\`\`sql\\ncreate table\\n  characters (id int8 primary key, name text, bio text);\\n\\ninsert into\\n  characters (id, name, bio)\\nvalues\\n  (1, 'Luke', null),\\n  (2, 'Leia', 'Princess of Alderaan');\\n\`\`\`"
+              },
+              "response": "\`\`\`json\\n{\\n  \\"data\\": [\\n    {\\n      \\"id\\": 1,\\n      \\"name\\": \\"Luke\\"\\n    },\\n    {\\n      \\"id\\": 2,\\n      \\"name\\": \\"Leia\\",\\n      \\"bio\\": \\"Princess of Alderaan\\"\\n    }\\n  ],\\n  \\"status\\": 200,\\n  \\"statusText\\": \\"OK\\"\\n}\\n\`\`\`"
+            }
+          ]
         }
       },
       "@supabase/supabase-js.PostgrestBuilder.then": {
@@ -40430,6 +40462,14 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "type": {
                     "type": "intrinsic",
                     "name": "string"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "shouldStripNulls",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "boolean"
                   },
                   "isOptional": true
                 },
@@ -43094,6 +43134,30 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           ]
         }
       },
+      "@supabase/supabase-js.PostgrestFilterBuilder.stripNulls": {
+        "name": "@supabase/supabase-js.PostgrestFilterBuilder.stripNulls",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Strip null values from the response data. Properties with \`null\` values\\nwill be omitted from the returned JSON objects.\\n\\nRequires PostgREST 11.2.0+.\\n\\nhttps://docs.postgrest.org/en/stable/references/api/resource_representation.html#stripped-nulls",
+          "examples": [
+            {
+              "id": "with-select",
+              "name": "With \`select()\`",
+              "code": "\`\`\`ts\\nconst { data, error } = await supabase\\n  .from('characters')\\n  .select()\\n  .stripNulls()\\n\`\`\`",
+              "data": {
+                "sql": "\`\`\`sql\\ncreate table\\n  characters (id int8 primary key, name text, bio text);\\n\\ninsert into\\n  characters (id, name, bio)\\nvalues\\n  (1, 'Luke', null),\\n  (2, 'Leia', 'Princess of Alderaan');\\n\`\`\`"
+              },
+              "response": "\`\`\`json\\n{\\n  \\"data\\": [\\n    {\\n      \\"id\\": 1,\\n      \\"name\\": \\"Luke\\"\\n    },\\n    {\\n      \\"id\\": 2,\\n      \\"name\\": \\"Leia\\",\\n      \\"bio\\": \\"Princess of Alderaan\\"\\n    }\\n  ],\\n  \\"status\\": 200,\\n  \\"statusText\\": \\"OK\\"\\n}\\n\`\`\`"
+            }
+          ]
+        }
+      },
       "@supabase/supabase-js.PostgrestFilterBuilder.textSearch": {
         "name": "@supabase/supabase-js.PostgrestFilterBuilder.textSearch",
         "params": [
@@ -44206,6 +44270,14 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "isOptional": true
                 },
                 {
+                  "name": "shouldStripNulls",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "boolean"
+                  },
+                  "isOptional": true
+                },
+                {
                   "name": "shouldThrowOnError",
                   "type": {
                     "type": "intrinsic",
@@ -45085,6 +45157,30 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                 "sql": "\`\`\`sql\\ncreate table\\n  characters (id int8 primary key, name text);\\n\\ninsert into\\n  characters (id, name)\\nvalues\\n  (1, 'Luke'),\\n  (2, 'Leia'),\\n  (3, 'Han');\\n\`\`\`"
               },
               "response": "\`\`\`json\\n{\\n  \\"data\\": {\\n    \\"name\\": \\"Luke\\"\\n  },\\n  \\"status\\": 200,\\n  \\"statusText\\": \\"OK\\"\\n}\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/supabase-js.PostgrestTransformBuilder.stripNulls": {
+        "name": "@supabase/supabase-js.PostgrestTransformBuilder.stripNulls",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Strip null values from the response data. Properties with \`null\` values\\nwill be omitted from the returned JSON objects.\\n\\nRequires PostgREST 11.2.0+.\\n\\nhttps://docs.postgrest.org/en/stable/references/api/resource_representation.html#stripped-nulls",
+          "examples": [
+            {
+              "id": "with-select",
+              "name": "With \`select()\`",
+              "code": "\`\`\`ts\\nconst { data, error } = await supabase\\n  .from('characters')\\n  .select()\\n  .stripNulls()\\n\`\`\`",
+              "data": {
+                "sql": "\`\`\`sql\\ncreate table\\n  characters (id int8 primary key, name text, bio text);\\n\\ninsert into\\n  characters (id, name, bio)\\nvalues\\n  (1, 'Luke', null),\\n  (2, 'Leia', 'Princess of Alderaan');\\n\`\`\`"
+              },
+              "response": "\`\`\`json\\n{\\n  \\"data\\": [\\n    {\\n      \\"id\\": 1,\\n      \\"name\\": \\"Luke\\"\\n    },\\n    {\\n      \\"id\\": 2,\\n      \\"name\\": \\"Leia\\",\\n      \\"bio\\": \\"Princess of Alderaan\\"\\n    }\\n  ],\\n  \\"status\\": 200,\\n  \\"statusText\\": \\"OK\\"\\n}\\n\`\`\`"
             }
           ]
         }
@@ -86316,6 +86412,14 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "isOptional": true
                 },
                 {
+                  "name": "shouldStripNulls",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "boolean"
+                  },
+                  "isOptional": true
+                },
+                {
                   "name": "shouldThrowOnError",
                   "type": {
                     "type": "intrinsic",
@@ -86491,6 +86595,30 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
         },
         "comment": {
           "shortText": "Set an HTTP header for the request."
+        }
+      },
+      "@supabase/postgrest-js.PostgrestBuilder.stripNulls": {
+        "name": "@supabase/postgrest-js.PostgrestBuilder.stripNulls",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Strip null values from the response data. Properties with \`null\` values\\nwill be omitted from the returned JSON objects.\\n\\nRequires PostgREST 11.2.0+.\\n\\nhttps://docs.postgrest.org/en/stable/references/api/resource_representation.html#stripped-nulls",
+          "examples": [
+            {
+              "id": "with-select",
+              "name": "With \`select()\`",
+              "code": "\`\`\`ts\\nconst { data, error } = await supabase\\n  .from('characters')\\n  .select()\\n  .stripNulls()\\n\`\`\`",
+              "data": {
+                "sql": "\`\`\`sql\\ncreate table\\n  characters (id int8 primary key, name text, bio text);\\n\\ninsert into\\n  characters (id, name, bio)\\nvalues\\n  (1, 'Luke', null),\\n  (2, 'Leia', 'Princess of Alderaan');\\n\`\`\`"
+              },
+              "response": "\`\`\`json\\n{\\n  \\"data\\": [\\n    {\\n      \\"id\\": 1,\\n      \\"name\\": \\"Luke\\"\\n    },\\n    {\\n      \\"id\\": 2,\\n      \\"name\\": \\"Leia\\",\\n      \\"bio\\": \\"Princess of Alderaan\\"\\n    }\\n  ],\\n  \\"status\\": 200,\\n  \\"statusText\\": \\"OK\\"\\n}\\n\`\`\`"
+            }
+          ]
         }
       },
       "@supabase/postgrest-js.PostgrestBuilder.then": {
@@ -87183,6 +87311,14 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "type": {
                     "type": "intrinsic",
                     "name": "string"
+                  },
+                  "isOptional": true
+                },
+                {
+                  "name": "shouldStripNulls",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "boolean"
                   },
                   "isOptional": true
                 },
@@ -90213,6 +90349,30 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           ]
         }
       },
+      "@supabase/postgrest-js.PostgrestFilterBuilder.stripNulls": {
+        "name": "@supabase/postgrest-js.PostgrestFilterBuilder.stripNulls",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Strip null values from the response data. Properties with \`null\` values\\nwill be omitted from the returned JSON objects.\\n\\nRequires PostgREST 11.2.0+.\\n\\nhttps://docs.postgrest.org/en/stable/references/api/resource_representation.html#stripped-nulls",
+          "examples": [
+            {
+              "id": "with-select",
+              "name": "With \`select()\`",
+              "code": "\`\`\`ts\\nconst { data, error } = await supabase\\n  .from('characters')\\n  .select()\\n  .stripNulls()\\n\`\`\`",
+              "data": {
+                "sql": "\`\`\`sql\\ncreate table\\n  characters (id int8 primary key, name text, bio text);\\n\\ninsert into\\n  characters (id, name, bio)\\nvalues\\n  (1, 'Luke', null),\\n  (2, 'Leia', 'Princess of Alderaan');\\n\`\`\`"
+              },
+              "response": "\`\`\`json\\n{\\n  \\"data\\": [\\n    {\\n      \\"id\\": 1,\\n      \\"name\\": \\"Luke\\"\\n    },\\n    {\\n      \\"id\\": 2,\\n      \\"name\\": \\"Leia\\",\\n      \\"bio\\": \\"Princess of Alderaan\\"\\n    }\\n  ],\\n  \\"status\\": 200,\\n  \\"statusText\\": \\"OK\\"\\n}\\n\`\`\`"
+            }
+          ]
+        }
+      },
       "@supabase/postgrest-js.PostgrestFilterBuilder.textSearch": {
         "name": "@supabase/postgrest-js.PostgrestFilterBuilder.textSearch",
         "params": [
@@ -91530,6 +91690,14 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "isOptional": true
                 },
                 {
+                  "name": "shouldStripNulls",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "boolean"
+                  },
+                  "isOptional": true
+                },
+                {
                   "name": "shouldThrowOnError",
                   "type": {
                     "type": "intrinsic",
@@ -92440,6 +92608,30 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                 "sql": "\`\`\`sql\\ncreate table\\n  characters (id int8 primary key, name text);\\n\\ninsert into\\n  characters (id, name)\\nvalues\\n  (1, 'Luke'),\\n  (2, 'Leia'),\\n  (3, 'Han');\\n\`\`\`"
               },
               "response": "\`\`\`json\\n{\\n  \\"data\\": {\\n    \\"name\\": \\"Luke\\"\\n  },\\n  \\"status\\": 200,\\n  \\"statusText\\": \\"OK\\"\\n}\\n\`\`\`"
+            }
+          ]
+        }
+      },
+      "@supabase/postgrest-js.PostgrestTransformBuilder.stripNulls": {
+        "name": "@supabase/postgrest-js.PostgrestTransformBuilder.stripNulls",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "intrinsic",
+            "name": "this"
+          }
+        },
+        "comment": {
+          "shortText": "Strip null values from the response data. Properties with \`null\` values\\nwill be omitted from the returned JSON objects.\\n\\nRequires PostgREST 11.2.0+.\\n\\nhttps://docs.postgrest.org/en/stable/references/api/resource_representation.html#stripped-nulls",
+          "examples": [
+            {
+              "id": "with-select",
+              "name": "With \`select()\`",
+              "code": "\`\`\`ts\\nconst { data, error } = await supabase\\n  .from('characters')\\n  .select()\\n  .stripNulls()\\n\`\`\`",
+              "data": {
+                "sql": "\`\`\`sql\\ncreate table\\n  characters (id int8 primary key, name text, bio text);\\n\\ninsert into\\n  characters (id, name, bio)\\nvalues\\n  (1, 'Luke', null),\\n  (2, 'Leia', 'Princess of Alderaan');\\n\`\`\`"
+              },
+              "response": "\`\`\`json\\n{\\n  \\"data\\": [\\n    {\\n      \\"id\\": 1,\\n      \\"name\\": \\"Luke\\"\\n    },\\n    {\\n      \\"id\\": 2,\\n      \\"name\\": \\"Leia\\",\\n      \\"bio\\": \\"Princess of Alderaan\\"\\n    }\\n  ],\\n  \\"status\\": 200,\\n  \\"statusText\\": \\"OK\\"\\n}\\n\`\`\`"
             }
           ]
         }
@@ -99848,6 +100040,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               "type": "object",
               "properties": [
                 {
+                  "name": "cacheNonce",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Append a cache nonce parameter to the URL to invalidate the cache."
+                  }
+                },
+                {
                   "name": "download",
                   "type": {
                     "type": "union",
@@ -100065,6 +100268,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               "type": "object",
               "properties": [
                 {
+                  "name": "cacheNonce",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Append a cache nonce parameter to the URL to invalidate the cache."
+                  }
+                },
+                {
                   "name": "download",
                   "type": {
                     "type": "union",
@@ -100079,6 +100293,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                       }
                     ]
                   },
+                  "isOptional": true,
                   "comment": {
                     "shortText": "triggers the file as a download if set to true. Set this parameter as the name of the file if you want to trigger the download with a different filename."
                   }
@@ -100401,6 +100616,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
             "type": {
               "type": "object",
               "properties": [
+                {
+                  "name": "cacheNonce",
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Append a cache nonce parameter to the URL to invalidate the cache."
+                  }
+                },
                 {
                   "name": "download",
                   "type": {

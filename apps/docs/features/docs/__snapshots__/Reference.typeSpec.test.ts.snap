@@ -46,6 +46,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         }
       },
+      "@supabase/supabase-js.AuthApiError.toJSON": {
+        "name": "@supabase/supabase-js.AuthApiError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
       "@supabase/supabase-js.AuthError.constructor": {
         "name": "@supabase/supabase-js.AuthError.constructor",
         "params": [
@@ -77,6 +135,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           "type": {
             "type": "nameOnly",
             "name": "AuthError"
+          }
+        }
+      },
+      "@supabase/supabase-js.AuthError.toJSON": {
+        "name": "@supabase/supabase-js.AuthError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       },
@@ -138,6 +254,23 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
             "type": "object",
             "properties": [
               {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
                 "name": "details",
                 "type": {
                   "type": "union",
@@ -185,8 +318,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "status",
                 "type": {
-                  "type": "intrinsic",
-                  "name": "number"
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
                 }
               }
             ]
@@ -211,6 +353,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         }
       },
+      "@supabase/supabase-js.AuthInvalidCredentialsError.toJSON": {
+        "name": "@supabase/supabase-js.AuthInvalidCredentialsError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
       "@supabase/supabase-js.AuthInvalidJwtError.constructor": {
         "name": "@supabase/supabase-js.AuthInvalidJwtError.constructor",
         "params": [
@@ -229,6 +429,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         }
       },
+      "@supabase/supabase-js.AuthInvalidJwtError.toJSON": {
+        "name": "@supabase/supabase-js.AuthInvalidJwtError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
       "@supabase/supabase-js.AuthInvalidTokenResponseError.constructor": {
         "name": "@supabase/supabase-js.AuthInvalidTokenResponseError.constructor",
         "params": [],
@@ -239,6 +497,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         }
       },
+      "@supabase/supabase-js.AuthInvalidTokenResponseError.toJSON": {
+        "name": "@supabase/supabase-js.AuthInvalidTokenResponseError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
       "@supabase/supabase-js.AuthPKCECodeVerifierMissingError.constructor": {
         "name": "@supabase/supabase-js.AuthPKCECodeVerifierMissingError.constructor",
         "params": [],
@@ -246,6 +562,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           "type": {
             "type": "nameOnly",
             "name": "AuthPKCECodeVerifierMissingError"
+          }
+        }
+      },
+      "@supabase/supabase-js.AuthPKCECodeVerifierMissingError.toJSON": {
+        "name": "@supabase/supabase-js.AuthPKCECodeVerifierMissingError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       },
@@ -307,6 +681,23 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
             "type": "object",
             "properties": [
               {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
                 "name": "details",
                 "type": {
                   "type": "union",
@@ -354,8 +745,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "status",
                 "type": {
-                  "type": "intrinsic",
-                  "name": "number"
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
                 }
               }
             ]
@@ -387,6 +787,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         }
       },
+      "@supabase/supabase-js.AuthRetryableFetchError.toJSON": {
+        "name": "@supabase/supabase-js.AuthRetryableFetchError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
       "@supabase/supabase-js.AuthSessionMissingError.constructor": {
         "name": "@supabase/supabase-js.AuthSessionMissingError.constructor",
         "params": [],
@@ -394,6 +852,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           "type": {
             "type": "nameOnly",
             "name": "AuthSessionMissingError"
+          }
+        }
+      },
+      "@supabase/supabase-js.AuthSessionMissingError.toJSON": {
+        "name": "@supabase/supabase-js.AuthSessionMissingError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       },
@@ -419,6 +935,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           "type": {
             "type": "nameOnly",
             "name": "AuthUnknownError"
+          }
+        }
+      },
+      "@supabase/supabase-js.AuthUnknownError.toJSON": {
+        "name": "@supabase/supabase-js.AuthUnknownError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       },
@@ -470,6 +1044,87 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         }
       },
+      "@supabase/supabase-js.AuthWeakPasswordError.toJSON": {
+        "name": "@supabase/supabase-js.AuthWeakPasswordError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "reasons",
+                "type": {
+                  "type": "array",
+                  "elemType": {
+                    "type": "union",
+                    "subTypes": [
+                      {
+                        "type": "literal",
+                        "value": "length"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "characters"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "pwned"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
       "@supabase/supabase-js.CustomAuthError.constructor": {
         "name": "@supabase/supabase-js.CustomAuthError.constructor",
         "params": [
@@ -515,6 +1170,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           "type": {
             "type": "nameOnly",
             "name": "CustomAuthError"
+          }
+        }
+      },
+      "@supabase/supabase-js.CustomAuthError.toJSON": {
+        "name": "@supabase/supabase-js.CustomAuthError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       },
@@ -48266,15 +48979,33 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "status",
                 "type": {
-                  "type": "intrinsic",
-                  "name": "number"
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
                 }
               },
               {
                 "name": "statusCode",
                 "type": {
-                  "type": "intrinsic",
-                  "name": "string"
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "string"
+                    }
+                  ]
                 }
               }
             ]
@@ -49860,6 +50591,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         }
       },
+      "@supabase/auth-js.AuthApiError.toJSON": {
+        "name": "@supabase/auth-js.AuthApiError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
       "@supabase/auth-js.AuthError.constructor": {
         "name": "@supabase/auth-js.AuthError.constructor",
         "params": [
@@ -49891,6 +50680,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           "type": {
             "type": "nameOnly",
             "name": "AuthError"
+          }
+        }
+      },
+      "@supabase/auth-js.AuthError.toJSON": {
+        "name": "@supabase/auth-js.AuthError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       },
@@ -49951,6 +50798,23 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
             "type": "object",
             "properties": [
               {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
                 "name": "details",
                 "type": {
                   "type": "union",
@@ -49998,8 +50862,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "status",
                 "type": {
-                  "type": "intrinsic",
-                  "name": "number"
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
                 }
               }
             ]
@@ -50024,6 +50897,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         }
       },
+      "@supabase/auth-js.AuthInvalidCredentialsError.toJSON": {
+        "name": "@supabase/auth-js.AuthInvalidCredentialsError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
       "@supabase/auth-js.AuthInvalidJwtError.constructor": {
         "name": "@supabase/auth-js.AuthInvalidJwtError.constructor",
         "params": [
@@ -50042,6 +50973,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         }
       },
+      "@supabase/auth-js.AuthInvalidJwtError.toJSON": {
+        "name": "@supabase/auth-js.AuthInvalidJwtError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
       "@supabase/auth-js.AuthInvalidTokenResponseError.constructor": {
         "name": "@supabase/auth-js.AuthInvalidTokenResponseError.constructor",
         "params": [],
@@ -50052,6 +51041,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         }
       },
+      "@supabase/auth-js.AuthInvalidTokenResponseError.toJSON": {
+        "name": "@supabase/auth-js.AuthInvalidTokenResponseError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
       "@supabase/auth-js.AuthPKCECodeVerifierMissingError.constructor": {
         "name": "@supabase/auth-js.AuthPKCECodeVerifierMissingError.constructor",
         "params": [],
@@ -50059,6 +51106,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           "type": {
             "type": "nameOnly",
             "name": "AuthPKCECodeVerifierMissingError"
+          }
+        }
+      },
+      "@supabase/auth-js.AuthPKCECodeVerifierMissingError.toJSON": {
+        "name": "@supabase/auth-js.AuthPKCECodeVerifierMissingError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       },
@@ -50119,6 +51224,23 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
             "type": "object",
             "properties": [
               {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
                 "name": "details",
                 "type": {
                   "type": "union",
@@ -50166,8 +51288,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "status",
                 "type": {
-                  "type": "intrinsic",
-                  "name": "number"
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
                 }
               }
             ]
@@ -50199,6 +51330,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         }
       },
+      "@supabase/auth-js.AuthRetryableFetchError.toJSON": {
+        "name": "@supabase/auth-js.AuthRetryableFetchError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
       "@supabase/auth-js.AuthSessionMissingError.constructor": {
         "name": "@supabase/auth-js.AuthSessionMissingError.constructor",
         "params": [],
@@ -50206,6 +51395,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           "type": {
             "type": "nameOnly",
             "name": "AuthSessionMissingError"
+          }
+        }
+      },
+      "@supabase/auth-js.AuthSessionMissingError.toJSON": {
+        "name": "@supabase/auth-js.AuthSessionMissingError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       },
@@ -50231,6 +51478,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           "type": {
             "type": "nameOnly",
             "name": "AuthUnknownError"
+          }
+        }
+      },
+      "@supabase/auth-js.AuthUnknownError.toJSON": {
+        "name": "@supabase/auth-js.AuthUnknownError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       },
@@ -50282,6 +51587,87 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         }
       },
+      "@supabase/auth-js.AuthWeakPasswordError.toJSON": {
+        "name": "@supabase/auth-js.AuthWeakPasswordError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "reasons",
+                "type": {
+                  "type": "array",
+                  "elemType": {
+                    "type": "union",
+                    "subTypes": [
+                      {
+                        "type": "literal",
+                        "value": "length"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "characters"
+                      },
+                      {
+                        "type": "literal",
+                        "value": "pwned"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
       "@supabase/auth-js.CustomAuthError.constructor": {
         "name": "@supabase/auth-js.CustomAuthError.constructor",
         "params": [
@@ -50327,6 +51713,64 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           "type": {
             "type": "nameOnly",
             "name": "CustomAuthError"
+          }
+        }
+      },
+      "@supabase/auth-js.CustomAuthError.toJSON": {
+        "name": "@supabase/auth-js.CustomAuthError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "code",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "nameOnly",
+                      "name": "ErrorCode"
+                    },
+                    null
+                  ]
+                }
+              },
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       },
@@ -96379,15 +97823,33 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "status",
                 "type": {
-                  "type": "intrinsic",
-                  "name": "number"
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
                 }
               },
               {
                 "name": "statusCode",
                 "type": {
-                  "type": "intrinsic",
-                  "name": "string"
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "string"
+                    }
+                  ]
                 }
               }
             ]
@@ -97494,6 +98956,63 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         }
       },
+      "@supabase/storage-js.StorageError.toJSON": {
+        "name": "@supabase/storage-js.StorageError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "statusCode",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "string"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
       "@supabase/storage-js.StorageUnknownError.constructor": {
         "name": "@supabase/storage-js.StorageUnknownError.constructor",
         "params": [
@@ -97533,6 +99052,63 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           "type": {
             "type": "nameOnly",
             "name": "StorageUnknownError"
+          }
+        }
+      },
+      "@supabase/storage-js.StorageUnknownError.toJSON": {
+        "name": "@supabase/storage-js.StorageUnknownError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "statusCode",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "string"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       },
@@ -97592,15 +99168,33 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "status",
                 "type": {
-                  "type": "intrinsic",
-                  "name": "number"
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
                 }
               },
               {
                 "name": "statusCode",
                 "type": {
-                  "type": "intrinsic",
-                  "name": "string"
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "string"
+                    }
+                  ]
                 }
               }
             ]
@@ -97622,6 +99216,63 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           "type": {
             "type": "nameOnly",
             "name": "StorageVectorsError"
+          }
+        }
+      },
+      "@supabase/storage-js.StorageVectorsError.toJSON": {
+        "name": "@supabase/storage-js.StorageVectorsError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "statusCode",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "string"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       },
@@ -97647,6 +99298,63 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           "type": {
             "type": "nameOnly",
             "name": "StorageVectorsUnknownError"
+          }
+        }
+      },
+      "@supabase/storage-js.StorageVectorsUnknownError.toJSON": {
+        "name": "@supabase/storage-js.StorageVectorsUnknownError.toJSON",
+        "params": [],
+        "ret": {
+          "type": {
+            "type": "object",
+            "properties": [
+              {
+                "name": "message",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "name",
+                "type": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "name": "status",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "number"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "statusCode",
+                "type": {
+                  "type": "union",
+                  "subTypes": [
+                    {
+                      "type": "intrinsic",
+                      "name": "undefined"
+                    },
+                    {
+                      "type": "intrinsic",
+                      "name": "string"
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       },

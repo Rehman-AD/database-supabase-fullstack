@@ -10315,19 +10315,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           {
             "name": "params",
             "type": {
-              "type": "object",
-              "properties": [
-                {
-                  "name": "factorId",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "comment": {
-                    "shortText": "ID of the factor to be challenged. Returned in enroll()."
-                  }
-                }
-              ]
+              "type": "nameOnly",
+              "name": "MFAChallengeParamsBase"
             }
           }
         ],
@@ -10363,39 +10352,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     {
                       "name": "data",
                       "type": {
-                        "type": "object",
-                        "properties": [
-                          {
-                            "name": "expires_at",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "number"
-                            },
-                            "comment": {
-                              "shortText": "Timestamp in UNIX seconds when this challenge will no longer be usable."
-                            }
-                          },
-                          {
-                            "name": "id",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "string"
-                            },
-                            "comment": {
-                              "shortText": "ID of the newly created challenge."
-                            }
-                          },
-                          {
-                            "name": "type",
-                            "type": {
-                              "type": "literal",
-                              "value": "totp"
-                            },
-                            "comment": {
-                              "shortText": "Factor Type which generated the challenge"
-                            }
-                          }
-                        ]
+                        "type": "nameOnly",
+                        "name": "AuthMFAChallengeResponseBase"
                       }
                     },
                     {
@@ -10441,38 +10399,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "params",
                 "type": {
-                  "type": "object",
-                  "properties": [
-                    {
-                      "name": "channel",
-                      "type": {
-                        "type": "union",
-                        "subTypes": [
-                          {
-                            "type": "literal",
-                            "value": "sms"
-                          },
-                          {
-                            "type": "literal",
-                            "value": "whatsapp"
-                          }
-                        ]
-                      },
-                      "comment": {
-                        "shortText": "Messaging channel to use (e.g. whatsapp or sms). Only relevant for phone factors"
-                      }
-                    },
-                    {
-                      "name": "factorId",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "ID of the factor to be challenged. Returned in enroll()."
-                      }
-                    }
-                  ]
+                  "type": "nameOnly",
+                  "name": "MFAChallengePhoneParams"
                 }
               }
             ],
@@ -10508,39 +10436,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                         {
                           "name": "data",
                           "type": {
-                            "type": "object",
-                            "properties": [
-                              {
-                                "name": "expires_at",
-                                "type": {
-                                  "type": "intrinsic",
-                                  "name": "number"
-                                },
-                                "comment": {
-                                  "shortText": "Timestamp in UNIX seconds when this challenge will no longer be usable."
-                                }
-                              },
-                              {
-                                "name": "id",
-                                "type": {
-                                  "type": "intrinsic",
-                                  "name": "string"
-                                },
-                                "comment": {
-                                  "shortText": "ID of the newly created challenge."
-                                }
-                              },
-                              {
-                                "name": "type",
-                                "type": {
-                                  "type": "literal",
-                                  "value": "phone"
-                                },
-                                "comment": {
-                                  "shortText": "Factor Type which generated the challenge"
-                                }
-                              }
-                            ]
+                            "type": "nameOnly",
+                            "name": "AuthMFAChallengeResponseBase"
                           }
                         },
                         {
@@ -10562,51 +10459,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "params",
                 "type": {
-                  "type": "object",
-                  "properties": [
-                    {
-                      "name": "factorId",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "ID of the factor to be challenged. Returned in enroll()."
-                      }
-                    },
-                    {
-                      "name": "webauthn",
-                      "type": {
-                        "type": "object",
-                        "properties": [
-                          {
-                            "name": "rpId",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "string"
-                            },
-                            "comment": {
-                              "shortText": "Relying party ID"
-                            }
-                          },
-                          {
-                            "name": "rpOrigins",
-                            "type": {
-                              "type": "array",
-                              "elemType": {
-                                "type": "intrinsic",
-                                "name": "string"
-                              }
-                            },
-                            "isOptional": true,
-                            "comment": {
-                              "shortText": "Relying party origins"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  ]
+                  "type": "nameOnly",
+                  "name": "MFAChallengeWebauthnParams"
                 }
               }
             ],
@@ -10640,104 +10494,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                       "type": "object",
                       "properties": [
                         {
-                          "name": "data",
-                          "type": {
-                            "type": "object",
-                            "properties": [
-                              {
-                                "name": "expires_at",
-                                "type": {
-                                  "type": "intrinsic",
-                                  "name": "number"
-                                },
-                                "comment": {
-                                  "shortText": "Timestamp in UNIX seconds when this challenge will no longer be usable."
-                                }
-                              },
-                              {
-                                "name": "id",
-                                "type": {
-                                  "type": "intrinsic",
-                                  "name": "string"
-                                },
-                                "comment": {
-                                  "shortText": "ID of the newly created challenge."
-                                }
-                              },
-                              {
-                                "name": "type",
-                                "type": {
-                                  "type": "literal",
-                                  "value": "webauthn"
-                                },
-                                "comment": {
-                                  "shortText": "Factor Type which generated the challenge"
-                                }
-                              },
-                              {
-                                "name": "webauthn",
-                                "type": {
-                                  "type": "union",
-                                  "subTypes": [
-                                    {
-                                      "type": "object",
-                                      "properties": [
-                                        {
-                                          "name": "credential_options",
-                                          "type": {
-                                            "type": "object",
-                                            "properties": [
-                                              {
-                                                "name": "publicKey",
-                                                "type": {
-                                                  "type": "nameOnly",
-                                                  "name": "PublicKeyCredentialCreationOptionsFuture"
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          "name": "type",
-                                          "type": {
-                                            "type": "literal",
-                                            "value": "create"
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "object",
-                                      "properties": [
-                                        {
-                                          "name": "credential_options",
-                                          "type": {
-                                            "type": "object",
-                                            "properties": [
-                                              {
-                                                "name": "publicKey",
-                                                "type": {
-                                                  "type": "nameOnly",
-                                                  "name": "PublicKeyCredentialRequestOptionsFuture"
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          "name": "type",
-                                          "type": {
-                                            "type": "literal",
-                                            "value": "request"
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              }
-                            ]
-                          }
+                          "name": "data"
                         },
                         {
                           "name": "error",
@@ -10793,11 +10550,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           "type": "object",
                           "properties": [
                             {
-                              "name": "data",
-                              "type": {
-                                "type": "nameOnly",
-                                "name": "Prettify"
-                              }
+                              "name": "data"
                             },
                             {
                               "name": "error",
@@ -10833,11 +10586,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           "type": "object",
                           "properties": [
                             {
-                              "name": "data",
-                              "type": {
-                                "type": "nameOnly",
-                                "name": "Prettify"
-                              }
+                              "name": "data"
                             },
                             {
                               "name": "error",
@@ -10873,11 +10622,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           "type": "object",
                           "properties": [
                             {
-                              "name": "data",
-                              "type": {
-                                "type": "nameOnly",
-                                "name": "Prettify"
-                              }
+                              "name": "data"
                             },
                             {
                               "name": "error",
@@ -10918,29 +10663,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           {
             "name": "params",
             "type": {
-              "type": "object",
-              "properties": [
-                {
-                  "name": "code",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "comment": {
-                    "shortText": "Verification code provided by the user."
-                  }
-                },
-                {
-                  "name": "factorId",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "comment": {
-                    "shortText": "ID of the factor being verified. Returned in enroll()."
-                  }
-                }
-              ]
+              "type": "nameOnly",
+              "name": "MFAChallengeAndVerifyTOTPParams"
             }
           }
         ],
@@ -11560,41 +11284,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           {
             "name": "params",
             "type": {
-              "type": "object",
-              "properties": [
-                {
-                  "name": "factorType",
-                  "type": {
-                    "type": "literal",
-                    "value": "totp"
-                  },
-                  "comment": {
-                    "shortText": "The type of factor being enrolled."
-                  }
-                },
-                {
-                  "name": "friendlyName",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "isOptional": true,
-                  "comment": {
-                    "shortText": "Human readable name assigned to the factor."
-                  }
-                },
-                {
-                  "name": "issuer",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "isOptional": true,
-                  "comment": {
-                    "shortText": "Domain which the user is enrolled with."
-                  }
-                }
-              ]
+              "type": "nameOnly",
+              "name": "MFAEnrollTOTPParams"
             }
           }
         ],
@@ -11610,11 +11301,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "type": "object",
                   "properties": [
                     {
-                      "name": "data",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "Prettify"
-                      }
+                      "name": "data"
                     },
                     {
                       "name": "error",
@@ -11668,40 +11355,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "params",
                 "type": {
-                  "type": "object",
-                  "properties": [
-                    {
-                      "name": "factorType",
-                      "type": {
-                        "type": "literal",
-                        "value": "phone"
-                      },
-                      "comment": {
-                        "shortText": "The type of factor being enrolled."
-                      }
-                    },
-                    {
-                      "name": "friendlyName",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "isOptional": true,
-                      "comment": {
-                        "shortText": "Human readable name assigned to the factor."
-                      }
-                    },
-                    {
-                      "name": "phone",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "Phone number associated with a factor. Number should conform to E.164 format"
-                      }
-                    }
-                  ]
+                  "type": "nameOnly",
+                  "name": "MFAEnrollPhoneParams"
                 }
               }
             ],
@@ -11717,11 +11372,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                       "type": "object",
                       "properties": [
                         {
-                          "name": "data",
-                          "type": {
-                            "type": "nameOnly",
-                            "name": "Prettify"
-                          }
+                          "name": "data"
                         },
                         {
                           "name": "error",
@@ -11757,30 +11408,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "params",
                 "type": {
-                  "type": "object",
-                  "properties": [
-                    {
-                      "name": "factorType",
-                      "type": {
-                        "type": "literal",
-                        "value": "webauthn"
-                      },
-                      "comment": {
-                        "shortText": "The type of factor being enrolled."
-                      }
-                    },
-                    {
-                      "name": "friendlyName",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "isOptional": true,
-                      "comment": {
-                        "shortText": "Human readable name assigned to the factor."
-                      }
-                    }
-                  ]
+                  "type": "nameOnly",
+                  "name": "MFAEnrollParamsBase"
                 }
               }
             ],
@@ -11796,11 +11425,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                       "type": "object",
                       "properties": [
                         {
-                          "name": "data",
-                          "type": {
-                            "type": "nameOnly",
-                            "name": "Prettify"
-                          }
+                          "name": "data"
                         },
                         {
                           "name": "error",
@@ -11871,11 +11496,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           "type": "object",
                           "properties": [
                             {
-                              "name": "data",
-                              "type": {
-                                "type": "nameOnly",
-                                "name": "Prettify"
-                              }
+                              "name": "data"
                             },
                             {
                               "name": "error",
@@ -11911,11 +11532,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           "type": "object",
                           "properties": [
                             {
-                              "name": "data",
-                              "type": {
-                                "type": "nameOnly",
-                                "name": "Prettify"
-                              }
+                              "name": "data"
                             },
                             {
                               "name": "error",
@@ -11951,11 +11568,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           "type": "object",
                           "properties": [
                             {
-                              "name": "data",
-                              "type": {
-                                "type": "nameOnly",
-                                "name": "Prettify"
-                              }
+                              "name": "data"
                             },
                             {
                               "name": "error",
@@ -12329,39 +11942,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           {
             "name": "params",
             "type": {
-              "type": "object",
-              "properties": [
-                {
-                  "name": "challengeId",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "comment": {
-                    "shortText": "ID of the challenge being verified. Returned in challenge()."
-                  }
-                },
-                {
-                  "name": "code",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "comment": {
-                    "shortText": "Verification code provided by the user."
-                  }
-                },
-                {
-                  "name": "factorId",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "comment": {
-                    "shortText": "ID of the factor being verified. Returned in enroll()."
-                  }
-                }
-              ]
+              "type": "nameOnly",
+              "name": "MFAVerifyTOTPParams"
             }
           }
         ],
@@ -12980,39 +12562,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "params",
                 "type": {
-                  "type": "object",
-                  "properties": [
-                    {
-                      "name": "challengeId",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "ID of the challenge being verified. Returned in challenge()."
-                      }
-                    },
-                    {
-                      "name": "code",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "Verification code provided by the user."
-                      }
-                    },
-                    {
-                      "name": "factorId",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "ID of the factor being verified. Returned in enroll()."
-                      }
-                    }
-                  ]
+                  "type": "nameOnly",
+                  "name": "MFAVerifyPhoneParams"
                 }
               }
             ],
@@ -13619,32 +13170,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "params",
                 "type": {
-                  "type": "object",
-                  "properties": [
-                    {
-                      "name": "challengeId",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "ID of the challenge being verified. Returned in challenge()."
-                      }
-                    },
-                    {
-                      "name": "factorId",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "ID of the factor being verified. Returned in enroll()."
-                      }
-                    },
-                    {
-                      "name": "webauthn"
-                    }
-                  ]
+                  "type": "nameOnly",
+                  "name": "MFAVerifyWebauthnParams"
                 }
               }
             ],
@@ -60639,19 +60166,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           {
             "name": "params",
             "type": {
-              "type": "object",
-              "properties": [
-                {
-                  "name": "factorId",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "comment": {
-                    "shortText": "ID of the factor to be challenged. Returned in enroll()."
-                  }
-                }
-              ]
+              "type": "nameOnly",
+              "name": "MFAChallengeParamsBase"
             }
           }
         ],
@@ -60687,39 +60203,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     {
                       "name": "data",
                       "type": {
-                        "type": "object",
-                        "properties": [
-                          {
-                            "name": "expires_at",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "number"
-                            },
-                            "comment": {
-                              "shortText": "Timestamp in UNIX seconds when this challenge will no longer be usable."
-                            }
-                          },
-                          {
-                            "name": "id",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "string"
-                            },
-                            "comment": {
-                              "shortText": "ID of the newly created challenge."
-                            }
-                          },
-                          {
-                            "name": "type",
-                            "type": {
-                              "type": "literal",
-                              "value": "totp"
-                            },
-                            "comment": {
-                              "shortText": "Factor Type which generated the challenge"
-                            }
-                          }
-                        ]
+                        "type": "nameOnly",
+                        "name": "AuthMFAChallengeResponseBase"
                       }
                     },
                     {
@@ -60765,38 +60250,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "params",
                 "type": {
-                  "type": "object",
-                  "properties": [
-                    {
-                      "name": "channel",
-                      "type": {
-                        "type": "union",
-                        "subTypes": [
-                          {
-                            "type": "literal",
-                            "value": "sms"
-                          },
-                          {
-                            "type": "literal",
-                            "value": "whatsapp"
-                          }
-                        ]
-                      },
-                      "comment": {
-                        "shortText": "Messaging channel to use (e.g. whatsapp or sms). Only relevant for phone factors"
-                      }
-                    },
-                    {
-                      "name": "factorId",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "ID of the factor to be challenged. Returned in enroll()."
-                      }
-                    }
-                  ]
+                  "type": "nameOnly",
+                  "name": "MFAChallengePhoneParams"
                 }
               }
             ],
@@ -60832,39 +60287,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                         {
                           "name": "data",
                           "type": {
-                            "type": "object",
-                            "properties": [
-                              {
-                                "name": "expires_at",
-                                "type": {
-                                  "type": "intrinsic",
-                                  "name": "number"
-                                },
-                                "comment": {
-                                  "shortText": "Timestamp in UNIX seconds when this challenge will no longer be usable."
-                                }
-                              },
-                              {
-                                "name": "id",
-                                "type": {
-                                  "type": "intrinsic",
-                                  "name": "string"
-                                },
-                                "comment": {
-                                  "shortText": "ID of the newly created challenge."
-                                }
-                              },
-                              {
-                                "name": "type",
-                                "type": {
-                                  "type": "literal",
-                                  "value": "phone"
-                                },
-                                "comment": {
-                                  "shortText": "Factor Type which generated the challenge"
-                                }
-                              }
-                            ]
+                            "type": "nameOnly",
+                            "name": "AuthMFAChallengeResponseBase"
                           }
                         },
                         {
@@ -60886,51 +60310,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "params",
                 "type": {
-                  "type": "object",
-                  "properties": [
-                    {
-                      "name": "factorId",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "ID of the factor to be challenged. Returned in enroll()."
-                      }
-                    },
-                    {
-                      "name": "webauthn",
-                      "type": {
-                        "type": "object",
-                        "properties": [
-                          {
-                            "name": "rpId",
-                            "type": {
-                              "type": "intrinsic",
-                              "name": "string"
-                            },
-                            "comment": {
-                              "shortText": "Relying party ID"
-                            }
-                          },
-                          {
-                            "name": "rpOrigins",
-                            "type": {
-                              "type": "array",
-                              "elemType": {
-                                "type": "intrinsic",
-                                "name": "string"
-                              }
-                            },
-                            "isOptional": true,
-                            "comment": {
-                              "shortText": "Relying party origins"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  ]
+                  "type": "nameOnly",
+                  "name": "MFAChallengeWebauthnParams"
                 }
               }
             ],
@@ -60964,104 +60345,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                       "type": "object",
                       "properties": [
                         {
-                          "name": "data",
-                          "type": {
-                            "type": "object",
-                            "properties": [
-                              {
-                                "name": "expires_at",
-                                "type": {
-                                  "type": "intrinsic",
-                                  "name": "number"
-                                },
-                                "comment": {
-                                  "shortText": "Timestamp in UNIX seconds when this challenge will no longer be usable."
-                                }
-                              },
-                              {
-                                "name": "id",
-                                "type": {
-                                  "type": "intrinsic",
-                                  "name": "string"
-                                },
-                                "comment": {
-                                  "shortText": "ID of the newly created challenge."
-                                }
-                              },
-                              {
-                                "name": "type",
-                                "type": {
-                                  "type": "literal",
-                                  "value": "webauthn"
-                                },
-                                "comment": {
-                                  "shortText": "Factor Type which generated the challenge"
-                                }
-                              },
-                              {
-                                "name": "webauthn",
-                                "type": {
-                                  "type": "union",
-                                  "subTypes": [
-                                    {
-                                      "type": "object",
-                                      "properties": [
-                                        {
-                                          "name": "credential_options",
-                                          "type": {
-                                            "type": "object",
-                                            "properties": [
-                                              {
-                                                "name": "publicKey",
-                                                "type": {
-                                                  "type": "nameOnly",
-                                                  "name": "PublicKeyCredentialCreationOptionsFuture"
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          "name": "type",
-                                          "type": {
-                                            "type": "literal",
-                                            "value": "create"
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "type": "object",
-                                      "properties": [
-                                        {
-                                          "name": "credential_options",
-                                          "type": {
-                                            "type": "object",
-                                            "properties": [
-                                              {
-                                                "name": "publicKey",
-                                                "type": {
-                                                  "type": "nameOnly",
-                                                  "name": "PublicKeyCredentialRequestOptionsFuture"
-                                                }
-                                              }
-                                            ]
-                                          }
-                                        },
-                                        {
-                                          "name": "type",
-                                          "type": {
-                                            "type": "literal",
-                                            "value": "request"
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              }
-                            ]
-                          }
+                          "name": "data"
                         },
                         {
                           "name": "error",
@@ -61117,11 +60401,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           "type": "object",
                           "properties": [
                             {
-                              "name": "data",
-                              "type": {
-                                "type": "nameOnly",
-                                "name": "Prettify"
-                              }
+                              "name": "data"
                             },
                             {
                               "name": "error",
@@ -61157,11 +60437,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           "type": "object",
                           "properties": [
                             {
-                              "name": "data",
-                              "type": {
-                                "type": "nameOnly",
-                                "name": "Prettify"
-                              }
+                              "name": "data"
                             },
                             {
                               "name": "error",
@@ -61197,11 +60473,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           "type": "object",
                           "properties": [
                             {
-                              "name": "data",
-                              "type": {
-                                "type": "nameOnly",
-                                "name": "Prettify"
-                              }
+                              "name": "data"
                             },
                             {
                               "name": "error",
@@ -61242,29 +60514,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           {
             "name": "params",
             "type": {
-              "type": "object",
-              "properties": [
-                {
-                  "name": "code",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "comment": {
-                    "shortText": "Verification code provided by the user."
-                  }
-                },
-                {
-                  "name": "factorId",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "comment": {
-                    "shortText": "ID of the factor being verified. Returned in enroll()."
-                  }
-                }
-              ]
+              "type": "nameOnly",
+              "name": "MFAChallengeAndVerifyTOTPParams"
             }
           }
         ],
@@ -61884,41 +61135,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           {
             "name": "params",
             "type": {
-              "type": "object",
-              "properties": [
-                {
-                  "name": "factorType",
-                  "type": {
-                    "type": "literal",
-                    "value": "totp"
-                  },
-                  "comment": {
-                    "shortText": "The type of factor being enrolled."
-                  }
-                },
-                {
-                  "name": "friendlyName",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "isOptional": true,
-                  "comment": {
-                    "shortText": "Human readable name assigned to the factor."
-                  }
-                },
-                {
-                  "name": "issuer",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "isOptional": true,
-                  "comment": {
-                    "shortText": "Domain which the user is enrolled with."
-                  }
-                }
-              ]
+              "type": "nameOnly",
+              "name": "MFAEnrollTOTPParams"
             }
           }
         ],
@@ -61934,11 +61152,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "type": "object",
                   "properties": [
                     {
-                      "name": "data",
-                      "type": {
-                        "type": "nameOnly",
-                        "name": "Prettify"
-                      }
+                      "name": "data"
                     },
                     {
                       "name": "error",
@@ -61992,40 +61206,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "params",
                 "type": {
-                  "type": "object",
-                  "properties": [
-                    {
-                      "name": "factorType",
-                      "type": {
-                        "type": "literal",
-                        "value": "phone"
-                      },
-                      "comment": {
-                        "shortText": "The type of factor being enrolled."
-                      }
-                    },
-                    {
-                      "name": "friendlyName",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "isOptional": true,
-                      "comment": {
-                        "shortText": "Human readable name assigned to the factor."
-                      }
-                    },
-                    {
-                      "name": "phone",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "Phone number associated with a factor. Number should conform to E.164 format"
-                      }
-                    }
-                  ]
+                  "type": "nameOnly",
+                  "name": "MFAEnrollPhoneParams"
                 }
               }
             ],
@@ -62041,11 +61223,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                       "type": "object",
                       "properties": [
                         {
-                          "name": "data",
-                          "type": {
-                            "type": "nameOnly",
-                            "name": "Prettify"
-                          }
+                          "name": "data"
                         },
                         {
                           "name": "error",
@@ -62081,30 +61259,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "params",
                 "type": {
-                  "type": "object",
-                  "properties": [
-                    {
-                      "name": "factorType",
-                      "type": {
-                        "type": "literal",
-                        "value": "webauthn"
-                      },
-                      "comment": {
-                        "shortText": "The type of factor being enrolled."
-                      }
-                    },
-                    {
-                      "name": "friendlyName",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "isOptional": true,
-                      "comment": {
-                        "shortText": "Human readable name assigned to the factor."
-                      }
-                    }
-                  ]
+                  "type": "nameOnly",
+                  "name": "MFAEnrollParamsBase"
                 }
               }
             ],
@@ -62120,11 +61276,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                       "type": "object",
                       "properties": [
                         {
-                          "name": "data",
-                          "type": {
-                            "type": "nameOnly",
-                            "name": "Prettify"
-                          }
+                          "name": "data"
                         },
                         {
                           "name": "error",
@@ -62195,11 +61347,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           "type": "object",
                           "properties": [
                             {
-                              "name": "data",
-                              "type": {
-                                "type": "nameOnly",
-                                "name": "Prettify"
-                              }
+                              "name": "data"
                             },
                             {
                               "name": "error",
@@ -62235,11 +61383,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           "type": "object",
                           "properties": [
                             {
-                              "name": "data",
-                              "type": {
-                                "type": "nameOnly",
-                                "name": "Prettify"
-                              }
+                              "name": "data"
                             },
                             {
                               "name": "error",
@@ -62275,11 +61419,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           "type": "object",
                           "properties": [
                             {
-                              "name": "data",
-                              "type": {
-                                "type": "nameOnly",
-                                "name": "Prettify"
-                              }
+                              "name": "data"
                             },
                             {
                               "name": "error",
@@ -62653,39 +61793,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           {
             "name": "params",
             "type": {
-              "type": "object",
-              "properties": [
-                {
-                  "name": "challengeId",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "comment": {
-                    "shortText": "ID of the challenge being verified. Returned in challenge()."
-                  }
-                },
-                {
-                  "name": "code",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "comment": {
-                    "shortText": "Verification code provided by the user."
-                  }
-                },
-                {
-                  "name": "factorId",
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  },
-                  "comment": {
-                    "shortText": "ID of the factor being verified. Returned in enroll()."
-                  }
-                }
-              ]
+              "type": "nameOnly",
+              "name": "MFAVerifyTOTPParams"
             }
           }
         ],
@@ -63304,39 +62413,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "params",
                 "type": {
-                  "type": "object",
-                  "properties": [
-                    {
-                      "name": "challengeId",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "ID of the challenge being verified. Returned in challenge()."
-                      }
-                    },
-                    {
-                      "name": "code",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "Verification code provided by the user."
-                      }
-                    },
-                    {
-                      "name": "factorId",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "ID of the factor being verified. Returned in enroll()."
-                      }
-                    }
-                  ]
+                  "type": "nameOnly",
+                  "name": "MFAVerifyPhoneParams"
                 }
               }
             ],
@@ -63943,32 +63021,8 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
               {
                 "name": "params",
                 "type": {
-                  "type": "object",
-                  "properties": [
-                    {
-                      "name": "challengeId",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "ID of the challenge being verified. Returned in challenge()."
-                      }
-                    },
-                    {
-                      "name": "factorId",
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "string"
-                      },
-                      "comment": {
-                        "shortText": "ID of the factor being verified. Returned in enroll()."
-                      }
-                    },
-                    {
-                      "name": "webauthn"
-                    }
-                  ]
+                  "type": "nameOnly",
+                  "name": "MFAVerifyWebauthnParams"
                 }
               }
             ],

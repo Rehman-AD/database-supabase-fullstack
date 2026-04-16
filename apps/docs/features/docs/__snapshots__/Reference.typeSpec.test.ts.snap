@@ -101117,8 +101117,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                             {
                               "name": "signedUrl",
                               "type": {
-                                "type": "intrinsic",
-                                "name": "string"
+                                "type": "union",
+                                "subTypes": [
+                                  {
+                                    "type": "literal",
+                                    "value": null
+                                  },
+                                  {
+                                    "type": "intrinsic",
+                                    "name": "string"
+                                  }
+                                ]
                               }
                             }
                           ]

@@ -1,1 +1,1 @@
-module.exports = require('config/tailwind.config')
+// Placeholder so that VSCode tailwind extension enables intellisense in this project

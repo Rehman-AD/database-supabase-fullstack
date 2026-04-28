@@ -39745,22 +39745,22 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Inside a browser context, \`signOut()\` will remove the logged in user from the browser session and log them out - removing all items from localstorage and then trigger a \`\\"SIGNED_OUT\\"\` event.\\n\\nFor server-side management, you can revoke all refresh tokens for a user by passing a user's JWT through to \`auth.api.signOut(JWT: string)\`.\\nThere is no way to revoke a user's access token jwt until it expires. It is recommended to set a shorter expiry on the jwt for this reason.\\n\\nIf using \`others\` scope, no \`SIGNED_OUT\` event is fired!",
-          "text": "- In order to use the \`signOut()\` method, the user needs to be signed in first.\\n- By default, \`signOut()\` uses the global scope, which signs out all other sessions that the user is logged into as well. Customize this behavior by passing a scope parameter.\\n- Since Supabase Auth uses JWTs for authentication, the access token JWT will be valid until it's expired. When the user signs out, Supabase revokes the refresh token and deletes the JWT from the client-side. This does not revoke the JWT and it will still be valid until it expires.",
+          "shortText": "Inside a browser context, \`signOut()\` will remove the logged in user from the browser session and log them out - removing all items from localstorage and then trigger a \`\\"SIGNED_OUT\\"\` event.\\n\\nFor server-side management, you can revoke all refresh tokens for a user by passing a user's JWT through to \`auth.api.signOut(JWT: string)\`.\\nThere is no way to revoke a user's access token jwt until it expires. It is recommended to set a shorter expiry on the jwt for this reason.\\n\\nIf using \`others\` scope, no \`SIGNED_OUT\` event is fired!\\n\\n**Warning:** the default \`scope\` is \`'global'\`. This signs the user out of\\n**every device they are currently signed in on**, not just the current\\ntab/session. If you only want to sign the user out of the current session\\n(the behavior most other auth libraries default to), pass\\n\`{ scope: 'local' }\` explicitly.",
+          "text": "- In order to use the \`signOut()\` method, the user needs to be signed in first.\\n- By default, \`signOut()\` uses the **global** scope, which signs out the user\\n  on every device they are signed in on (not just the current one). Pass\\n  \`{ scope: 'local' }\` to only sign out the current session. This is\\n  usually what apps want on a \\"Sign out\\" button, especially when users\\n  sign in from multiple devices and do not expect signing out of one to\\n  terminate the others.\\n- Since Supabase Auth uses JWTs for authentication, the access token JWT will be valid until it's expired. When the user signs out, Supabase revokes the refresh token and deletes the JWT from the client-side. This does not revoke the JWT and it will still be valid until it expires.",
           "examples": [
             {
-              "id": "sign-out-all-sessions",
-              "name": "Sign out (all sessions)",
+              "id": "sign-out-of-every-device-global-default",
+              "name": "Sign out of every device (global – default)",
               "code": "\`\`\`js\\nconst { error } = await supabase.auth.signOut()\\n\`\`\`"
             },
             {
-              "id": "sign-out-current-session",
-              "name": "Sign out (current session)",
+              "id": "sign-out-only-the-current-session-recommended-for-most-apps",
+              "name": "Sign out only the current session (recommended for most apps)",
               "code": "\`\`\`js\\nconst { error } = await supabase.auth.signOut({ scope: 'local' })\\n\`\`\`"
             },
             {
-              "id": "sign-out-other-sessions",
-              "name": "Sign out (other sessions)",
+              "id": "sign-out-of-all-other-sessions-keep-the-current-one",
+              "name": "Sign out of all other sessions, keep the current one",
               "code": "\`\`\`js\\nconst { error } = await supabase.auth.signOut({ scope: 'others' })\\n\`\`\`"
             }
           ]
@@ -45602,12 +45602,6 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
             }
           }
         ],
-        "ret": {
-          "type": {
-            "type": "nameOnly",
-            "name": "PostgrestFilterBuilder"
-          }
-        },
         "altSignatures": [
           {
             "params": [
@@ -89878,22 +89872,22 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
           }
         },
         "comment": {
-          "shortText": "Inside a browser context, \`signOut()\` will remove the logged in user from the browser session and log them out - removing all items from localstorage and then trigger a \`\\"SIGNED_OUT\\"\` event.\\n\\nFor server-side management, you can revoke all refresh tokens for a user by passing a user's JWT through to \`auth.api.signOut(JWT: string)\`.\\nThere is no way to revoke a user's access token jwt until it expires. It is recommended to set a shorter expiry on the jwt for this reason.\\n\\nIf using \`others\` scope, no \`SIGNED_OUT\` event is fired!",
-          "text": "- In order to use the \`signOut()\` method, the user needs to be signed in first.\\n- By default, \`signOut()\` uses the global scope, which signs out all other sessions that the user is logged into as well. Customize this behavior by passing a scope parameter.\\n- Since Supabase Auth uses JWTs for authentication, the access token JWT will be valid until it's expired. When the user signs out, Supabase revokes the refresh token and deletes the JWT from the client-side. This does not revoke the JWT and it will still be valid until it expires.",
+          "shortText": "Inside a browser context, \`signOut()\` will remove the logged in user from the browser session and log them out - removing all items from localstorage and then trigger a \`\\"SIGNED_OUT\\"\` event.\\n\\nFor server-side management, you can revoke all refresh tokens for a user by passing a user's JWT through to \`auth.api.signOut(JWT: string)\`.\\nThere is no way to revoke a user's access token jwt until it expires. It is recommended to set a shorter expiry on the jwt for this reason.\\n\\nIf using \`others\` scope, no \`SIGNED_OUT\` event is fired!\\n\\n**Warning:** the default \`scope\` is \`'global'\`. This signs the user out of\\n**every device they are currently signed in on**, not just the current\\ntab/session. If you only want to sign the user out of the current session\\n(the behavior most other auth libraries default to), pass\\n\`{ scope: 'local' }\` explicitly.",
+          "text": "- In order to use the \`signOut()\` method, the user needs to be signed in first.\\n- By default, \`signOut()\` uses the **global** scope, which signs out the user\\n  on every device they are signed in on (not just the current one). Pass\\n  \`{ scope: 'local' }\` to only sign out the current session. This is\\n  usually what apps want on a \\"Sign out\\" button, especially when users\\n  sign in from multiple devices and do not expect signing out of one to\\n  terminate the others.\\n- Since Supabase Auth uses JWTs for authentication, the access token JWT will be valid until it's expired. When the user signs out, Supabase revokes the refresh token and deletes the JWT from the client-side. This does not revoke the JWT and it will still be valid until it expires.",
           "examples": [
             {
-              "id": "sign-out-all-sessions",
-              "name": "Sign out (all sessions)",
+              "id": "sign-out-of-every-device-global-default",
+              "name": "Sign out of every device (global – default)",
               "code": "\`\`\`js\\nconst { error } = await supabase.auth.signOut()\\n\`\`\`"
             },
             {
-              "id": "sign-out-current-session",
-              "name": "Sign out (current session)",
+              "id": "sign-out-only-the-current-session-recommended-for-most-apps",
+              "name": "Sign out only the current session (recommended for most apps)",
               "code": "\`\`\`js\\nconst { error } = await supabase.auth.signOut({ scope: 'local' })\\n\`\`\`"
             },
             {
-              "id": "sign-out-other-sessions",
-              "name": "Sign out (other sessions)",
+              "id": "sign-out-of-all-other-sessions-keep-the-current-one",
+              "name": "Sign out of all other sessions, keep the current one",
               "code": "\`\`\`js\\nconst { error } = await supabase.auth.signOut({ scope: 'others' })\\n\`\`\`"
             }
           ]
@@ -96315,12 +96309,6 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
             }
           }
         ],
-        "ret": {
-          "type": {
-            "type": "nameOnly",
-            "name": "PostgrestFilterBuilder"
-          }
-        },
         "comment": {
           "shortText": "Match only rows which doesn't satisfy the filter.\\n\\nUnlike most filters, \`opearator\` and \`value\` are used as-is and need to\\nfollow [PostgREST\\nsyntax](https://postgrest.org/en/stable/api.html#operators). You also need\\nto make sure they are properly sanitized.",
           "text": "not() expects you to use the raw PostgREST syntax for the filter values.\\n\\n\`\`\`ts\\n.not('id', 'in', '(5,6,7)')  // Use \`()\` for \`in\` filter\\n.not('arraycol', 'cs', '{\\"a\\",\\"b\\"}')  // Use \`cs\` for \`contains()\`, \`{}\` for array values\\n\`\`\`",
@@ -110072,7 +110060,7 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
             },
             "isOptional": true,
             "comment": {
-              "shortText": "Optional file upload options including cacheControl, contentType, upsert, and metadata."
+              "shortText": "Optional file upload options including cacheControl, contentType, and metadata.\\n**Note:** The \`upsert\` option has no effect here. \`update()\` always replaces the\\nfile at the given path, so the \`x-upsert\` header is not sent. To control upsert\\nbehavior, use \`upload()\` instead."
             }
           }
         ],
@@ -110149,12 +110137,12 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
         },
         "comment": {
           "shortText": "Replaces an existing file at the specified path with a new one.",
-          "text": "- RLS policy permissions required:\\n  - \`buckets\` table permissions: none\\n  - \`objects\` table permissions: \`update\` and \`select\`\\n- Refer to the [Storage guide](/docs/guides/storage/security/access-control) on how access control works\\n- For React Native, using either \`Blob\`, \`File\` or \`FormData\` does not work as intended. Update file using \`ArrayBuffer\` from base64 file data instead, see example below.",
+          "text": "- RLS policy permissions required:\\n  - \`buckets\` table permissions: none\\n  - \`objects\` table permissions: \`update\` and \`select\`\\n- \`update()\` always replaces the file at the given path regardless of the \`upsert\` option.\\n- Refer to the [Storage guide](/docs/guides/storage/security/access-control) on how access control works\\n- For React Native, using either \`Blob\`, \`File\` or \`FormData\` does not work as intended. Update file using \`ArrayBuffer\` from base64 file data instead, see example below.",
           "examples": [
             {
               "id": "update-file",
               "name": "Update file",
-              "code": "\`\`\`js\\nconst avatarFile = event.target.files[0]\\nconst { data, error } = await supabase\\n  .storage\\n  .from('avatars')\\n  .update('public/avatar1.png', avatarFile, {\\n    cacheControl: '3600',\\n    upsert: true\\n  })\\n\`\`\`",
+              "code": "\`\`\`js\\nconst avatarFile = event.target.files[0]\\nconst { data, error } = await supabase\\n  .storage\\n  .from('avatars')\\n  .update('public/avatar1.png', avatarFile, {\\n    cacheControl: '3600'\\n  })\\n\`\`\`",
               "response": "\`\`\`json\\n{\\n  \\"data\\": {\\n    \\"path\\": \\"public/avatar1.png\\",\\n    \\"fullPath\\": \\"avatars/public/avatar1.png\\"\\n  },\\n  \\"error\\": null\\n}\\n\`\`\`"
             },
             {

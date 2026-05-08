@@ -38,6 +38,10 @@ import { ProjectCreationFooter } from '@/components/interfaces/ProjectCreation/P
 import { ProjectNameInput } from '@/components/interfaces/ProjectCreation/ProjectNameInput'
 import { RegionSelector } from '@/components/interfaces/ProjectCreation/RegionSelector'
 import { SecurityOptions } from '@/components/interfaces/ProjectCreation/SecurityOptions'
+import {
+  GitHubRepositoryField,
+  useGitHubRepositoryOptions,
+} from '@/components/interfaces/Settings/Integrations/GithubIntegration/GitHubRepositoryField'
 import DefaultLayout from '@/components/layouts/DefaultLayout'
 import { WizardLayoutWithoutAuth } from '@/components/layouts/WizardLayout'
 import Panel from '@/components/ui/Panel'
@@ -58,6 +62,7 @@ import {
   useProjectCreateMutation,
 } from '@/data/projects/project-create-mutation'
 import { useCustomContent } from '@/hooks/custom-content/useCustomContent'
+import { useCheckEntitlements } from '@/hooks/misc/useCheckEntitlements'
 import { useAsyncCheckPermissions } from '@/hooks/misc/useCheckPermissions'
 import { useDataApiRevokeOnCreateDefaultEnabled } from '@/hooks/misc/useDataApiRevokeOnCreateDefault'
 import { useIsFeatureEnabled } from '@/hooks/misc/useIsFeatureEnabled'
@@ -94,7 +99,14 @@ const Wizard: NextPageWithLayout = () => {
     ''
   )
   const { can: isAdmin } = useAsyncCheckPermissions(PermissionAction.CREATE, 'projects')
+  const { can: canCreateGitHubConnection } = useAsyncCheckPermissions(
+    PermissionAction.CREATE,
+    'integrations.github_connections'
+  )
   const showAdvancedConfig = useIsFeatureEnabled('project_creation:show_advanced_config')
+  const { hasAccess: hasAccessToGitHubIntegration } = useCheckEntitlements(
+    'integrations.github_connections'
+  )
 
   const smartRegionEnabled = useFlag('enableSmartRegion')
   const projectCreationDisabled = useFlag('disableProjectCreationAndUpdate')
@@ -137,6 +149,9 @@ const Wizard: NextPageWithLayout = () => {
       dbPassStrength: 0,
       dbPassStrengthMessage: '',
       dbRegion: undefined,
+      githubRepositoryId: '',
+      githubInstallationId: undefined,
+      githubRepositoryName: '',
       instanceSize: canChooseInstanceSize ? sizes[0] : undefined,
       dataApi: true,
       dataApiDefaultPrivileges: !isDataApiRevokeOnCreateDefault,
@@ -150,7 +165,9 @@ const Wizard: NextPageWithLayout = () => {
     instanceSize: watchedInstanceSize,
     cloudProvider,
     dbRegion,
+    githubRepositoryName,
     organization,
+    projectName: watchedProjectName,
     highAvailability,
   } = useWatch({ control: form.control })
 
@@ -239,6 +256,8 @@ const Wizard: NextPageWithLayout = () => {
         : _defaultRegion
 
   const canCreateProject = isAdmin && !freePlanWithExceedingLimits && !hasOutstandingInvoices
+  const canConfigureGitHubOnCreate =
+    canCreateProject && hasAccessToGitHubIntegration && canCreateGitHubConnection
 
   const dbRegionExact = smartRegionToExactRegion(dbRegion ?? '')
 
@@ -258,6 +277,13 @@ const Wizard: NextPageWithLayout = () => {
       )
     : false
   const shouldShowFreeProjectInfo = !!currentOrg && !isFreePlan && !isUserAtFreeProjectLimit
+  const {
+    gitHubAuthorization,
+    githubRepos,
+    hasPartialResponseDueToSSO,
+    isLoading: isLoadingRepositoryOptions,
+    refetch: refetchRepositoryOptions,
+  } = useGitHubRepositoryOptions()
 
   const {
     mutate: createProject,
@@ -319,6 +345,8 @@ const Wizard: NextPageWithLayout = () => {
       enableRlsEventTrigger,
       postgresVersionSelection,
       useOrioleDb,
+      githubInstallationId,
+      githubRepositoryId,
     } = values
 
     if (useOrioleDb && !availableOrioleVersion) {
@@ -332,6 +360,10 @@ const Wizard: NextPageWithLayout = () => {
     const selectedRegion = smartRegionEnabled
       ? (smartGroup.find((x) => x.name === dbRegion) ?? specific.find((x) => x.name === dbRegion))
       : undefined
+    const parsedGitHubRepositoryId =
+      githubRepositoryId.length > 0 ? Number(githubRepositoryId) : undefined
+    const shouldIncludeGitHubFields =
+      githubInstallationId !== undefined && Number.isFinite(parsedGitHubRepositoryId)
 
     const data: ProjectCreateVariables = {
       dbPass,
@@ -355,6 +387,12 @@ const Wizard: NextPageWithLayout = () => {
         ]
           .filter(Boolean)
           .join('\n') || undefined,
+      ...(shouldIncludeGitHubFields
+        ? {
+            githubInstallationId,
+            githubRepositoryId: parsedGitHubRepositoryId,
+          }
+        : {}),
     }
 
     if (postgresVersion && !postgresVersion.match(/1[2-9]\..*/)) {
@@ -435,6 +473,16 @@ const Wizard: NextPageWithLayout = () => {
     }
   }, [instanceSize, watchedInstanceSize, setValue])
 
+  useEffect(() => {
+    if (!githubRepositoryName) return
+    if ((watchedProjectName ?? '').trim().length > 0) return
+
+    const repoName = githubRepositoryName.split('/').at(-1) ?? githubRepositoryName
+    setValue('projectName', repoName.trim(), {
+      shouldValidate: true,
+    })
+  }, [githubRepositoryName, watchedProjectName, setValue])
+
   return (
     <>
       {/* Wizard layouts set the visual header but not the browser tab title. */}
@@ -475,6 +523,38 @@ const Wizard: NextPageWithLayout = () => {
 
                   {canCreateProject && (
                     <>
+                      {canConfigureGitHubOnCreate && (
+                        <Panel.Content>
+                          <GitHubRepositoryField
+                            form={form}
+                            name="githubRepositoryId"
+                            installationIdField="githubInstallationId"
+                            repositoryNameField="githubRepositoryName"
+                            label="GitHub (optional)"
+                            description={
+                              <>
+                                Ideal for agent-first workflows: update your schema in code, push it
+                                to GitHub, and Supabase deploys the changes automatically.{' '}
+                                <a
+                                  href="https://supabase.com/docs/guides/deployment/branching/github-integration"
+                                  target="_blank"
+                                  rel="noreferrer noopener"
+                                  className="text-link"
+                                >
+                                  Learn more
+                                </a>
+                              </>
+                            }
+                            disabled={isCreatingNewProject}
+                            repositories={githubRepos}
+                            gitHubAuthorization={gitHubAuthorization}
+                            hasPartialResponseDueToSSO={hasPartialResponseDueToSSO}
+                            isLoading={isLoadingRepositoryOptions}
+                            refetch={refetchRepositoryOptions}
+                            onConnectClick={() => track('project_creation_github_connect_clicked')}
+                          />
+                        </Panel.Content>
+                      )}
                       <ProjectNameInput form={form} />
                       <HighAvailabilityInput form={form} />
 

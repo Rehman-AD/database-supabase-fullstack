@@ -49357,6 +49357,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                   "isOptional": true
                 },
                 {
+                  "name": "sessionStorage",
+                  "type": {
+                    "type": "nameOnly",
+                    "name": "Storage"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Storage compatible object used by the underlying socket for longpoll fallback history.\\nProvide a custom implementation in environments where reading \`globalThis.sessionStorage\`\\nthrows (sandboxed iframes, in-app webviews, \\"block third-party storage\\" privacy modes).\\nDefaults to \`globalThis.sessionStorage\` when accessible, otherwise an in-memory store."
+                  }
+                },
+                {
                   "name": "timeout",
                   "type": {
                     "type": "intrinsic",
@@ -52545,6 +52556,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                           }
                         },
                         "isOptional": true
+                      },
+                      {
+                        "name": "sessionStorage",
+                        "type": {
+                          "type": "nameOnly",
+                          "name": "Storage"
+                        },
+                        "isOptional": true,
+                        "comment": {
+                          "shortText": "Storage compatible object used by the underlying socket for longpoll fallback history.\\nProvide a custom implementation in environments where reading \`globalThis.sessionStorage\`\\nthrows (sandboxed iframes, in-app webviews, \\"block third-party storage\\" privacy modes).\\nDefaults to \`globalThis.sessionStorage\` when accessible, otherwise an in-memory store."
+                        }
                       },
                       {
                         "name": "timeout",
@@ -100557,6 +100579,17 @@ exports[`TS type spec parsing > matches snapshot 1`] = `
                     }
                   },
                   "isOptional": true
+                },
+                {
+                  "name": "sessionStorage",
+                  "type": {
+                    "type": "nameOnly",
+                    "name": "Storage"
+                  },
+                  "isOptional": true,
+                  "comment": {
+                    "shortText": "Storage compatible object used by the underlying socket for longpoll fallback history.\\nProvide a custom implementation in environments where reading \`globalThis.sessionStorage\`\\nthrows (sandboxed iframes, in-app webviews, \\"block third-party storage\\" privacy modes).\\nDefaults to \`globalThis.sessionStorage\` when accessible, otherwise an in-memory store."
+                  }
                 },
                 {
                   "name": "timeout",
